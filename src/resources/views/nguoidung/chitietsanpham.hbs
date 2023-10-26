@@ -1,0 +1,319 @@
+<div class="chi_tiet">
+    <div class="chi_tiet-header">
+        <div class="chi_tiet-header--tongquan">
+            <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}.jpg" alt="" class="chi_tiet-header--tongquan-chinh" id="anh-chinh">
+            <p class="chi_tiet-header--images-con">
+                <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_1" onclick="getsrc(this)">
+                <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}1.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_2" onclick="getsrc(this)">
+                <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}2.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_3" onclick="getsrc(this)">
+                <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}3.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_4" onclick="getsrc(this)">
+                <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}4.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_5" onclick="getsrc(this)">
+            </p>
+            <div class="chi_tiet-header--tongquan-chi_tiet">
+                <img src="../images/Apple/ip14promaxinfo.jpg" alt="" class="chi_tiet-header--tongquan-chi_tiet-img">
+                <div class="danh_gia">
+                    <p class="danh_gia-dau">
+                        Thông tin sản phẩm
+                    </p>
+                    <div class="danh_gia-than">
+                        <p class="danh_gia-than-muc">
+                            Dáng vẻ quen thuộc đến từ dòng A
+                        </p>
+                        <p class="danh_gia-than-noidung">
+                            Galaxy A14 được lấy cảm hứng thiết kế từ những mẫu điện thoại Samsung dòng A trước đây với mặt lưng phẳng,
+                            màn hình giọt nước cùng cụm camera xếp dọc. 
+                            Máy trở nên góc cạnh hơn khi các viền xung quanh bộ khung đều được gia công phẳng một cách tinh tế.
+                        </p>
+                        <img src="../images/Apple/ip14promaxinfo.jpg" alt="" class="danh_gia-than-img">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chi_tiet-header--thongso">
+            <div class="chi_tiet-header--thongsochinh">
+                <p class="chi_tiet-header--thongsochinh-ten">
+                    {{sanpham.tensp}}
+                </p>
+                <p class="chi_tiet-header--thongsochinh-gia">
+                    <span class="gia_format">{{sanpham.giaban}}</span> VND
+                </p>
+                {{#if sanpham.soluong}}
+                <p class="chi_tiet-header--thongsochinh-tinhtrang">
+                    <i class="fa-solid fa-circle-check"></i> Còn hàng
+                </p>
+                {{else}}
+                <p class="chi_tiet-header--thongsochinh-tinhtrang" style="color: red;">
+                    <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
+                </p>
+                {{/if}}
+                <div class="chi_tiet-header--thongsochinh-chon">
+                    <div class="chi_tiet-header--thongsochinh-mau">
+                        Màu:
+                        <select type="checkbox" id="chon_mau">
+                            <option for="chon_mau">Xanh</option>
+                            <option for="chon_mau">Đỏ</option>
+                            <option for="chon_mau">Tím</option>
+                        </select>
+                    </div>
+                    <div class="chi_tiet-header--thongsochinh-rom">
+                        Bộ nhớ trong:
+                        <select type="checkbox" id="chon_rom">
+                            <option for="chon_rom">128GB</option>
+                            <option for="chon_rom">32GB</option>
+                            <option for="chon_rom">!6GB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chi_tiet-header--thongsochinh-khuyenmai">
+                    <p class="chi_tiet-header--thongsochinh-khuyenmai-ten">
+                        Khuyến mãi
+                    </p>
+                    <p class="khuyen_mai_item"><i class="fa-solid fa-check" style="color: #00ff00;"></i> Giảm ngay 10,000,000đ áp
+                        dụng đến 30/09</p>
+                    <p class="khuyen_mai_item"><i class="fa-solid fa-check" style="color: #00ff00;"></i> Quà đặc quyền chỉ có tại
+                        cửa hàng trải nghiệm cao cấp </p>
+                    <p class="khuyen_mai_item"><i class="fa-solid fa-check" style="color: #00ff00;"></i> Tặng PMH 170.000Đ mua sim
+                        MobiFone 0Đ</p>
+                </div>
+                <div class="chi_tiet-header--thongsochinh-btn">
+                    <a href="/thanhtoan/muangay/{{sanpham.masp}}">
+                        <button class="chi_tiet-header--thongsochinh-btn-mua" id="mua_ngay">
+                            MUA NGAY
+                            <p>Giao hàng tận nơi miễn phí !</p>
+                        </button>
+                    </a>
+                    <a href="/giohang/themgiohang/{{sanpham.masp}}" class="">
+                        <button class="chi_tiet-header--thongsochinh-btn-themvaogio" id="them_vao_gio_hang">
+                            THÊM VÀO GIỎ HÀNG
+                        </button>
+                    </a>
+                </div>
+                <div class="chi_tiet-header--thongsochinh-lienhe">
+                    <p>Gọi đên <a href="tel: +84932575508">0932575508</a> để được tư vấn miễn phí!</p>
+                </div>
+            </div>
+            <div class="chi_tiet-header--thongsokythuat">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <p class="thongsokythuat-tenbang">Thông tin chi tiết</p>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Màn hình</td>
+                            <td>{{manhinh.kichthuocmanhinh}}</td>
+                        </tr>
+                        <tr>
+                            <td>Ram</td>
+                            <td>{{luutru.ram}}</td>
+                        </tr>
+                        <tr>
+                            <td>Bộ nhớ trong</td>
+                            <td>{{luutru.rom}}</td>
+                        </tr>
+                        <tr>
+                            <td>Camera sau</td>
+                            <td>{{camera.camgocrong}}</td>
+                        </tr>
+                        <tr>
+                            <td>Camera trước</td>
+                            <td>{{camera.camtruoc}}</td>
+                        </tr>
+                        <tr>
+                            <td>CPU</td>
+                            <td>{{boxuly.cpu}}</td>
+                        </tr>
+                        <tr>
+                            <td>Dung lượng pin</td>
+                            <td>{{pin.dungluongpin}}</td>
+                        </tr>
+                        <tr>
+                            <td>Sim</td>
+                            <td>{{giaotiepvaketnoi.sosim}}</td>
+                        </tr>
+                        <tr>
+                            <td>Hệ điều hành</td>
+                            <td>{{hedieuhanh.phienban}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="../sanpham/thong_tin_chi_tiet_show/{{sanpham.masp}}" 
+                    target="thong_tin_chi_tiet" 
+                    id="thong_tin_chi_tiet-btn"
+                    onclick="show_page_thong_tin()"> 
+                    <button class="thongsochitiet">
+                        Xem thêm cấu hình chi tiết <i class="fa-solid fa-caret-right"></i>
+                    </button>
+                </a>
+        </div>
+        </div>
+    </div>
+    
+    <div class="chi_tiet-footer">
+        <div class="danhgia">
+            <p class="danhgia-tensanpham">
+                Đánh giá iphone 14 pro max
+            </p>
+            <div class="danhgia-thongke">
+               <p class="danhgia-tong">
+                <span class="sosao"> 5  </span> 
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+               </p>
+                <span class="tongdanhgia">400 đánh giá</span>
+                <ul class="danhgia-thongke--bang">
+                    <li class="danhgia-thongke--item">
+                        1  <i class="fa-solid fa-star"></i>
+                        <div class="phantramsao">
+                            <p class="phantram" style="width: 10%">
+                                 
+                            </p>
+                        </div>
+                        <span class="sophantram">50%</span>
+                    </li>
+                    <li class="danhgia-thongke--item">
+                        2  <i class="fa-solid fa-star"></i>
+                        <div class="phantramsao">
+                            <p class="phantram" style="width: 10%">
+                        
+                            </p>
+                        </div>
+                        <span class="sophantram">50%</span>
+                    </li>
+                    <li class="danhgia-thongke--item">
+                        3  <i class="fa-solid fa-star"></i>
+                        <div class="phantramsao">
+                            <p class="phantram" style="width: 11%">
+                        
+                            </p>
+                        </div>
+                        <span class="sophantram">50%</span>
+                    </li>
+                    <li class="danhgia-thongke--item">
+                        4  <i class="fa-solid fa-star"></i>
+                        <div class="phantramsao">
+                            <p class="phantram" style="width: 10%">
+                        
+                            </p>
+                        </div>
+                        <span class="sophantram">50%</span>
+                    </li>
+                    <li class="danhgia-thongke--item">
+                        5  <i class="fa-solid fa-star"></i>
+                        <div class="phantramsao">
+                            <p class="phantram" style="width: 10%">
+                        
+                            </p>
+                        </div>
+                        <span class="sophantram">50%</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="hoidap">
+            <div class="chi_tiet-footer-hoidap">
+                <form action="" class="hoidap-guinoidung">
+                    <textarea class="hoidap-noidung" name="" id="" cols="150" rows="3"
+                        placeholder="Bạn đang thắc mắc gì ...."></textarea>
+                    <button class="hoidap-noidung--btn">Gửi bình luận</button>
+                </form>
+            </div>
+            <div class="chi_tiet-footer-hienthi">
+                <div class="hienthi--avatarnguoibl">
+                    <img src="../images/logo.png" alt="" class="avatarnguoibl">
+                </div>
+                <div class="hienthi_noidungbl">
+                    <p class="hienthi_noidungbl--tennguoibl">
+                        Thành Lộc
+                    </p>
+                    <p class="hienthi_noidungbl--noidungbl">
+                        Cho mình hỏi bên shop còn mẫu này không ạ ?
+                    </p>
+                    <div class="hienthi_noidungbl--thichbl">
+                        <span>1 ngày trước</span>
+                        <span class="thichbl-thich">Thích</span>
+                        <span class="thichbl-phanhoi">Trả lời</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chi_tiet-footer-hienthitraloi">
+                <div class="chi_tiet-footer-hienthi">
+                    <div class="hienthi--avatarnguoibl">
+                        <img src="../images/logo.png" alt="" class="avatarnguoibl">
+                    </div>
+                    <div class="hienthi_noidungbl">
+                        <p class="hienthi_noidungbl--tennguoibl">
+                            Thành Lộc
+                        </p>
+                        <p class="hienthi_noidungbl--noidungbl">
+                            Dạ còn ạ !
+                        </p>
+                        <div class="hienthi_noidungbl--thichbl">
+                            <span>1 ngày trước</span>
+                            <span class="thichbl-thich">Thích</span>
+                            <span class="thichbl-phanhoi">Trả lời</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- Hiễn thị thông tin chi tiết thông số sản phẩm --}}
+    <div class="show-modal" id="show-modal" style="display: none;">
+        <div class="thong_tin_chi_tiet" id="thong_tin_chi_tiet">
+            <iframe src="" frameborder="0" name="thong_tin_chi_tiet" title="THông tin chi tiết"
+            width="100%"
+            height="100%">
+            </iframe>
+        </div>
+        <p class="" id="close_btn" onclick="close_page_thong_tin()">
+            <i class="fa-solid fa-xmark close_btn"></i>
+        </p>
+        <div class="close_behind" id="close_behind" onclick="close_page_thong_tin()"></div>
+    </div>
+</div>
+
+<script>
+    {{!-- Hien thi hinh anh --}}
+    var src_anh_chinh = document.getElementById('anh-chinh');
+    
+    function noneclick(){
+        document.getElementById('anh_1').style.opacity = '100%';
+        document.getElementById('anh_2').style.opacity = '100%';
+        document.getElementById('anh_3').style.opacity = '100%';
+        document.getElementById('anh_4').style.opacity = '100%';
+        document.getElementById('anh_5').style.opacity = '100%';
+    }
+    
+    function getsrc (img){
+        noneclick();
+        src_anh_chinh.src = img.src;
+        img.style.opacity = '50%';
+    }
+
+    {{!-- Hiễn thị thông tin chi tiết sản phẩm --}}
+    var modalSHow = document.getElementById('show-modal');
+    var btnCloseModal = document.getElementById('close_btn')
+    function show_page_thong_tin(){
+        modalSHow.style.display = 'block';
+        btnCloseModal.style.display = 'block';
+    }
+    function close_page_thong_tin() {
+            modalSHow.style.display = 'none';
+            btnCloseModal.style.display ='none';
+        }
+    {{!-- Vô hiệu hoá mua hàng --}}
+    var nutmuahang = document.getElementById('mua_hang');
+    var nutthemvaogiohang = document.getElementById('them_vao_gio_hang');
+    if(trangthaiconhang){
+        nutmuahang.disabled  = true
+        nutthemvaogiohang.disabled  = true
+        nutmuahang.style.backgroundColor = 'blue'
+        nutthemvaogiohang.style.opacity = '80%'
+    }
+</script>

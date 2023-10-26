@@ -1,0 +1,349 @@
+<nav class="navbar">
+    <div class="navbar_search">
+        <a href="/" class="navbar_logo">
+            <img src="../../../images/logo.png" alt="">
+            Looc Store
+        </a>
+        <form class="navbar_search-form" method="post" action="/timkiemsanpham">
+            <input type="text" class="navbar_search-form-input" placeholder="Bạn đang tìm gì... " name="tukhoasp">
+            <button type="submit" class="navbar_search-form-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            {{!-- Lịch sử tìm kiếm --}}
+            <div class="navbar_search-form-history">
+                <p class="navbar_search-form-history-title">
+                    Lịch sử tìm kiém
+                </p>
+                <p class="navbar_search-form-history-item">
+                   <a href="/dangnhap">iphone</a>
+                </p>
+            </div>
+        </form>
+
+        {{#if thongtintaikhoan}}
+            <div class="sau_dang_nhap">
+                <ui class="navbar_account">
+                    <li class="navbar_account-item-user">
+                        <img src="../../../images/{{thongtintaikhoan.anhkh}}{{thongtintaikhoan.anhnv}}" alt="" class="anhdaidien">
+                        <p class="navbar_account-item-name">
+                            {{thongtintaikhoan.tennv}}{{thongtintaikhoan.tenkh}}
+                        </p>
+                        <div class="dieu_huong_taikhoan">
+                            <a href="#" class="dieu_huong_taikhoan-ten">Tài khoản của tôi</a>
+                            {{#if thongtintaikhoan.chucvu}}
+                            <a href="/quanly" class="dieu_huong_taikhoan-ten">Quản lý</a>
+                            {{/if}}
+                            <a href="/nguoidung/donhang" class="dieu_huong_taikhoan-ten">Đơn mua</a>
+                            <a href="/dangsuat" class="dieu_huong_taikhoan-ten">Đăng suất</a>
+                        </div>
+                    </li>
+                    <li class="navbar_account-item-cart">
+                        <i class="fa-solid fa-cart-shopping anhdaidien mt-1"></i>
+                        <p class="navbar_account-item-name">
+                            Giỏ hàng
+                            {{#if soluongsptronggio}}
+                            <div class="so_luong_sp"><p class="so_hien_thi">
+                                {{soluongsptronggio}}
+                            </p></div>
+                            {{/if}}
+                        </p>
+                        {{#if giohangs}}
+                        <div class="cart">
+                            <p class="cart-ten">
+                                Sản phẩm trong giỏ hàng
+                            </p>
+                            {{#each giohangs}}
+                            <a href="/sanpham/{{this.masp}}" class="a_cart-item">
+                            <div class="cart-item">
+                                <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="cart-item--img">
+                                <div class="cart-item--info">
+                                    <p class="cart-item--info-ten">
+                                        {{this.tensp}}
+                                    </p>
+                                    <p class="cart-item--info-gia">
+                                        <span class="gia_format">{{this.giaban}}</span> VND
+                                    </p>
+                                    <p class="cart-item--info-soluong">
+                                        x{{this.soluongsp}}
+                                    </p>
+                                </div>
+                            </div>
+                            </a>
+                            {{/each}}
+                            <a href="/giohang" class="cart-btn">
+                                <button type="button" class="btn btn-primary">Xem giỏ hàng</button>
+                            </a>
+                        </div>
+                        {{/if}}
+                    </li>
+                </ui>
+            </div>
+        {{/if}}
+       
+       {{#unless thongtintaikhoan}}
+            <div class="chua_dang_nhap">
+                <a href="/dangnhap" class="dang_nhap">
+                    Đăng nhập
+                </a>
+                <a href="/dangky" class="dang_ky">
+                    Đăng ký
+                </a>
+            </div>
+       {{/unless}}
+       
+    </div>
+    <ui class="navbar_menu">
+        <li class="navbar_menu-item">
+            <span class="navbar_menu-item-title">
+                Điện thoại
+            </span> 
+            <div class="navbar_menu-item-wrap">
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Hãng sản xuất</p>
+                    <a href=""class="theo_muc-item">
+                        <span >Apple</span>
+                    </a>
+                    <a href=""class="theo_muc-item">
+                        <span >Samsung</span>
+                    </a>
+                    <a href=""class="theo_muc-item">
+                        <span >Oppo</span>
+                    </a>
+                    <a href=""class="theo_muc-item">
+                        <span >Xiaomi</span>
+                    </a>
+                    <a href=""class="theo_muc-item">
+                        <span >Realme</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Mức giá</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Dưới 3 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>3 triệu - 5 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>5 triệu - 8 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>8 triệu - 10 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Từ 10 triệu +</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="navbar_menu-item">
+            <span class="navbar_menu-item-title">
+                Máy tính bảng
+            </span>
+            <div class="navbar_menu-item-wrap">
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Hãng sản xuất</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Apple</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Samsung</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Oppo</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Xiaomi</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Realme</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Mức giá</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Dưới 3 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>3 triệu - 5 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>5 triệu - 8 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>8 triệu - 10 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Từ 10 triệu +</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Màn hình</p>
+                    <a href="" class="theo_muc-item">
+                        <span>5 inch - 8 inch</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>8 inch - 10 inch</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Từ 10 inch +</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="navbar_menu-item">
+            <span class="navbar_menu-item-title">
+                Phụ kiện
+            </span>
+            <div class="navbar_menu-item-wrap">
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Các sản phẩm phụ kiện</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Tai nghe</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Chuột</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Bàn phím</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Ốp lưng</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Sạc dự phòng</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="navbar_menu-item">
+            <span class="navbar_menu-item-title">
+                Điẹn thoại cũ
+            </span>
+            <div class="navbar_menu-item-wrap">
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Hãng sản xuất</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Apple</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Samsung</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Oppo</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Xiaomi</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Realme</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Mức giá</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Dưới 3 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>3 triệu - 5 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>5 triệu - 8 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>8 triệu - 10 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Từ 10 triệu +</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Tình trạng máy</p>
+                    <a href="" class="theo_muc-item">
+                        <span>95%</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>99%</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="navbar_menu-item">
+            <span class="navbar_menu-item-title">
+                Máy tính bảng cũ
+            </span>
+            <div class="navbar_menu-item-wrap">
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Hãng sản xuất</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Apple</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Samsung</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Oppo</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Xiaomi</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Realme</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Mức giá</p>
+                    <a href="" class="theo_muc-item">
+                        <span>Dưới 3 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>3 triệu - 5 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>5 triệu - 8 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>8 triệu - 10 triệu</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Từ 10 triệu +</span>
+                    </a>
+                </div>
+                <div class="theo_muc">
+                    <p class="theo_muc-title">Màn hình</p>
+                    <a href="" class="theo_muc-item">
+                        <span>5 inch - 8 inch</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>8 inch - 10 inch</span>
+                    </a>
+                    <a href="" class="theo_muc-item">
+                        <span>Từ 10 inch +</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="navbar_menu-item">
+            <span class="navbar_menu-item-title">
+                Chương trình khuyến mãi
+            </span>
+            <div class="navbar_menu-item-wrap">
+                <div class="theo_muc">
+                    <a href="" class="theo_muc-item">
+                        <span>Tất cả chương trình khuyến mãi</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ui>
+</nav>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var searchInput = $('.navbar_search-form-input')
+        var searchHistory = $('.navbar_search-form-history')
+
+
+       
+    })
+   
+</script>

@@ -1,0 +1,218 @@
+<div class="chi_tiet_don_hang">
+    <div class="chi_tiet_don_hang-timeline">
+        <div class="chi_tiet_don_hang-timeline-header">
+            <a href="" class="">
+                <button onclick="quay_lai_trang_truoc()" class="btn btn-secondary">
+                    <i class="fa-solid fa-angle-left"></i>
+                    Trở lại
+                </button>
+            </a>
+            <span class="chi_tiet_don_hang-timeline-madh">
+                Mã đơn hàng: <span> {{donhang._id}}</span>
+            </span>
+        </div>
+        <div class="chi_tiet_don_hang-timeline-thanh_timeline">
+            <div class="timeline-giaohang-item">
+                <div class="timeline-giaohang-item-icon">
+                    <i class="fa-solid fa-clipboard"></i>
+                </div>
+                <div class="timeline-item-text">
+                    Đơn hàng đã đặt
+                </div>
+                {{#if nhatkydonhang.ngaytiepnhan}}
+                <div class="timeline-item-data">
+                    {{nhatkydonhang.ngaytiepnhan}}
+                </div>
+                {{/if}}
+            </div>
+            <div class="timeline-giaohang-item">
+                <div class="timeline-giaohang-item-icon">
+                    <i class="fa-solid fa-truck"></i>
+                </div>
+                <div class="timeline-item-text">
+                    Đã vận chuyển
+                </div>
+                {{#if nhatkydonhang.ngaygiaohang}}
+                <div class="timeline-item-data">
+                    {{nhatkydonhang.ngaygiaohang}}
+                </div>
+                {{/if}}
+            </div>
+            <div class="timeline-giaohang-item">
+                <div class="timeline-giaohang-item-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="timeline-item-text">
+                    Đã giao thành công
+                </div>
+                {{#if nhatkydonhang.ngayhoanthanh}}
+                <div class="timeline-item-data">
+                    {{nhatkydonhang.ngayhoanthanh}}
+                </div>
+                {{/if}}
+            </div>
+            <div class="timeline-giaohang-item">
+                <div class="timeline-giaohang-item-icon">
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                <div class="timeline-item-text">
+                    Đánh giá
+                </div>
+                <div class="timeline-item-data">
+                </div>
+            </div>
+        </div>
+        {{!-- Thanh Range --}}
+        <div class="chi_tiet_don_hang-timeline-thanh_timeline-range">
+        </div>
+    </div>
+    {{!-- Khi giao hàng thành công thì hiễn thị thêm nút đánh giá --}}
+    <div class="danh_gia">
+        <button type="button" class="btn btn-warning px-5">Đánh giá</button>
+    </div>
+    <div class="chi_tiet_don_hang-thong_tin">
+        <div class="thong_tin-khach_hang">
+            <p class="thong_tin-khach_hang-text">
+                Địa chỉ khách hàng
+            </p>
+            <p class="thong_tin-khach_hang-tenkh">
+               {{donhang.tenkh}}
+            </p>
+            <p class="thong_tin-khach_hang-sodt">
+                {{donhang.sodtkh}}
+            </p>
+            <p class="thong_tin-khach_hang-diachi">
+                {{donhang.diachigiaohang}}
+            </p>
+        </div>
+        <div class="thong_tin-nhat_ky_giao_hang">
+            {{#if nhatkydonhang.ngayhoanthanh}}
+            <div class="thong_tin-nhat_ky_giao_hang-item">
+                <div class="thong_tin-nhat_ky_giao_hang-item-time">
+                    {{nhatkydonhang.ngayhoanthanh}}
+                </div>
+                <div class="thong_tin-nhat_ky_giao_hang-item-text">
+                    <span class="thong_tin-nhat_ky_giao_hang-item-title">
+                        Hoàn thành
+                    </span>
+                    <span class="thong_tin-nhat_ky_giao_hang-item-message">
+                        Đơn hàng của bạn đã được giao thành công
+                    </span>
+                </div>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngayvanchuyen}}
+            <div class="thong_tin-nhat_ky_giao_hang-item">
+                <div class="thong_tin-nhat_ky_giao_hang-item-time">
+                    {{nhatkydonhang.ngayvanchuyen}}
+                </div>
+                <div class="thong_tin-nhat_ky_giao_hang-item-text">
+                    <span class="thong_tin-nhat_ky_giao_hang-item-title">
+                        Đang giao
+                    </span>
+                    <span class="thong_tin-nhat_ky_giao_hang-item-message">
+                        Đơn hàng của bạn đang trên đường giao đến bạn!
+                    </span>
+                </div>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngaytiepnhan}}
+            <div class="thong_tin-nhat_ky_giao_hang-item">
+                <div class="thong_tin-nhat_ky_giao_hang-item-time">
+                    {{nhatkydonhang.ngaytiepnhan}}
+                </div>
+                <div class="thong_tin-nhat_ky_giao_hang-item-text">
+                    <span class="thong_tin-nhat_ky_giao_hang-item-title">
+                        Đã tiếp nhận
+                    </span>
+                    <span class="thong_tin-nhat_ky_giao_hang-item-message">
+                        Đơn hàng của bạn đã được shop tiếp nhận và đang chuẩn bị hàng!
+                    </span>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="chi_tiet_don_hang-san_pham">
+        {{#each donhang.sanphams}}
+        <div class="chi_tiet_don_hang-san_pham-item">
+            <img src="../../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" class="chi_tiet_don_hang-san_pham-item-img" alt="">
+            <div class="chi_tiet_don_hang-san_pham-info">
+                <span class="chi_tiet_don_hang-san_pham-info-tensp">
+                    {{this.tensp}}
+                </span>
+                <span class="chi_tiet_don_hang-san_pham-info-mau">
+                    Màu sắc: <span>{{this.mausacdat}}</span>
+                </span>
+                <span class="chi_tiet_don_hang-san_pham-info-soluong">
+                    Số lượng: <span>{{this.soluongdat}}</span>
+                </span>
+            </div>
+            <div class="chi_tiet_don_hang-san_pham-info-dongia">
+                <span class="gia_format">{{this.giaban}}</span> VND
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="chi_tiet_don_hang-tien">
+        <div class="chi_tiet_don_hang-tien-item">
+            <p class="chi_tiet_don_hang-tien-item-title">
+                Tổng tiền hàng: 
+            </p>
+            <p class="chi_tiet_don_hang-tien-item-data">
+                <span class="gia_format">{{donhang.tienthanhtoan}}</span> VND
+            </p>
+        </div>
+        <div class="chi_tiet_don_hang-tien-item">
+            <p class="chi_tiet_don_hang-tien-item-title">
+                Giảo giá phí vận chuyển:
+            </p>
+            <p class="chi_tiet_don_hang-tien-item-data">
+                <span class="gia_format">0</span> VND
+            </p>
+        </div>
+        <div class="chi_tiet_don_hang-tien-item">
+            <p class="chi_tiet_don_hang-tien-item-title">
+                Giảm giá của shop: 
+            </p>
+            <p class="chi_tiet_don_hang-tien-item-data">
+                <span class="gia_format">0</span> VND
+            </p>
+        </div>
+        <div class="chi_tiet_don_hang-tien-item">
+            <p class="chi_tiet_don_hang-tien-item-title">
+                Thành tiền
+            </p>
+            <p class="chi_tiet_don_hang-tien-item-data">
+                <span class="gia_format">{{donhang.tienthanhtoan}}</span> VND
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var timelineIcon = $('.timeline-giaohang-item-icon');
+        var timelineData = $('.timeline-item-data');
+        var thanh_timeline = $('.chi_tiet_don_hang-timeline-thanh_timeline-range')
+
+        for(var i = 0; i < timelineIcon.length; i++){
+            if($(timelineData[i]).text().length>30){
+                $(timelineIcon[i]).addClass('icon_checked')
+                if(i==0){
+                    thanh_timeline.attr('style','width: 0%')
+                }else if(i==1){
+                    thanh_timeline.attr('style', 'width: 25%')
+                }else if(i == 2) {
+                    thanh_timeline.attr('style', 'width: 50%')
+                }else if(i == 3) {
+                    thanh_timeline.attr('style', 'width: 75%')
+                }
+            }
+        }
+    })
+     function quay_lai_trang_truoc() {
+            history.back();
+        }
+</script>

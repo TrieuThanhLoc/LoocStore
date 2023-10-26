@@ -1,0 +1,28 @@
+.form_dangnhap,
+.form_dangky{
+    width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--mau-phu-thu-1);
+    border-radius: 20px;
+}
+.form_ten{
+    color: var(--mau-chinh);
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+.btn-dangnhap,
+.btn-dangky{
+    margin-top: 20px;
+    text-align: center;
+}
+.trangthai{
+    color: white;
+    text-align: center;
+    font-weight: 400;
+}
+.trangthai span{
+    color: rgb(104, 104, 104);
+    font-weight: 400;
+}

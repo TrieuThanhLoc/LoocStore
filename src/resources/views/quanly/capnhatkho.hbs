@@ -1,0 +1,66 @@
+<p class="kho_title">
+    KHO LOOCSTORE
+</p>
+<form method="POST" action="../quanly/capnhatkho/luuthaydoikho" class="kho_table">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Màu</th>
+                <th scope="col">Ram</th>
+                <th scope="col">Rom</th>
+                <th scope="col">SL kho</th>
+                <th scope="col">SL bán</th>
+                <th scope="col">Giá bán</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>
+                    <input name="mausac" value="{{kho.mausac}}" hidden></input>
+                    <input name="mamau" value="{{kho.mamau}}" hidden></input>
+                    <input name="masp" value="{{kho.masp}}" hidden></input>
+                    <span>{{kho.mamau}}</span>
+                    {{!-- <select class="form-select" aria-label="Default select example" name="mausac">
+                        <option selected>Màu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select> --}}
+                </td>
+                <td><input name="ram" type="number" class="input_number" value="{{kho.ram}}"> GB</td>
+                <td><input name="rom" type="number" class="input_number" value="{{kho.rom}}"> GB</td>
+                <td><input name="soluong" type="number" class="input_number" value="{{kho.soluong}}"> Cái</td>
+                <td><input name="soluongdaban" type="number" class="input_number" value="{{kho.soluongdaban}}"> Cái</td>
+                <td><input name="giaban" type="text" class="input_text" value="{{kho.giaban}}"> VND</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Cặp nhạt sản phẩm</button>
+</form>
+
+
+
+<style>
+    .kho_table{
+        width: 1000px;
+        margin: auto;
+    }
+    .kho_title{
+        font-size: 30px;
+        font-weight: 700;
+        color: rgb(60, 60, 60);
+        text-align: center;
+        margin-top: 20px;
+    }
+    .input_number{
+        width: 70px;
+        background-color: var(--mau-phu-thu-1);
+    }
+    .input_text{
+        width: 100px;
+        color: red;
+        background-color: var(--mau-phu-thu-1);
+    }
+</style>

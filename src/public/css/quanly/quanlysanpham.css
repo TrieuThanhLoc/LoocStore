@@ -1,0 +1,53 @@
+.quan_ly_san_pham {
+    margin-top: 20px;
+}
+
+.quan_ly_san_pham-header {
+    text-align: center;
+    color: rgb(217, 0, 0);
+}
+
+.quan_ly_san_pham-header--nhaphang{
+    text-align: center;
+}
+.quan_ly_san_pham-stt-td{
+    width: 30px;
+    text-align: center;
+}
+.quan_ly_san_pham-ten-td{
+    width: 650px;
+}
+.quan_ly_san_pham-hinh_anh{
+    width: 40px;
+    height: 45px;
+    border-radius: 5px;
+}
+.quan_ly_san_pham-hinh_anh-td{
+    width: 100px;
+}
+.quan_ly_san_pham-loai-td {
+    width: 100px;
+}
+.quan_ly_san_pham-so_luong-td {
+    width: 100px;
+}
+.quan_ly_san_pham-btn-td{
+    width: 270px;
+    display: flex;
+    text-align: center;
+}
+.xem-btn, .sua-btn, .xoa-btn{
+    color: white;
+    margin-right: 5px;
+}
+.xem-link, .sua-link{
+    color: white;
+    text-decoration: none;
+}
+.quan_ly_san_pham-header--nhaphang-btn{
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+}

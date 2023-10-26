@@ -1,0 +1,163 @@
+.quan_ly_don_hang{
+    width: 90%;
+    margin: auto;
+}
+.quan_ly_don_hang-title{
+    text-align: center;
+    color: orange;
+    font-size: 30px;
+    font-weight: 700;
+}
+.quan_ly_don_hang table{
+    width: 100%;
+}
+.quan_ly_don_hang-diachi{
+    width: 500px;
+}
+.cap_nhat_trang_thao{
+    color: blue;
+}
+.quan_ly_don_hang-tinhtrang{
+    position: relative;
+}
+.cap_nhat_trang_thao-modal{
+    z-index: 2;
+    width: 500px;
+    height: 120px;
+    padding: 20px 10px 10px 10px;
+    position: absolute;
+    right: 0;
+    background-color: var(--mau-phu-thu-1);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.cap_nhat_trang_thao-modal form{
+    display: flex;
+    font-size: 15px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.cap_nhat_trang_thao-modal--tat{
+    position: absolute;
+    top: -12px;
+    right: -10px;
+}
+.cap_nhat_trang_thao-modal--cap_nhat{
+    position: absolute;  
+    bottom: 10px;
+    left: 10px;
+}
+
+/* Quản lý chi tiết từng đơn hàng */
+.quan_ly_mot_don_hang{
+    background-color: var(--mau-phu-thu-1);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    width: 40%;
+    margin: 20px auto;
+    padding: 10px 20px;
+
+}
+.quan_ly_mot_don_hang-title{
+    color: red;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid var(--mau-phu-thu-3);
+}
+.quan_ly_mot_don_hang-sanpham{
+    padding: 10px;
+    display: flex;
+}
+.quan_ly_mot_don_hang-sanpham--img{
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+.quan_ly_mot_don_hang-sanpham--tensanpham{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+.quan_ly_mot_don_hang-sanpham-title{
+    font-size: 13px;
+    font-weight: 500;
+}
+.quan_ly_mot_don_hang-sanpham-content {
+    font-size: 15px;
+    font-weight: 700;
+}
+.quan_ly_mot_don_hang-khachhang{
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-phu-thu-2);
+}
+.quan_ly_mot_don_hang-khachhang-ỉtem{
+    margin: 0%;
+}
+.quan_ly_mot_don_hang-khachhang-item-title{
+    font-size: 13px;
+    font-weight: 650;
+}
+.quan_ly_mot_don_hang-khachhang-item-content{
+    font-size: 15;
+    font-weight: 400;
+}
+
+.quan_ly_mot_don_hang-trangthai{
+    position: relative;
+}
+.quan_ly_mot_don_hang-trangthai-content{
+    margin-left: 30px;
+    position: relative;
+}
+.trangthai--item-title{
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 112px;
+}
+.trangthai--item-message-time{
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 300;
+}
+.timeline-item{
+    width: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+.timeline-item-icon{
+    color: green;
+}
+.timeline-item-line{
+    width: 5px;
+    height: 65px;
+    margin: auto;
+    background-color: silver;
+}
+
+.quan_ly_mot_don_hang-thanhtien{
+    margin: 20px 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-phu-thu-4);
+}
+.quan_ly_mot_don_hang-thanhtien-title{
+    font-size: 18px;
+    font-weight: 600;
+}
+.quan_ly_mot_don_hang-thanhtien-gia {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.quan_ly_mot_don_hang-btn{
+    text-align: center;
+}

@@ -1,0 +1,203 @@
+<div class="gio_hang">
+    <div class="gio_hang-header">
+        <p class="header-title">
+            <i class="fa-solid fa-cart-shopping"></i> GIỏ hàng 
+        </p>
+        <div class="header-search">
+            <input type="text" class="input-search">
+            <button class="icon-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </div>
+    <form name="gio_hang_form" method="post" action="/giohang/xoatatca">
+    <table class="table-search table">
+        <thead>
+            <tr>
+                <th scope="col" class="the_chon_sp"><div>
+                    <input class="form-check-input" type="checkbox"style="position: relative;" id="input_xoa_tat_ca">
+                </div></th>
+                <th class="the_thong_tin_sp">Sản phẩm</th>
+                <th class="the_don_gia">Đơn giá</th>
+                <th class="the_chon_so_luong">Số lượng</th>
+                <th class="the_tong_tien">Số tiền</th>
+                <th class="the_btn">
+                    <button type="submit" class="btn btn-danger btn_xoa_sp_trong_gio disabled" id="btn_xoa_tat_ca">Xoá tất cả</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each giohangs}}
+            <tr>
+                <td scope="row" class="the_chon_sp"> 
+                    <input class="form-check-input checked" type="checkbox" name="san_pham_chon[]" value="{{this._id}}" >
+                </td>
+                <td>
+                    <div class="gio_hang-thong_tin_sp">
+                        <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="gio_hang-hinh_anh_sp">
+                        <input type="text" name="anh[]" value="{{this.anh}}" hidden>
+                        <div class="chon_thong_so">
+                            <p class="gio_hang-ten_sp">{{this.tensp}}</p>
+                            <input type="text" name="tensp[]" value="{{this.tensp}}" hidden>
+                            <select id="select_thong_so" class="select_thong_so" name="mausac[]" value="{{this.mausac}}">
+                                <option value="Den">Đen</option>
+                                <option value="Xanh">Xanh</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="don_gia">
+                        {{#if this.giagiam}}
+                        <span class="gia_giam">
+                            <span class="gia_format">{{this.giagiam}}</span> VND 
+                        </span>
+                        {{/if}}
+                        <span class="gia_khuyen_mai">
+                            <span class="gia_format gia_khuyen_mai_value">{{this.giaban}}</span>
+                            <span></span> 
+                            VND
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <p class="so_luong">
+                        <input type="number" name="soluongsp[]" id="" class="so_luong--input" value="{{this.soluongsp}}">
+                    </p>
+                </td>
+                <td>
+                    <p class="tong_tien_sp_nay">
+                        <span class="tong_tien_sp_nay_value"></span> VND
+                    </p>
+                </td>
+                <td>
+                    <a href="/giohang/xoa/{{this.masp}}">
+                        <button type="button" class="btn btn-danger btn_xoa_sp_trong_gio">Xoá</button>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="gio_hang-footer">
+        <div class="chon_mua_tat_ca form-check">
+            <input class="form-check-input" type="checkbox" id="chon_tat_ca_sp_footer" >
+            <label class="form-check-label" for="disabledFieldsetCheck">
+                Chọn tất cả
+                <span id="tong_sl_sp">0</span>
+                Sản phẩm
+            </label>
+        </div>
+        <div class="so_san_pham_da_chon">
+            Tổng thanh toán:
+           <span id="sl_sp_tt">0 </span>
+            sản phẩm
+        </div>
+        {{!-- <div class="tong_tien_thanh_toan_gio_hang">
+            <span class="gia_format"></span> VND
+        </div> --}}
+        <button type="submit" class="btn btn-danger disabled" id="btn_thanh_toan_submit_gio_hang">
+            Thanh toán
+        </button>
+    </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var gio_hang_form = document.forms['gio_hang_form'];//lay form cua toan gio hang
+        var btn_xoa_tat_ca = $('#btn_xoa_tat_ca');//nut xoa tat ca 
+        var input_xoa_tat_ca = $('#input_xoa_tat_ca');//chech vao chon tat ca 
+        var chon_tat_ca_sp_footer = $('#chon_tat_ca_sp_footer');//chech vao chon tat ca o duoi footer
+        var san_pham_chon = $('input[name="san_pham_chon[]"]');//chon tung san pham
+        var btn_thanh_toan_submit_gio_hang = $('#btn_thanh_toan_submit_gio_hang')
+        
+        //Tinh tien
+        var tong_tien_sp_nay = $('.tong_tien_sp_nay_value');
+        var gia_khuyen_mai = $('.gia_khuyen_mai_value');
+        var so_luong_input = $('.so_luong--input');
+        console.log(tong_tien_sp_nay)
+        so_luong_input.change(function(){
+            tinhtongtien(so_luong_input, gia_khuyen_mai, tong_tien_sp_nay)
+        })
+
+        tinhtongtien(so_luong_input, gia_khuyen_mai, tong_tien_sp_nay)
+
+        function tinhtongtien(thesoluong, thegiaban, theketqua){
+            for(var i = 0; i < theketqua.length; i++){
+                 //lấy giá bán từ string éo kiểu thành number để tính toán
+                var giaban = $(thegiaban[i]).text().split(' ').join('');
+                var soluong = $(thesoluong[i]).val();
+
+                //chuyển kết quả thành string 
+                var ketqua = String(giaban * soluong);
+
+                $(theketqua[i]).text(formatCash(ketqua))
+            }
+        }
+
+        //tinh tong tien thanh toan
+
+
+        //gio hang footer
+        var sl_sp_tt = $('#sl_sp_tt')
+        var tong_sl_sp = $('#tong_sl_sp')
+        tong_sl_sp.text(san_pham_chon.length)
+        function demsoluongsp(){
+            sl_sp_tt.text($('input[name="san_pham_chon[]"]:checked').length)
+        }
+        //khong cho phep xoa tat ca gui di
+        btn_xoa_tat_ca.click(function (e) {
+            e.preventDefault();
+            var  co_quyen_gui_lenh_xoa = !$(this).hasClass('disabled');
+            if(co_quyen_gui_lenh_xoa){
+                gio_hang_form.submit();
+            }
+        })
+
+        //lang nghe checkbox xoa tat ca o phan footer
+        chon_tat_ca_sp_footer.change(function(){
+            var dachontatcafooter = $(this).prop('checked')
+            input_xoa_tat_ca.prop('checked', dachontatcafooter)
+            san_pham_chon.prop('checked', dachontatcafooter)
+            demsoluongsp();
+            cho_phep_nhan_nut_xoa_tat_ca();
+
+        })
+        //lang nghe checkbox xoa tat ca tren bang 
+        input_xoa_tat_ca.change(function () {
+            var dachontatca = $(this).prop('checked')
+            san_pham_chon.prop('checked', dachontatca)
+            chon_tat_ca_sp_footer.prop('checked', dachontatca)
+            cho_phep_nhan_nut_xoa_tat_ca();
+            demsoluongsp();
+                }
+        ) 
+        san_pham_chon.change(function(){
+            var dachontatca = san_pham_chon.length == $('input[name="san_pham_chon[]"]:checked').length // kiem tra so phan tu con dang duoc chon 
+            input_xoa_tat_ca.prop('checked', dachontatca)
+            chon_tat_ca_sp_footer.prop('checked', dachontatca)
+            cho_phep_nhan_nut_xoa_tat_ca()
+            demsoluongsp();
+
+        })
+        //Nut nhan XOA TAT CA active
+        function cho_phep_nhan_nut_xoa_tat_ca(){
+            var demsophantudachon = $('input[name="san_pham_chon[]"]:checked').length
+            if(demsophantudachon > 0){
+                btn_xoa_tat_ca.removeClass('disabled')
+                btn_thanh_toan_submit_gio_hang.removeClass('disabled')
+            }else{
+                btn_xoa_tat_ca.addClass('disabled')
+                btn_thanh_toan_submit_gio_hang.addClass('disabled')
+            }
+        }
+
+        //Thay duong dan cho form submit bang thanh toan
+        btn_thanh_toan_submit_gio_hang.click(function(){
+            gio_hang_form.action = '/thanhtoan/luugiohangthanhtoan'
+            gio_hang_form.submit()
+        })
+    })
+        
+</script>

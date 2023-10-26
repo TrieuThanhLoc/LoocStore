@@ -1,0 +1,218 @@
+<form method="POST" action="../quanly/luu">
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Thông tin cơ bản                
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Tên sản phẩm" id="tensp" name="tensp" onkeyup="ChangeToSlug()">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Ma san pham"name="masp" id="slug" readonly>
+            </div>
+            <div class="col">
+                <select class="form-select" aria-label="Default select example" name="loaisp">
+                    <option >Loại sản phẩm</option>
+                    <option value="dien_thoai">Điện thoại</option>
+                    <option value="may_tinh_bang">Máy tính bảng</option>
+                    <option value="phu_kien">Phụ kiện</option>
+                </select>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Giá gốc" name="giagoc">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Giá bán" name="giaban">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Ảnh" name="anh">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" placeholder="Số lượng" name="soluong">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Hãng sản xuất" name="hangsx">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Trọng lượng và thiết kế
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Kích thước" name="kichthuoc">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Trọng lượng" name="trongluong">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Chuẩn kháng nước" name="khangnuoc">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Chất liệu" name="chatlieu">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Màu sắc" name="mausac">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Bộ xử lý
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="CPU" name="cpu">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Loại CPU" name="loaicpu">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Số nhân" name="sonhan">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Màn hình
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Tỷ lệ diện tích màn hình" name="tyledientichmanhinh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Kích thước màn hình" name="kichthuocmanhinh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Màu màn hình" name="maumanhinh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Loại cảm ứng" name="loaicamung">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Tỷ lệ khung hình" name="tylekhunghinh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Công nghệ màn hình" name="congnghemanhinh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Chuẩn màn hình" name="chuanmanhinh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Độ phân giải" name="dophangiai">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Tần số quét" name="tansoquet">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="kích thước màn hình phụ (nếu có)" name="kichthuocmanhinhphu">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Lưu trữ
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Ram" name="ram">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Loại ram" name="loairam">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Rom" name="rom">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Thẻ nhớ ngoài" name="thenhongoai">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Camera
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Camera góc rộng" name="camgocrong">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Camera góc siêu rộng" name="camgocsieurong">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Camera macro" name="cammacro">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Tính năng camera sau" name="tinhnangcamsau">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Quay phim camera sau" name="quayphimcamsau">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Camera trước" name="camtruoc">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Tính năng camera trước" name="tinhnangcamtruoc">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Quay phim camera trước" name="quayphimcamtruoc">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Giao tiếp và kết nối
+        </h5>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Bảo mật" name="baomat">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Số sim" name="sosim">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Hỗ trợ mạng" name="hotromang">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Cổng giao tiếp" name="conggiaotiep">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Wifi" name="wifi">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="GPS" name="gps">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Kết nối khác" name="ketnoikhac">
+            </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Pin
+        </h5>
+        <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Dung lượng pin" name="dungluongpin">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Công nghệ pin" name="congnghepin">
+        </div>
+        </div>
+    </div>
+    <div class="form-nhap_hang">
+        <h6 class="ten_muc">
+            Hệ điều hành
+        </h5>
+        <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="OS" name="os">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Phiên bản" name="phienban">
+        </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary"> Thêm sản phẩm</button>
+</form>

@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="../css/quanly/quanlysanpham.css">
+
+<h1 class="quan_ly_san_pham-header">
+    Looc Store
+</h1>
+<div class="quan_ly_san_pham">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col"> </th>
+                <th scope="col"> <div class="quan_ly_san_pham-header--nhaphang">
+                    <a href="../quanly/nhaphang"><button class="quan_ly_san_pham-header--nhaphang-btn">Nhập hàng</button></a>
+                </div></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each sanphams}}
+            <tr>
+                <th class="quan_ly_san_pham-stt-td" scope="row">{{cong @index 1}}</th>
+
+                <td class="quan_ly_san_pham-ten-td">  
+                    {{this.tensp}}
+                </td>
+
+                <td class="quan_ly_san_pham-hinh_anh-td">
+                    <img class="quan_ly_san_pham-hinh_anh" src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="">
+                </td>
+
+                <td class="quan_ly_san_pham-so_luong-td">
+                    {{this.soluong}}
+                </td>
+                <td class="quan_ly_san_pham-kho-td">
+                    <a href="{{this.masp}}/kho">
+                        <button type="button" class="btn btn-secondary">Kho</button>
+                    </a>
+                </td>
+                <td class="quan_ly_san_pham-btn-td">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a href="/sanpham/{{this.masp}}" class="xem-link">
+                            <button type="button" class="btn btn-success xem-btn">
+                                Xem
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </a>
+                        <a href="../quanly/{{this.masp}}/sua" class="sua-link">
+                            <button type="button" class="btn btn-warning sua-btn">
+                                Sửa
+                                <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+                            </button>
+                        </a>
+                        <a href="" class="xoa-link" data-toggle="modal" data-target="#xoasanpham" data-masp="{{this.masp}}">
+                            <button type="button" class="btn btn-danger xoa-btn" >
+                                Xoá
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </a>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="xoasanpham" tabindex="-1" aria-labelledby="xoasanphamLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="xoasanphamLabel">Xác nhận</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xoá sản phẩm này ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                <butto id="btnxoa" type="button" class="btn btn-primary">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" action="" id="formxoa"></form>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        var masp;
+        var formxoa = document.getElementById('formxoa');
+        var btnxoa = document.getElementById('btnxoa')
+        $('#xoasanpham').on('show.bs.modal',function(event){
+            var button = $(event.relatedTarget);
+            masp = button.data('masp');
+        })
+        btnxoa.onclick = function (){
+            formxoa.action = '../../quanly/' + masp + '/xoa?_method=delete';
+            formxoa.submit();
+        }
+
+    })
+
+
+</script>

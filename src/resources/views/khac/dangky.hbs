@@ -1,0 +1,74 @@
+
+<div class="form_dangky">
+    <p class="form_ten">Đăng ký</p>
+    <p class="trangthai">
+        {{#if emailkh}}
+        Địa chỉ email <span>{{emailkh}}</span> đã có tài khoản tại Looc Store<br>
+        <a href="/dangnhap" class="btn-dangnhap">
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </a>
+        {{/if}}
+    </p>
+    <form method="post" action="/dangkykh" class="">
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Họ và Tên</label>
+            <input type="text" class="form-control" id="tenkh" name="tenkh">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
+            <input type="tel" class="form-control" id="sodtkh" name="sodtkh">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Địa chỉ Email</label>
+            <input type="email" class="form-control" id="emailkh" aria-describedby="emailHelp" name='emailkh'
+                onkeyup="makhtudong()">
+            <div id="emailHelp" class="form-text">Chúng tôi cam kết không chia sẻ Email của bạn với bất kỳ ai.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Mật khẩu <i class="fa-solid fa-star-of-life fa-2xs"
+                    style="color: #ff0000;"></i></label>
+            <input type="password" class="form-control" id="matkhaukh" name="matkhaukh" required>
+        </div>
+        <div class="makh">
+            <input type="text" hidden name="makh" id="makh">
+        </div>
+        <div class="btn-dangky">
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </div>
+    </form>
+</div>
+
+
+    <script>
+        function makhtudong() {
+            var emailkh, slug;
+            //Lấy text từ thẻ input emailkh 
+            emailkh = document.getElementById("emailkh").value;
+            //Đổi chữ hoa thành chữ thường
+            slug = emailkh.toLowerCase();
+
+            //Đổi ký tự có dấu thành không dấu
+            slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+            slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+            slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+            slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+            slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+            slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+            slug = slug.replace(/đ/gi, 'd');
+            //Xóa các ký tự đặt biệt
+            slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+            //Đổi khoảng trắng thành ký tự gạch ngang
+            slug = slug.replace(/ /gi, " - ");
+            //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+            //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+            slug = slug.replace(/\-\-\-\-\-/gi, '-');
+            slug = slug.replace(/\-\-\-\-/gi, '-');
+            slug = slug.replace(/\-\-\-/gi, '-');
+            slug = slug.replace(/\-\-/gi, '-');
+            //Xóa các ký tự gạch ngang ở đầu và cuối
+            slug = '@' + slug + '@';
+            slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+            //In slug ra textbox có id “slug”
+            document.getElementById('makh').value = "ma_khach_hang_looc_store_" + slug;
+        }
+    </script>

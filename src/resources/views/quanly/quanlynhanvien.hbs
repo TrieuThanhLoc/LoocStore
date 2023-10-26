@@ -1,0 +1,38 @@
+<div class="quanlynhanvien">
+    <h2>Quản lý nhân viên</h2>
+    <table class="table table-dark table-striped ">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên nhân viên</th>
+                <th scope="col">Chức vụ</th>
+                <th scope="col">Số ĐT</th>
+                <th scope="col">Ngày vào</th>
+                <th scope="col" class="ms-auto">
+                    <a href="nhanvien/themnhanvien" class="btn-themnv">
+                        <button type="button" class="btn btn-primary">Thêm nhân viên</button>
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    {{#each nhanviens}}
+            <tr>
+                <th scope="row">{{cong @index 1}}</th>
+                <td>{{this.tennv}}</td>
+                <td>{{this.chucvu}}</td>
+                <td><a href="tel: {{this.sodt}}">{{this.sodt}}</a></td>
+                <td>{{this.ngayvao}}</td>
+                <td>
+                    <a href="" class="sathanhanvien">
+                        <button type="button" class="btn btn-danger">Sa thải</button>
+                    </a>
+                    <a href="" class="suanhanvien">
+                        <button type="button" class="btn btn-warning">Sửa</button>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

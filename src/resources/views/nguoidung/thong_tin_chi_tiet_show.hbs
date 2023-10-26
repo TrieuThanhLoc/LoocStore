@@ -1,0 +1,512 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body class="body">
+    <div class="bang_thong_tin">
+        <p class="bang_thong_tin-chitiet">
+            Thông tin chi tiết {{sanpham.tensp}}
+        </p>
+        <img src="../../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/chi_tiet-{{sanpham.anh}}.jpg" alt="" class="bang_thong_tin-img">
+        <div class="doanh_muc_thong_tin ">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Trọng lượng và ̃thiết kế 
+            </p>
+            {{#if trongluongvathietke.trongluong}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Trọng lượng sản phẩm
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{trongluongvathietke.trongluong}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if trongluongvathietke.khangnuoc}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Chuẩn kháng nước
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{trongluongvathietke.khangnuoc}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if trongluongvathietke.chatlieu}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Chất liệu
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{trongluongvathietke.chatlieu}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Bộ xử lý
+            </p>
+            {{#if boxuly.cpu}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Phiên bản CPU
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{boxuly.cpu}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if boxuly.loaicpu}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Loại CPU
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{boxuly.loaicpu}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if boxuly.sonhan}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Số nhân
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{boxuly.sonhan}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Màn hình
+            </p>
+            {{#if manhinh.tylekichthuocmanhinh}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Kích thước màn hình
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.tylekichthuocmanhinh}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.loaicamung}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Loại cảm ứng
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.loaicamung}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.tyletietdienmanhinh}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Tỷ lệ tiết diện màn hình
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.tyletietdienmanhinh}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.maumanhinh}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Màu màn hình
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.maumanhinh}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.congnghemanhinh}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                   Công nghệ màn hình
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.congnghemanhinh}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.chuanmanhinh}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Chuẩn màn hình
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.chuanmanhinh}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.dophangiai}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Độ phân giải
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.dophangiai}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.tansoquet}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Tần số quét
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.tansoquet}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if manhinh.kichthuocmanhinhphu}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                   Màn hình phụ
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{manhinh.kichthuocmanhinhphu}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Lưu trữ
+            </p>
+            {{#if luutru.ram}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    RAM
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{luutru.ram}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if luutru.loairam}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Loại RAM
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{luutru.loairam}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if luutru.rom}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    ROM
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{luutru.rom}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if luutru.thenhongoai}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Thẻ nhớ ngoài
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{luutru.thenhongoai}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Camera sau
+            </p>
+            {{#if camera.camgocrong}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Camera góc rộng
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.camgocrong}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if camera.camgocsieurong}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Camera siêu góc rộng
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.camgocsieurong}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if camera.cammacro}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Camera macro
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.cammacro}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if camera.tinhnangcamsau}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Tính năng camare sau
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.tinhnangcamsau}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if camera.quayphimcamsau}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Quay phim
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.quayphimcamsau}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i>
+                Camera selfie
+            </p>
+            {{#if camera.camtruoc}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Camera Selfie
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.camtruoc}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if camera.tinhnangcamtruoc}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Tính năng camera selfie
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.tinhnangcamtruoc}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if camera.quayphimcamtruoc}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Quay phim camera Selfie
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{camera.quayphimcamtruoc}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Giao tiếp và kết nối
+            </p>
+            {{#if giaotiepvaketnoi.baomat}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Bảo mật
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.baomat}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.sosim}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Số sim
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.sosim}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.loaisim}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Loại sim
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.loaisim}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.hotromang}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Hỗ trợ mạng
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.hotromang}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.conggiaotiep}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Cổng giao tiếp
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.conggiaotiep}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.wifi}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Wifi
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.wifi}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.gps}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    GPS
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.gps}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if giaotiepvaketnoi.ketnoikhac}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Kết nối khác
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{giaotiepvaketnoi.ketnoikhac}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin"> 
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Pin
+            </p>
+            {{#if pin.dungluongpin}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Dung lượng pin
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{pin.dungluongpin}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if pin.congnghepin}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Công nghệ pin
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{pin.congnghepin}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+        <div class="doanh_muc_thong_tin">
+            <p class="ten_thong_tin">
+                <i class="fa-solid fa-angles-right"></i> 
+                Hệ điều hành
+            </p>
+            {{#if hedieuhanh.os}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    OS
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{hedieuhanh.os}}
+                </span>
+            </div>
+            {{/if}}
+            {{#if hedieuhanh.phienban}}
+            <div class="chi_tiet">
+                <span class="chi_tiet-ten">
+                    Phiên bản
+                </span>
+                <span class="chi_tiet-thongtin">
+                    {{hedieuhanh.phienban}}
+                </span>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</body>
+<style>
+    .body{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+    }
+    .bang_thong_tin{
+        border-radius: 20px;
+        width: 100%;
+        padding:  20px;
+    }
+    .bang_thong_tin-chitiet{
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        border-bottom: 1px solid rgb(229, 229, 229);
+    }
+    .bang_thong_tin-img{
+        width: 700px;
+        padding: 20px;
+    }
+    .doanh_muc_thong_tin{
+        
+    }
+    .ten_thong_tin{
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+        margin-top: 10px;
+    }
+    .chi_tiet{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgb(229, 229, 229);
+        padding: 5px 0;
+    }
+    .chi_tiet-ten{
+        width: 30%;
+        text-align: left;
+        font-size: 13px;
+    }
+    .chi_tiet-thongtin{
+        width: auto;
+        text-align: left;
+        font-size: 13px;
+    }
+</style>

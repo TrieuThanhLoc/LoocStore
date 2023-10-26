@@ -1,0 +1,360 @@
+.nav{
+    padding: 0;
+}
+.navbar{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 3px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-chinh);
+}
+.navbar_logo{
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+.navbar_logo:hover{
+    color: white;
+    text-decoration: none;
+}
+.navbar_logo img{
+    width: 50px;
+}
+.navbar_search {
+    height: 60px;
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.navbar_search-form{
+    position: relative;
+}
+.navbar_search-form-input:focus ~ .navbar_search-form-history{
+    display: block;
+}
+.navbar_search-form-history:hover{
+    display: block;
+}
+.navbar_search-form-history{
+    width: 100%;
+    position: absolute;
+    display: none;
+    background-color: white;
+    top: 33px;
+    padding: 10px 20px;
+    z-index: 2;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.5);
+}
+.navbar_search-form-history-title{
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(109, 109, 109, 0.7);
+    margin-bottom: 5px;
+}
+.navbar_search-form-history-item:hover{
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.9;
+    cursor: pointer;
+}
+.navbar_search-form-history-item{
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0;
+}
+.navbar_search-form-btn{
+    background-color: var(--mau-phu-thu-2);
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 5px 15px;
+    position: absolute;
+    right: 0;
+}
+.navbar_search-form-btn:hover{
+    opacity: 90%;
+}
+.navbar_search-form-input{
+    width: 600px;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+.navbar_account-item-user,
+.navbar_account-item-cart{
+    text-align: center;
+    margin: 0 10px;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes navbar {
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+.navbar_account-item-user:hover .dieu_huong_taikhoan{
+    display: flex;
+}
+.navbar_account-item-name{
+    margin: 0;
+    font-size: 15px;
+    position: relative;
+}
+.so_luong_sp{
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 10px;
+    position: absolute;
+    align-items: center;
+    text-align: center;
+    top: -3px;
+    right: 13px;
+}
+.so_hien_thi{
+    font-size: 10px;
+    font-weight: 500;
+}
+
+/* Thanh dieu huong */
+.navbar_menu{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    color: white;
+    position: relative;
+}
+.navbar_menu-item{
+
+}
+.navbar_menu-item-title{
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 7px;
+    border-radius: 5px;
+}
+.navbar_menu-item-title::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    top: 22px;
+    left: 0;
+}
+.navbar_menu-item-wrap{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(240, 240, 240);
+    width: 1300px;
+    top: 25px;
+    right: 100px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(60, 60, 60, 0.7);
+    box-shadow: 3px 3px rgb(95, 95, 95);
+    z-index: 2;
+}
+.navbar_menu-item:hover .navbar_menu-item-wrap{
+    display: flex;
+}
+.navbar_menu-item:hover{
+    color: rgb(223, 223, 223);
+    background-color: rgb(60, 60, 60, 0.7);
+}
+.theo_muc{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.theo_muc-title{
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    width: 180px;
+    margin: 10px;
+    border-right: 1px solid var(--mau-phu-thu-3);
+}
+.theo_muc-item{
+    margin: 0 10px;
+    color: black;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    border: 1px solid black;
+    padding: 2px 7px;
+    border-radius: 15px;
+}
+.theo_muc-item:hover{
+    color: green;
+    text-decoration: none;
+    border: 1px solid green;
+}
+.theo_muc-item img{
+    width: 100px;
+}
+/* Tai khoan nguoi dung */
+.navbar_account-item-name{
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+}
+.navbar_account{
+    display: flex;
+    list-style: none;
+    color: white;
+}
+.anhdaidien{
+    width:  22px;
+    border-radius: 10px;
+}
+
+.sau_dang_nhap{
+
+}
+
+.dieu_huong_taikhoan{
+    flex-direction: column;
+    width: 150px;
+    background-color: var(--mau-phu-thu-1);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    padding: 10px;
+    z-index: 1;
+    display: none;
+    transform-origin: 70% top;
+    animation:  navbar ease-in 0.2s;
+}
+.dieu_huong_taikhoan::after{
+    content: '';
+    border-top: 20px solid transparent;
+    border-right: 30px solid transparent;
+    border-left: 30px solid transparent;
+    border-bottom: 20px solid var(--mau-phu-thu-1);
+    position: absolute;
+    top: -28px;
+    right: 20px;
+}
+.dieu_huong_taikhoan::before {
+    content: '';
+    width: 100px;
+    height: 10px;
+    position: absolute;
+    top: -10px;
+    right: 0;
+}
+.dieu_huong_taikhoan-ten{
+    margin:2px;
+    color: white;
+    text-decoration: none;
+}
+.dieu_huong_taikhoan-ten:hover{
+    color: rgb(232, 232, 232);
+    text-decoration: none;
+}
+
+/* Gio hang */
+.cart{
+    width: 500px;
+    height: auto;
+    background-color: var(--mau-phu-thu-1);
+    position: absolute;
+    right: 0;
+    top: 50px;
+    padding: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+    transform-origin: 97% top;
+    animation: navbar ease-in 0.4s;
+    display: none;
+}
+.cart::after {
+    content: '';
+    border-top: 20px solid transparent;
+    border-right: 30px solid transparent;
+    border-left: 30px solid transparent;
+    border-bottom: 20px solid var(--mau-phu-thu-1);
+    position: absolute;
+    top: -26px;
+    right: 1px;
+}
+.navbar_account-item-cart:hover .cart{
+    display: flex;
+    flex-direction: column;
+}
+.cart-ten{
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+.a_cart-item{
+    text-decoration: none;
+}
+.a_cart-item:hover{
+    text-decoration: none;
+}
+.cart-item{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+
+}
+.cart-item--img{
+    padding: 5px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 3px;
+    background-color: white;
+}
+.cart-item--info{
+    padding-left: 10px;
+    text-align: left;
+}
+.cart-item--info-ten{
+    margin: 0;
+    font-weight: 600;
+    color: black;
+}
+.cart-item--info-gia{
+    font-size: 12px;
+    font-weight: 500;
+    color: red;
+    margin: 0;
+}
+.cart-item--info-soluong{
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    margin: 0;
+}
+
+.dang_nhap,
+.dang_ky{
+    color: white;
+    margin: 0 5px;
+    text-decoration: none;
+}
+.dang_nhap:hover,
+.dang_ky:hover{
+    color: rgb(232, 232, 232);
+    text-decoration: none;
+}
+

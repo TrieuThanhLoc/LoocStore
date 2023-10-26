@@ -1,0 +1,178 @@
+.thanh_toan-title{
+    color: red;
+    font-size: 30px;
+    width: 700px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 700;
+    background-color: var(--mau-phu-thu-2);
+    border-radius: 10px;
+}
+.sp-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: white;
+    border: 5px solid white;
+    padding: 5px;
+    margin-right: 20px;
+}
+.sp-img img{
+    width: 100%;
+    height: 100%;
+}
+.thanh_toan-body{
+    width: 700px;
+    padding: 20px;
+    background-color: var(--mau-phu-thu-1);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border:  10px solid var(--mau-phu-thu-2);
+    border-radius: 10px;
+}
+.body-thong_tin_sp{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.sp-thong_tin{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.sp-thong_tin-ten{
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-left: 10px;
+}
+.thong_tin-chung{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.thong_tin-thuoc_tinh{
+    display: flex;
+    flex-direction: row;
+}
+.thuoc_tinh-mau{
+    text-align: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+}
+.chon_mau{
+    width: 80px;
+    height: 40px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid var(--mau-phu-thu-3);
+}
+.thuoc_tinh-mau p{
+    margin: 0;
+    margin: 0 10px;
+    font-size: 18px;
+    font-weight: 700;
+} 
+.thuoc_tinh-so_luong{
+    text-align: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+}
+.thuoc_tinh-so_luong p{
+    margin: 0;
+    margin: 0 10px;
+}
+.sp_gia{
+    font-size: 18px;
+    font-weight: 600;
+    color: red;
+    margin-right: 50px;
+}
+
+/* Khuyến mãi */
+.body-thong_tin-km{
+    display: flex;
+    flex-direction: column ;
+    margin-top: 20px;
+    width: 100%;
+}
+.km-title,
+.kh-title{
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+.km-item{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Thong tin khach hang */
+.body-thong_tin_kh{
+    margin-top: 20px;
+}
+.chon_gioi_tinh{
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-between;
+}
+.chon_dia_chi{
+    margin-top: 20px;
+    border: 1px solid var(--mau-phu-thu-3);
+    padding: 10px;
+    border-radius: 10px;
+}
+.chon_dia_chi-title{
+    font-size:18px;
+    font-weight: 600;
+}
+.chon_dia_chi-btn{
+    text-align: center;
+}
+.body-tong_tien{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+    font-weight: 700;
+}
+.body-tong_tien-title{
+    width: 300px;
+}
+.body-tong_tien-thanh_tien{
+    width: 100%;
+    text-align: right;
+}
+.body-phuong_thuc_thanh_toan{
+    margin-top: 20px;
+    background-color: rgb(165, 0, 102);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px 5px 20px 20px;
+}
+.momo_popup{
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+.momo-img{
+    width: 300px;
+    margin-top: 20px;
+}
+.momo-note{
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}

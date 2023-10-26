@@ -1,0 +1,146 @@
+<div class="quan_ly_mot_don_hang">
+    <p class="quan_ly_mot_don_hang-title">
+        Đơn hàng
+    </p>
+    {{#each sanphams}}
+    <div class="quan_ly_mot_don_hang-sanpham">
+        <img src="../../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="anh san pham" class="quan_ly_mot_don_hang-sanpham--img">
+        <div class="quan_ly_san_pham-sanpham-info">
+            <p class="quan_ly_mot_don_hang-sanpham--tensanpham">
+                {{this.tensp}}
+            </p>
+            <div class="quan_ly_mot_don_hang-sanpham--mausac">
+                <span class="quan_ly_mot_don_hang-sanpham-title">Màu sắc: </span>
+                <span class="quan_ly_mot_don_hang-sanpham-content"> {{this.mausacdat}}</span>
+            </div>
+            <div class="quan_ly_mot_don_hang-sanpham--soluong">
+                <span class="quan_ly_mot_don_hang-sanpham-title">Số lượng: </span>
+                <span class="quan_ly_mot_don_hang-sanpham-content"> {{this.soluongdat}}</span>
+            </div>
+            <div class="quan_ly_mot_don_hang-sanpham--soluong">
+                <span class="quan_ly_mot_don_hang-sanpham-title">Đơn giá: </span>
+                <span class="quan_ly_mot_don_hang-sanpham-content"><span class="gia_format" style="color: red;"> {{this.giaban}}</span> VND</span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="quan_ly_mot_don_hang-khachhang">
+        <p class="quan_ly_mot_don_hang-khachhang-ỉtem">
+            <span class="quan_ly_mot_don_hang-khachhang-item-title">
+                Tên khách hàng:
+            </span>
+            <span class="quan_ly_mot_don_hang-khachhang-item-content">
+                {{donhang.tenkh}}
+            </span>
+        </p>
+        <p class="quan_ly_mot_don_hang-khachhang-ỉtem">
+            <span class="quan_ly_mot_don_hang-khachhang-item-title">
+                Số điện thoại:
+            </span>
+            <span class="quan_ly_mot_don_hang-khachhang-item-content">
+                {{donhang.sodtkh}}
+            </span>
+        </p>
+        <p class="quan_ly_mot_don_hang-khachhang-ỉtem">
+            <span class="quan_ly_mot_don_hang-khachhang-item-title">
+                Địa chỉ giao hàng: 
+            </span>
+            <span class="quan_ly_mot_don_hang-khachhang-item-content">
+                {{donhang.diachigiaohang}}
+            </span>
+        </p>
+    </div>
+    <div class="quan_ly_mot_don_hang-trangthai">
+        {{!-- <div class="trangthai-timeline">
+            <div class="timeline-item">
+                <div class="timeline-item-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="timeline-item-line"></div>
+            </div>
+        </div> --}}
+       
+        <div class="quan_ly_mot_don_hang-trangthai-content">
+            {{#if nhatkydonhang.ngaytiepnhan}}
+            <div class="quan_ly_mot_don_hang-trangthai--item">
+                <span class="trangthai--item-title">
+                    Đã tiếp nhận
+                </span>
+                <p class="trangthai--item-message">
+                    <span class="trangthai--item-message-time">{{nhatkydonhang.ngaytiepnhan}}</span> Đơn hàng được tiếp nhận !
+                </p>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngayvanchuyen}}
+            <div class="quan_ly_mot_don_hang-trangthai--item">
+                <span class="trangthai--item-title">
+                    Đang vận chuyển
+                </span>
+                <p class="trangthai--item-message">
+                    <span class="trangthai--item-message-time">{{nhatkydonhang.ngayvanchuyen}}</span> Đơn hàng đang trên đường vận chuyển !
+                </p>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngaygiaohang}}
+            <div class="quan_ly_mot_don_hang-trangthai--item">
+                <span class="trangthai--item-title">
+                    Đang giao
+                </span>
+                <p class="trangthai--item-message">
+                    <span class="trangthai--item-message-time">{{nhatkydonhang.ngaygiaohang}}</span> Đơn hàng đang trên đường giao tới khách
+                    hàng !
+                </p>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngayhoanthanh}}
+            <div class="quan_ly_mot_don_hang-trangthai--item">
+                <span class="trangthai--item-title">
+                    Hoàn thành
+                </span>
+                <p class="trangthai--item-message">
+                    <span class="trangthai--item-message-time">{{nhatkydonhang.ngayhoanthanh}}</span> Đơn hàng đã được giao hàng thành công !
+                </p>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngayhuyhang}}
+            <div class="quan_ly_mot_don_hang-trangthai--item">
+                <span class="trangthai--item-title">
+                    Huỷ đơn
+                </span>
+                <p class="trangthai--item-message">
+                    <span class="trangthai--item-message-time">{{nhatkydonhang.ngayhuyhang}}</span> Đơn hàng đã được huỷ !
+                </p>
+            </div>
+            {{/if}}
+            {{#if nhatkydonhang.ngaygiaohangkhongthanhcong}}
+            <div class="quan_ly_mot_don_hang-trangthai--item">
+                <span class="trangthai--item-title">
+                    Thất bại
+                </span>
+                <p class="trangthai--item-message">
+                    <span class="trangthai--item-message-time">{{nhatkydonhang.ngaygiaohangkhongthanhcong}}</span> Đơn hàng chưa được giao !
+                </p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="quan_ly_mot_don_hang-thanhtien">
+        <span class="quan_ly_mot_don_hang-thanhtien-title">
+            Tổng tiền khách cần thanh toán:
+        </span>
+        <span class="quan_ly_mot_don_hang-thanhtien-gia">
+            <span class="gia_format" style="color: red;"> {{donhang.tienthanhtoan}}</span> VND
+        </span>
+    </div>
+    <div class="quan_ly_mot_don_hang-btn">
+        {{#if donhang.yeucauhuydon}}
+        <form method="POST" action="/quanly/donhang/capnhattrangthai/{{donhang._id}}">
+            <input type="text" name="trangthai" value="da_huy" hidden>
+            <button type="submit" class="btn btn-danger">Khách yêu cầu huỷ đơn</button>
+        </form>
+        {{/if}}
+        {{!-- <a href="/quanly/donhang/xoadon/{{donhang._id}}">
+            <button type="button" class="btn btn-danger">Xoá đơn</button>
+        </a> --}}
+    </div>
+</div>

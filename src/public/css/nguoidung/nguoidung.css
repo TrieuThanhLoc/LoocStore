@@ -1,0 +1,115 @@
+.don_hang{
+    width: 80%;
+    margin: auto;
+}
+#don_hang_search{
+    width: 100%;
+    height: 32px;
+    margin-top: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+    padding: 0 34px;
+
+}
+.don_hang-search{
+    position: relative;
+}
+.don_hang-search i{
+    position: absolute;
+    left: 0;
+    top: 8px;
+    padding: 10px;
+}
+.nguoi_dung-tab_xem_don_theo_trang_thai{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: var(--mau-phu-thu-1);
+    margin-top: 10px;
+    box-shadow: 3px 3px silver;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+}
+.tab_xem_don_theo_trang_thai-item{
+    width: 20%;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+}
+.don_hang-item{
+    padding: 20px 40px;
+    background-color: antiquewhite;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.don_hang-item--trangthai{
+    text-align: right;
+    font-weight: 600;
+    align-items: center;
+}
+.don_hang-item--trangthai-message{
+    color: green;
+    font-style: 15px;
+    padding: 10px;
+}
+.don_hang-item--trangthai-ten{
+    font-size: 20px;
+    font-weight: 700;
+    color: greenyellow;
+
+}
+.don_hang-item--sanpham--img{
+    width: 200px;
+    height: 200px;
+    border: 5px solid white;
+    border-radius: 5px;
+}
+.don_hang-item--sanpham{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.don_hang-item--sanpham-thongso{
+    margin-left: 10px;
+    padding: 10px 5px;
+}
+.don_hang-item--sanpham-thongso-ten{
+    font-size: 30px;
+    font-weight: 700;
+}
+.don_hang-item--sanpham-thongso-mausac,
+.don_hang-item--sanpham-thongso-soluong{
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 3px 7px;
+    border-radius: 5px;
+}
+.don_hang-item--sanpham-thongso-gia{
+    margin-top: 10px;
+    color: red;
+    font-size: 18px;
+    font-weight: 700;
+}
+.don_hang-item--thanhtien{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+    padding-right: 20px;
+}
+.don_hang-item--thanhtien-gia{
+    font-size: 30px;
+    font-weight: 600;
+    color: red;
+}
+.don_hang-item--btn{
+    margin-top: 30px;
+    padding-right: 70px;
+    text-align: right;
+}
+.van_chuyen, .dang_giao, .hoan_thanh, .da_huy, .tat_ca{
+    background-color: rgb(102, 102, 199);
+}

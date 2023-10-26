@@ -1,0 +1,31 @@
+.quan_ly{
+    /* background-color: rgb(255, 255, 255); */
+    width: 50%;
+    height: 300px;
+    text-align: center;
+    margin: auto;
+}
+.quan_ly-header{
+    color: rgb(191, 131, 131);
+}
+.quan_ly-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.quan_ly-btn{
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+}
+.quan_ly-link{
+    color: white;
+    text-decoration: none;
+}
+.quan_ly-link:hover{
+    text-decoration: none;
+    color: rgb(204, 204, 204);
+}
+.quan_ly_san_pham-header{
+    color: aqua;
+}

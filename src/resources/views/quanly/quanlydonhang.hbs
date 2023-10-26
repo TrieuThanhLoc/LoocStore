@@ -1,0 +1,103 @@
+<p class="quan_ly_don_hang-title">
+    Quản lý đơn hàng
+</p>
+<div class="quan_ly_don_hang">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" class="quan_ly_don_hang-stt">STT</th>
+                <th scope="col" class="quan_ly_don_hang-tenkh">Tên khách hàng</th>
+                <th scope="col" class="quan_ly_don_hang-sodt">Số ĐT</th>
+                <th scope="col" class="quan_ly_don_hang-diachi">Địa chỉ</th>
+                <th scope="col" class="quan_ly_don_hang-ngaydat">Ngày đặt</th>
+                <th scope="col" class="quan_ly_don_hang-trangthai">Trạng thái</th>
+                <th scope="col" class=" "></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each donhangs}}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{this.tenkh}}</td>
+                <td>{{this.sodtkh}}</td>
+                <td>{{this.dichigiaohang}}</td>
+                <td>{{this.ngaydathang}}</td>
+                <td class="quan_ly_don_hang-tinhtrang">
+                    {{this.trangthai}}
+                    <span class="cap_nhat_trang_thao">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </span>
+                    {{!-- Modal cặp nhặt trạng thái đơn hàng --}}
+                    <div class="cap_nhat_trang_thao-modal d-none">
+                        <form class="form_cap_nhat_trang_thao-modal" method="post" action="/quanly/donhang/capnhattrangthai/{{this._id}}" >
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trangthai" id="vanchuyen" value="van_chuyen">
+                                <label class="form-check-label" for="vanchuyen">
+                                    Vận chuyển
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trangthai" id="danggiaohang" value="dang_giao">
+                                <label class="form-check-label" for="danggiaohang">
+                                    Đang giao hàng
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trangthai" id="hoanthanh" value="hoan_thanh">
+                                <label class="form-check-label" for="hoanthanh">
+                                    Hoàn thành
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="dahuy" name="trangthai" value="da_huy">
+                                <label class="form-check-label" for="dahuy">
+                                    Đã huỷ
+                                </label>
+                            </div>
+                            <div class="cap_nhat_trang_thao-modal--cap_nhat">
+                                <button type="submi" class="btn btn-primary" id="btn_gui_cap_nhat_trang_thai">Cặp nhặt</button>
+                            </div>
+                        </form>
+                        <span class="cap_nhat_trang_thao-modal--tat">
+                            <button type="button" class="btn btn-light ml-2 px-2 py-0">x</button>
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <a href="/quanly/donhang/quanlymotdonhang/{{this._id}}">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </a>
+                    <a href="/quanly/donhang/xoadon/{{this._id}}">
+                        <button type="button" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var form_cao_nhat_trang_thai = $('.form_cap_nhat_trang_thao-modal');
+        var modal_tat_trang_thai = $('.cap_nhat_trang_thao-modal--tat');
+        var btn_cap_nhat_trang_thai = $('.cap_nhat_trang_thao');
+        var btn_gui_cap_nhat_trang_thai = $('#btn_gui_cap_nhat_trang_thai');
+        var modal_cap_nhat_trang_thai = $('.cap_nhat_trang_thao-modal');
+
+        btn_cap_nhat_trang_thai.click(function(){
+           $(this.nextElementSibling).removeClass('d-none')
+        })
+        modal_tat_trang_thai.click(function(){
+            modal_cap_nhat_trang_thai.addClass('d-none')
+       })
+       btn_gui_cap_nhat_trang_thai.click(function(){
+            modal_cap_nhat_trang_thai.addClass('d-none')
+       })
+
+
+    })
+</script>

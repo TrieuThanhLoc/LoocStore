@@ -1,0 +1,338 @@
+<div class="don_hang">
+    <div class="nguoi_dung-tab_xem_don_theo_trang_thai">
+        <p class="tab_xem_don_theo_trang_thai-item tat_ca"  id="tat_ca_btn">
+            Tất cả 
+        </p>
+        <p class="tab_xem_don_theo_trang_thai-item " id="da_tiep_nhan_btn">
+            Đã Tiếp Nhận
+        </p>
+        <p class="tab_xem_don_theo_trang_thai-item " id="van_chuyen_btn">
+            Vận chuyển
+        </p>
+        <p class="tab_xem_don_theo_trang_thai-item " id="dang_giao_btn">
+            Đang giao
+        </p>
+        <p class="tab_xem_don_theo_trang_thai-item " id="hoan_thanh_btn">
+            Hoàn thành
+        </p>
+        <p class="tab_xem_don_theo_trang_thai-item " id="da_huy_btn">
+            Đã huỷ
+        </p>
+    </div>
+    <form class="don_hang-search" action="donhang/timkiemdonhang" method="post">
+        <input type="text" placeholder=" Bạn cần tìm đơn hàng nào..." id="don_hang_search" name="tukhoatimdonhang">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </form>
+    {{#each donhangs}}
+    {{#if this.da_tiep_nhan}}
+    <div class="don_hang-item tiep_nhan_sanpham" id="tiep_nhan_sanpham">
+        <div class="don_hang-item--trangthai">
+            <span class="don_hang-item--trangthai-message">Đơn hàng của bạn đã được shop tiếp nhận !</span>
+            <span class="don_hang-item--trangthai-ten">Đã tiếp nhận</span>
+        </div>
+        {{#each this.sanphams}}
+        <div class="don_hang-item--sanpham">
+            <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="don_hang-item--sanpham--img">
+            <div class="don_hang-item--sanpham-thongso">
+                <p class="don_hang-item--sanpham-thongso-ten">
+                    {{this.tensp}}
+                </p>
+                <p class="don_hang-item--sanpham-thongso-mausac">
+                    Màu sắc: <span>{{this.mausacdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-soluong">
+                    Số lượng: <span>{{this.soluongdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-gia">
+                    Giá bán: <span class="gia_format">{{this.giaban}}</span> VND
+                </p>
+            </div>
+        </div>
+        {{/each}}
+        <div class="don_hang-item--thanhtien">
+            Thành tiền: 
+            <span class="don_hang-item--thanhtien-gia">
+                <span class="gia_format">{{this.tienthanhtoan}}</span> VND
+            </span>
+        </div>
+        <div class="don_hang-item--btn">
+            <a href="/nguoidung/chitietdonhang/{{this._id}}">
+                <button type="button" class="btn btn-success px-5">Xem chi tiết</button>
+            </a>
+            {{#if this.yeucauhuydon}}
+                <button type="button" class="btn btn-secondary" disabled>Đã yêu cầu huỷ đơn</button>
+            {{else}}
+            <a href="/nguoidung/yeucauhuydon/{{this._id}}">
+                <button type="button" class="btn btn-danger px-5">Yêu cầu huỷ</button>
+            </a>
+           {{/if}}
+        </div>
+    </div>
+    {{/if}}
+    {{#if this.van_chuyen}}
+    <div class="don_hang-item van_chuyen_sanpham" id="van_chuyen_sanpham">
+        <div class="don_hang-item--trangthai">
+            <span class="don_hang-item--trangthai-message">Đơn hàng đang trên đường vần chuyển !</span>
+            <span class="don_hang-item--trangthai-ten">Vận chuyển</span>
+        </div>
+        {{#each this.sanphams}}
+        <div class="don_hang-item--sanpham">
+            <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt=""
+                class="don_hang-item--sanpham--img">
+            <div class="don_hang-item--sanpham-thongso">
+                <p class="don_hang-item--sanpham-thongso-ten">
+                    {{this.tensp}}
+                </p>
+                <p class="don_hang-item--sanpham-thongso-mausac">
+                    Màu sắc: <span>{{this.mausacdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-soluong">
+                    Số lượng: <span>{{this.soluongdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-gia">
+                    Giá bán: <span class="gia_format">{{this.giaban}}</span> VND
+                </p>
+            </div>
+        </div>
+        {{/each}}
+        <div class="don_hang-item--thanhtien">
+            Thành tiền: 
+            <span class="don_hang-item--thanhtien-gia">
+                <span class="gia_format">{{this.tienthanhtoan}}</span> VND
+            </span>
+        </div>
+        <div class="don_hang-item--btn">
+            <a href="/nguoidung/chitietdonhang/{{this._id}}">
+                <button type="button" class="btn btn-success px-5">Xem chi tiết</button>
+            </a>
+        </div>
+    </div>
+    {{/if}}
+    {{#if this.dang_giao}}
+    <div class="don_hang-item dang_giao_sanpham" id="dang_giao_sanpham">
+        <div class="don_hang-item--trangthai">
+            <span class="don_hang-item--trangthai-message">Đơn hàng đang trên đường giao đến bạn !</span>
+            <span class="don_hang-item--trangthai-ten">Đang giao hàng</span>
+        </div>
+        {{#each this.sanphams}}
+        <div class="don_hang-item--sanpham">
+            <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt=""
+                class="don_hang-item--sanpham--img">
+            <div class="don_hang-item--sanpham-thongso">
+                <p class="don_hang-item--sanpham-thongso-ten">
+                    {{this.tensp}}
+                </p>
+                <p class="don_hang-item--sanpham-thongso-mausac">
+                    Màu sắc: <span>{{this.mausacdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-soluong">
+                    Số lượng: <span>{{this.soluongdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-gia">
+                    Giá bán: <span class="gia_format">{{this.giaban}}</span> VND
+                </p>
+            </div>
+        </div>
+        {{/each}}
+        <div class="don_hang-item--thanhtien">
+            Thành tiền: 
+            <span class="don_hang-item--thanhtien-gia">
+                <span class="gia_format">{{this.tienthanhtoan}}</span> VND
+            </span>
+        </div>
+        <div class="don_hang-item--btn ">
+            <a href="/nguoidung/chitietdonhang/{{this._id}}">
+                <button type="button" class="btn btn-success px-5">Xem chi tiết</button>
+            </a>
+        </div>
+    </div>
+    {{/if}}
+    {{#if this.hoan_thanh}}
+    <div class="don_hang-item hoan_thanh_sanpham" id="hoan_thanh_sanpham">
+        <div class="don_hang-item--trangthai">
+            <span class="don_hang-item--trangthai-message">Đơn hàng đã được giao thành công !</span>
+            <span class="don_hang-item--trangthai-ten">Hoàn thành</span>
+        </div>
+        {{#each this.sanphams}}
+        <div class="don_hang-item--sanpham">
+            <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt=""
+                class="don_hang-item--sanpham--img">
+            <div class="don_hang-item--sanpham-thongso">
+                <p class="don_hang-item--sanpham-thongso-ten">
+                    {{this.tensp}}
+                </p>
+                <p class="don_hang-item--sanpham-thongso-mausac">
+                    Màu sắc: <span>{{this.mausacdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-soluong">
+                    Số lượng: <span>{{this.soluongdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-gia">
+                    Giá bán: <span class="gia_format">{{this.giaban}}</span> VND
+                </p>
+            </div>
+        </div>
+        {{/each}} 
+        <div class="don_hang-item--thanhtien">
+            Thành tiền: 
+            <span class="don_hang-item--thanhtien-gia">
+                <span class="gia_format">{{this.tienthanhtoan}}</span> VND
+            </span>
+        </div>
+        <div class="don_hang-item--btn ">
+            <a href="/danhgia">
+                <button type="button" class="btn btn-warning px-5">Đánh giá</button>
+            </a>
+            <a href="/">
+                <button type="button" class="btn btn-secondary px-5">Mua lại</button>
+            </a>
+        </div>
+    </div>
+    {{/if}}
+    {{#if this.da_huy}}
+    <div class="don_hang-item da_huy_sanpham" id="da_huy_sanpham">
+        <div class="don_hang-item--trangthai">
+            <span class="don_hang-item--trangthai-message">Đơn hàng đã được huỷ !</span>
+            <span class="don_hang-item--trangthai-ten">Đã huỷ</span>
+        </div>
+        {{#each this.sanphams}}
+        <div class="don_hang-item--sanpham">
+            <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt=""
+                class="don_hang-item--sanpham--img">
+            <div class="don_hang-item--sanpham-thongso">
+                <p class="don_hang-item--sanpham-thongso-ten">
+                    {{this.tensp}}
+                </p>
+                <p class="don_hang-item--sanpham-thongso-mausac">
+                    Màu sắc: <span>{{this.mausacdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-soluong">
+                    Số lượng: <span>{{this.soluongdat}}</span>
+                </p>
+                <p class="don_hang-item--sanpham-thongso-gia">
+                    Giá bán: <span class="gia_format">{{this.giaban}}</span> VND
+                </p>
+            </div>
+        </div>
+        {{/each}}
+        <div class="don_hang-item--thanhtien">
+            Thành tiền: 
+            <span class="don_hang-item--thanhtien-gia">
+                <span class="gia_format">{{this.tienthanhtoan}}</span> VND
+            </span>
+        </div>
+        <div class="don_hang-item--btn">
+            <a href="/">
+                <button type="button" class="btn btn-secondary px-5">Mua lại</button>
+            </a>
+           
+        </div>
+    </div>
+    {{/if}}
+    {{/each}}
+</div>
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function(){
+        //button thanh trang thai
+        var tat_ca_btn = $('#tat_ca_btn');
+        var da_tiep_nhan_btn = $('#da_tiep_nhan_btn');
+        var van_chuyen_btn = $('#van_chuyen_btn');
+        var dang_giao_btn = $('#dang_giao_btn');
+        var hoan_thanh_btn = $('#hoan_thanh_btn');
+        var da_huy_btn = $('#da_huy_btn');
+
+        //The hien thi san pham
+          var tat_ca_sanpham = $('.tat_ca_sanpham');
+          var da_tiep_nhan_sanpham = $('.tiep_nhan_sanpham');
+          var van_chuyen_sanpham = $('.van_chuyen_sanpham');
+          var dang_giao_sanpham = $('.dang_giao_sanpham');
+          var hoan_thanh_sanpham = $('.hoan_thanh_sanpham');
+          var da_huy_sanpham = $('.da_huy_sanpham');
+    
+        tat_ca_btn.click(function () {
+            da_tiep_nhan_sanpham.removeClass('d-none')
+            van_chuyen_sanpham.removeClass('d-none')
+            dang_giao_sanpham.removeClass('d-none')
+            hoan_thanh_sanpham.removeClass('d-none')
+            da_huy_sanpham.removeClass('d-none')
+
+            tat_ca_btn.addClass('tat_ca')
+            da_tiep_nhan_btn.removeClass('tat_ca')
+            van_chuyen_btn.removeClass('van_chuyen')
+            dang_giao_btn.removeClass('dang_giao')
+            hoan_thanh_btn.removeClass('hoan_thanh')
+            da_huy_btn.removeClass('da_huy')
+        })
+        da_tiep_nhan_btn.click(function () {
+            van_chuyen_sanpham.addClass('d-none')
+            da_tiep_nhan_sanpham.removeClass('d-none')
+            dang_giao_sanpham.addClass('d-none')
+            hoan_thanh_sanpham.addClass('d-none')
+            da_huy_sanpham.addClass('d-none')
+
+            tat_ca_btn.removeClass('tat_ca')
+            da_tiep_nhan_btn.addClass('tat_ca')
+            van_chuyen_btn.removeClass('van_chuyen')
+            dang_giao_btn.removeClass('dang_giao')
+            hoan_thanh_btn.removeClass('hoan_thanh')
+            da_huy_btn.removeClass('da_huy')
+        })
+       van_chuyen_btn.click(function(){
+            da_tiep_nhan_sanpham.addClass('d-none')
+            van_chuyen_sanpham.removeClass('d-none')
+            dang_giao_sanpham.addClass('d-none')
+            hoan_thanh_sanpham.addClass('d-none')
+            da_huy_sanpham.addClass('d-none')
+
+            tat_ca_btn.removeClass('tat_ca')
+            da_tiep_nhan_btn.removeClass('tat_ca')
+            van_chuyen_btn.addClass('van_chuyen')
+            dang_giao_btn.removeClass('dang_giao')
+            hoan_thanh_btn.removeClass('hoan_thanh')
+            da_huy_btn.removeClass('da_huy')
+        })
+        dang_giao_btn.click(function () {
+            da_tiep_nhan_sanpham.addClass('d-none')
+            van_chuyen_sanpham.addClass('d-none')
+            dang_giao_sanpham.removeClass('d-none')
+            hoan_thanh_sanpham.addClass('d-none')
+            da_huy_sanpham.addClass('d-none')
+
+            tat_ca_btn.removeClass('tat_ca')
+            da_tiep_nhan_btn.removeClass('tat_ca')
+            van_chuyen_btn.removeClass('van_chuyen')
+            dang_giao_btn.addClass('dang_giao')
+            hoan_thanh_btn.removeClass('hoan_thanh')
+            da_huy_btn.removeClass('da_huy')
+        })
+        hoan_thanh_btn.click(function () {
+            da_tiep_nhan_sanpham.addClass('d-none')
+            van_chuyen_sanpham.addClass('d-none')
+            dang_giao_sanpham.addClass('d-none')
+            hoan_thanh_sanpham.removeClass('d-none')
+            da_huy_sanpham.addClass('d-none')
+
+            tat_ca_btn.removeClass('tat_ca')
+            da_tiep_nhan_btn.removeClass('tat_ca')
+            van_chuyen_btn.removeClass('van_chuyen')
+            dang_giao_btn.removeClass('dang_giao')
+            hoan_thanh_btn.addClass('hoan_thanh')
+            da_huy_btn.removeClass('da_huy')
+        })
+        da_huy_btn.click(function () {
+            da_tiep_nhan_sanpham.addClass('d-none')
+            van_chuyen_sanpham.addClass('d-none')
+            dang_giao_sanpham.addClass('d-none')
+            hoan_thanh_sanpham.addClass('d-none')
+            da_huy_sanpham.removeClass('d-none')
+
+            tat_ca_btn.removeClass('tat_ca')
+            da_tiep_nhan_btn.removeClass('tat_ca')
+            van_chuyen_btn.removeClass('van_chuyen')
+            dang_giao_btn.removeClass('dang_giao')
+            hoan_thanh_btn.removeClass('hoan_thanh')
+            da_huy_btn.addClass('da_huy')
+        })
+    })
+</script>

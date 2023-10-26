@@ -1,0 +1,183 @@
+.chi_tiet_don_hang{
+    width: 60%;
+    margin: 10px auto;
+    background-color: var(--mau-phu-thu-1);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    padding: 10px;
+}
+.chi_tiet_don_hang-timeline{
+    position: relative;
+}
+.chi_tiet_don_hang-timeline-header{
+    display: flex;
+    justify-content: space-between;
+}
+.chi_tiet_don_hang-timeline-madh{
+    font-size: 15px;
+    font-weight: 500;
+    margin-right: 30px;
+    color: rgb(183, 83, 0);
+}
+.chi_tiet_don_hang-timeline-thanh_timeline{
+    padding: 20px 2%;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.timeline-giaohang-item{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    z-index: 1;
+}
+.timeline-giaohang-item-icon{
+    width: 40px;
+    height: 40px;
+    border: 5px solid rgb(96, 96, 96);
+    color: rgb(96, 96, 96);
+    border-radius: 30px;
+    padding: 2px;
+    margin-bottom: 10px;
+    background-color: var(--mau-phu-thu-1);
+}
+.icon_checked{
+    border-color: green;
+    color: green;
+}
+.timeline-item-text{
+    font-size: 15px;
+    font-weight: 500;
+}
+.timeline-item-data{
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(0, 0, 0, 0.7);
+}
+.chi_tiet_don_hang-timeline-thanh_timeline-range{
+    content: '';
+    width: 25%;
+    height: 5px;
+    padding: 0 50px;
+    background-color: green;
+    position: absolute;
+    left: 13%;
+    top: 44%;
+    z-index: 0;
+}
+.chi_tiet_don_hang-timeline-thanh_timeline::after{
+    content: '';
+    width: 75%;
+    height: 5px;
+    padding: 0 50px;
+    background-color: rgb(96, 96, 96);
+    position: absolute;
+    left: 13%;
+    top: 44%;
+    z-index: 0;
+}
+.danh_gia{
+    text-align: right;
+    padding: 10px 10%;
+}
+
+/* Thong tinh khach hang */
+.chi_tiet_don_hang-thong_tin{
+    padding: 20px;
+    display: flex;
+    border-top: 1px dashed orange;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.thong_tin-khach_hang{
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+}
+.thong_tin-khach_hang-text{
+    font-size: 20px;
+    font-weight: 600;
+}
+.thong_tin-khach_hang p{
+    margin: 0;
+}
+.thong_tin-nhat_ky_giao_hang{
+    flex: 2;
+    margin-left: 20px;
+}
+.thong_tin-nhat_ky_giao_hang-item{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.thong_tin-nhat_ky_giao_hang-item-text{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.thong_tin-nhat_ky_giao_hang-item-title{
+    font-weight: 500;
+}
+.thong_tin-nhat_ky_giao_hang-item:first-child .thong_tin-nhat_ky_giao_hang-item-text{
+    color: green;
+    margin-top: 30px;
+}
+.thong_tin-nhat_ky_giao_hang-item:first-child .thong_tin-nhat_ky_giao_hang-item-time {
+    color: blue;
+    margin-top: 30px;
+}.chi_tiet_don_hang-san_pham{
+    margin: 10px;
+    
+}
+.chi_tiet_don_hang-san_pham-item{
+    display: flex;
+    border-top: 1px solid var(--mau-phu-thu-3);
+    padding: 20px;
+}
+.chi_tiet_don_hang-san_pham-item-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    margin-right: 10px;
+}
+.chi_tiet_don_hang-san_pham-info{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.chi_tiet_don_hang-san_pham-info-tensp{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.chi_tiet_don_hang-san_pham-info-dongia{
+    font-size: 18px;
+    font-weight: 600;
+    color: red;
+    margin-top: 40px;
+}
+
+
+/* Thành tiền */
+.chi_tiet_don_hang-tien{
+    padding: 10px 40px;
+    width: 600px;
+    margin: auto;
+    font-size: 15px;
+    font-weight: 600;
+}
+.chi_tiet_don_hang-tien-item{
+    display: flex;
+    justify-content: space-between;
+}
+.chi_tiet_don_hang-tien-item:last-child .chi_tiet_don_hang-tien-item-data{
+    font-size: 20px;
+    color: red;
+}

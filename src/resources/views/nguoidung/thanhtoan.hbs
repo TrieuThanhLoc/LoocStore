@@ -1,0 +1,205 @@
+<p class="thanh_toan-title">
+    Thanh Toán
+</p>
+<form class="thanh_toan-body" method="POST" action="../thanhtoan/dathang">
+    {{#each giohangthanhtoan.giohang}}
+    <div class="body-thong_tin_sp">
+        <div class="sp-img">
+            <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" >
+        </div>
+        <div class="sp-thong_tin">
+            <p class="sp-thong_tin-ten">
+                {{this.tensp}}
+                <input type="text" name="masp[]" value="{{this.masp}}" hidden>
+                <input type="text" name="tensp[]" value="{{this.tensp}}" hidden>
+            </p>
+            <div class="thong_tin-chung">
+                <div class="thong_tin-thuoc_tinh">
+                    <div class="thuoc_tinh-mau">
+                        <p>Mau sắc</p>
+                        <p>{{this.mausac}}</p>
+                        <input type="text" name="mausac[]" value="{{this.mausac}}" hidden>
+                    </div>
+                    <div class="thuoc_tinh-so_luong">
+                        <p>Số lượng</p>
+                        <p >{{this.soluongsp}}</p>
+                        <input type="text" name="soluongsp[]" value="{{this.soluongsp}}" hidden>
+                    </div>
+                    
+                </div>
+                <div class="">
+                    <div class="sp_gia " id="sp_gia">
+                    <span class="gia_format">{{this.tongtamtinhspnay}}</span> VND
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>    
+    {{/each}}
+    {{!-- <div class="body-thong_tin-km">
+        <p class="km-title">
+            Khuyến mãi
+        </p>
+        <div class="km-item">
+            <i class="fa-regular fa-circle-check" style="color: #ff0000;"></i>
+             Khuyen mai 
+        </div>
+       
+    </div> --}}
+    <div class="body-thong_tin_kh">
+        <p class="kh-title">
+            Thông tin người đặt hàng
+        </p>
+        <div class="chon_gioi_tinh">
+            <p>Chọn giới tính: </p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gioitinh" id="nam" value="nam">
+                <label class="form-check-label" for="nam">
+                    Nam
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gioitinh" id="nu"  value="nu">
+                <label class="form-check-label" for="nu">
+                    Nữ
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Số điện thoại" value="{{thongtintaikhoan.sodtnv}}{{thongtintaikhoan.sodtkh}}" name="sodtkh" id="sodtkh">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Họ và tên" value="{{thongtintaikhoan.tennv}}{{thongtintaikhoan.tenkh}}" name="tenkh" id="tenkh" onchange="TaoMaDonTuDong()">
+            </div>
+            {{!-- <input type="text" id="madh" name="madh" hidden> --}}
+            <input type="text" id="makh" name="makh" value="{{thongtintaikhoan.makh}}{{thongtintaikhoan.manv}}" hidden>
+        </div>
+       <div class="chon_dia_chi">
+            <p class="chon_dia_chi-title">
+                Chọn địa chỉ giao hàng
+            </p>
+            {{#each diachikhachhangs}}
+            <div class="chon_dia_chi-item">
+                <input 
+                    type="radio" 
+                    class="chon_dia_chi-item-diachi" 
+                    id="diachi" name="diachigiaohang" 
+                    value=" {{this.diachicuthe}}, {{this.phuongxa}}, {{this.quanhuyen}}, {{this.tinhtp}}">
+                </input>
+                <label for="diachi"> {{this.diachicuthe}}, {{this.phuongxa}}, {{this.quanhuyen}}, {{this.tinhtp}}</label>
+            </div>
+            {{/each}}
+            <div class="chon_dia_chi-btn">
+                <button type="button" class="btn btn-light" id="btn_them_dia_chi" data-bs-target="#modal_them_dia_chi" data-bs-toggle="modal">
+                    <i class="fa-solid fa-plus"></i>
+                    Thêm địa chỉ mới
+                </button>
+            </div>
+       </div>
+    </div>
+    <div class="body-phuong_thuc_thanh_toan">
+        <select class="form-select" aria-label="Default select example" name="phuongthucthanhtoan" onclick="showmomo()">
+            <option >Phương thức thanh toán</option>
+            <option value="cod" >Thanh toán khi nhận hàng</option>
+            <option value="momo" id="momo" >Chuyển khoản momo</option>
+        </select>
+        <div class="momo_popup" id="momo_popup">
+            <img src="../images/momo.jpg" alt="" class="momo-img">
+            <p class="momo-note">Chuyển khoản với nội dung: Số điện thoại + Họ tên khách hàng !</p>
+        </div>
+    </div>
+    <div class="body-tong_tien">
+        <div class="body-tong_tien-title">
+            <p class="title-item">Tổng tiền:</p>
+            <p class="title-item">GIảm giá khuyến mãi:</p>
+            <p class="title-item">Cần thanh toán:</p>
+        </div>
+        <div class="body-tong_tien-thanh_tien">
+            <p class="thanh_tien-item" >
+                <span id="tongtien">
+                    <span class="gia_format">{{giohangthanhtoan.tongtien}}</span>
+                </span> VND
+            </p>
+            <input type="text" name="tongtien" id="input_tongtien" value="{{giohangthanhtoan.tongtien}}" hidden>
+            <p class="thanh_tien-item" >
+                <span id="giamgia">
+                    <span class="gia_format">{{giohangthanhtoan.giamgia}}</span>
+                </span> VND
+            </p>
+            <input type="text" name="giamgia" id="input_giamgia" value="{{giohangthanhtoan.giamgia}}" hidden>
+            <p class="thanh_tien-item" style="color: red;" >
+                <span id="tienthanhtoan">
+                    <span class="gia_format">{{giohangthanhtoan.tongtienthanhtoan}}</span>
+                </span> VND
+            </p>
+            <input type="text" name="tienthanhtoan" id="input_tienthanhtoan" value="{{giohangthanhtoan.tongtienthanhtoan}}" hidden>
+        </div>
+    </div>
+    <input type="text" value="{{giohangthanhtoan._id}}" name="_idgiohangthanhtoan" hidden>
+        <button type="submit" class="btn btn-danger">Hoàn tất đặt hàng</button>
+</form>
+
+{{!-- Modal thêm địa chỉ mới --}}
+<div class="modal fade" id="modal_them_dia_chi" tabindex="-1" aria-labelledby="modalthemdiachi" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="them_dia_chi modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalthemdiachi">Thêm địa chỉ mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/nguoidung/themdiachi/{{thongtintaikhoan.manv}}{{thongtintaikhoan.makh}}" id="form_luu_dia_chi">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Địa chỉ cụ thể:</label>
+                        <input type="text" class="form-control" name="diachicuthe">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Phường/xã:</label>
+                        <input type="text" class="form-control" name="phuongxa">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Quận/huyện:</label>
+                        <input type="text" class="form-control" name="quanhuyen">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Tỉnh/Thành phố:</label>
+                        <input type="text" class="form-control" name="tinhtp">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btn_luu_dia_chi">Lưu địa chỉ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //Thanh toan momo tạm thời
+    var the_momo = document.getElementById('momo');
+    var the_momo_popup = document.getElementById('momo_popup');
+    
+    function showmomo(){
+        if (the_momo.selected == true) {
+            the_momo_popup.style.display = "block"
+        } else {
+            the_momo_popup.style.display = "none"
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+        var formLuuDiaChi = $('#form_luu_dia_chi');
+        var btnLuuDiaChi = $('#btn_luu_dia_chi');
+
+        btnLuuDiaChi.click(function(){
+            formLuuDiaChi.submit();
+        })
+
+
+    })
+</script>
+

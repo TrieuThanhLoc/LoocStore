@@ -1,0 +1,27 @@
+.quanlynhanvien{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.quanlynhanvien h2{
+    color: orange;
+    margin: 15px;
+}
+
+
+
+/* Them nhan vien --themnhanvien.hbs */
+.themnhanvien{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+.themnhanvien-tieude{
+    color: orange;
+    font-size: 20px;
+    font-weight: 700;
+    margin: auto;
+    margin-top: 20px;
+}

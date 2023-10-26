@@ -1,0 +1,80 @@
+
+
+
+/* The san pham */
+.the_san_pham-item {
+    position: relative;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid var(--mau-phu-thu-3);
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.the_san_pham-item:hover .the_san_pham-item-btn {
+    display: block;
+}
+
+.the_san_pham-item:hover {
+    box-shadow: 3px 3px var(--mau-phu-thu-2);
+}
+
+.the_san_pham-item-img-box {
+    width: 255px;
+    height: 280px;
+}
+
+.the_san_pham-item-img {
+    margin: 10px auto;
+    width: 250px;
+    height: 100%;
+}
+
+.the_san_pham-item-img:hover{
+    opacity: 0.8;
+}
+
+.the_san_pham-item-ten {
+    font-size: 18px;
+    font-weight: 700;
+    height: 60px;
+    margin: 0;
+}
+
+.the_san_pham-item-tinhtrang {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: green;
+}
+
+.the_san_pham-item-gia {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: red;
+}
+
+.the_san_pham-item-btn {
+    position: absolute;
+    width: 290px;
+    display: flex;
+    flex-direction: column;
+    top: 210px;
+    left: 4px;
+    display: none;
+}
+
+.the_san_pham-item-btn-mua {
+    width: 100%;
+    margin-bottom: 5px;
+    color: white;
+    font-weight: 500;
+}
+
+.the_san_pham-item-btn-themgh {
+    width: 100%;
+    font-weight: 500;
+    color: white;
+}

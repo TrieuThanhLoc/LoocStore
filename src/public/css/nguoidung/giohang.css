@@ -1,0 +1,145 @@
+.gio_hang{
+    width: 1200px;
+    margin: auto;
+}
+.gio_hang-header{
+   display: flex;
+   justify-content: space-between;
+   margin: 10px;
+}
+.header-title{
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--mau-phu-thu-4);
+}
+.header-search{
+    margin-top: 10px;
+}
+.input-search, 
+.icon-search{
+    background-color: var(--mau-phu-thu-1);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+    color: white;
+}
+.icon-search{
+
+}
+
+/* Cot chon san pham can thanh toan  */
+.input_check{
+    position: relative;
+}
+.the_chon_sp{
+    width: 50px;
+    align-items: center;
+    text-align: center;
+}
+/* cot thong tin san pham */
+.gio_hang-ten_sp{
+    font-size: 20px;
+    font-weight: 600;
+}
+.the_thong_tin_sp{
+    width: auto;
+}
+.gio_hang-hinh_anh_sp{
+    width: 100px;
+    height: 110px;
+    padding: 10px;
+    border: 5px solid white;
+    border-radius: 10px;
+}
+.gio_hang-thong_tin_sp{
+    display: flex;
+}
+.chon_thong_so{
+    margin: auto 10px;
+    align-items: center;
+}
+.select_thong_so{
+    background-color: var(--mau-phu-thu-1);
+    border-radius: 5px;
+    border: 1px solid var(--mau-phu-thu-3);
+}
+
+/* Cot don gia */
+.the_don_gia{
+    width: 250px;
+}
+.don_gia{
+    width: 100%;
+    padding-top: 15%;
+    align-items: center;
+}
+.gia_giam {
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration-line: line-through;
+}
+.gia_khuyen_mai{
+    font-size: 15px;
+    font-weight: 600;
+    color: red;
+}
+
+
+/* Cot so luong sp */
+.so_luong{
+    padding-top: 40%;
+    font-size: 15px;
+    font-weight: 600;
+}
+.the_chon_so_luong{
+    width: 100px;
+}
+.so_luong--input{
+    width: 40px;
+    border-radius: 5px;
+    background-color:var(--mau-phu-thu-1);
+    border: 1px solid var(--mau-phu-thu-3);
+}
+
+
+/* Cot tong tien */
+.the_tong_tien{
+    width: 200px;
+}
+.tong_tien_sp_nay{
+    padding-top: 20%;
+    font-size: 15px;
+    font-weight: 700;
+    color: red;
+}
+
+.the_btn{
+    width: 120px;
+}
+.btn_xoa_sp_trong_gio{
+    margin-top: 32%;
+}
+.gio_hang-footer {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 14%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    margin: auto;
+    height: 100px;
+    right: 0;
+    bottom: 0;
+    background-color:white;
+}
+.so_san_pham_da_chon span,
+.chon_mua_tat_ca label span{
+    color: red;
+}
+.tong_tien_thanh_toan_gio_hang{
+    margin-left: 120px;
+    font-size: 25px;
+    color: red;
+}
+

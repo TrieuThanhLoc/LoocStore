@@ -1,0 +1,22 @@
+.footer{
+    height: 150px;
+    padding-top: 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 3px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-chinh);
+}
+.footer-item{
+    width: 30%;
+    text-align: center;
+}
+.copyrights{
+    text-align: center;
+    align-items: center;
+    height:30px;
+    background-color: var(--mau-phu-thu-1);
+}
+.footer-item-bio a{
+    color: black;
+}

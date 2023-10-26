@@ -1,0 +1,34 @@
+<div class="tim_kiem_san_pham">
+    {{#each ketquatimkiems}}
+    <div class="the_san_pham-item">
+        <div class="the_san_pham-item-img-box">
+            <a href="/sanpham/{{this.masp}}">
+                <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="{{this.anh}}"
+                    class="the_san_pham-item-img">
+            </a>
+        </div>
+        <p class="the_san_pham-item-ten">
+            {{this.tensp}}
+        </p>
+        {{#if this.soluong}}
+        <p class="the_san_pham-item-tinhtrang">
+            <i class="fa-solid fa-circle-check"></i> Còn hàng
+        </p>
+        {{else}}
+        <p class="the_san_pham-item-tinhtrang" style="color: red;">
+            <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
+        </p>
+        {{/if}}
+        <p class="the_san_pham-item-gia ">
+            <span class="gia_format">{{this.giaban}}</span> VND
+        </p>
+        <div class="the_san_pham-item-btn">
+            <a href="/thanhtoan/muangay/{{this.masp}}"><button class="the_san_pham-item-btn-mua btn btn-danger">Mua ngay</button></a>
+            {{!-- <a href="/giohang/themgiohang/{{this.masp}}"><button type="button"
+                    class="the_san_pham-item-btn-themgh btn btn-primary">Thêm
+                    giỏ hàng</button>
+            </a> --}}
+        </div>
+    </div>
+    {{/each}}
+</div>

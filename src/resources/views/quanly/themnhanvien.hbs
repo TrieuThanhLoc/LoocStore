@@ -1,0 +1,97 @@
+<div class="themnhanvien">
+    <p class="themnhanvien-tieude">
+        Thêm nhân viên mới
+    </p>
+    <form method="post" action="../nhanvien/luunhanvien">
+        <div class="mb-3 mt-3">
+            <label for="tennv" class="form-label">Hẹ tên</label>
+            <input type="text" class="form-control" id="tennv" placeholder="Họ và tên nhân viên" name="tennv" onkeyup="manhanvientudong()">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="manv" class="form-label">Mã nhân viên (tự động)</label>
+            <input type="text" class="form-control" id="manv" placeholder="Mã nhân viên" name="manv" >
+        </div>
+        <div class="mb-3">
+            <label for="ngaysinh" class="form-label">Ngày sinh</label>
+            <input type="date" class="form-control" id="ngaysinh" name="ngaysinh">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="diachi" class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" id="diachi" placeholder="Địa chỉ nhân viên" name="diachi">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email của nhân viên" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="matkhau" class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="matkhau" placeholder="Mặt khẩu cấp cho tài khoản nhân viên" name="matkhau">
+        </div>
+        <div class="mb-3">
+            <label for="sodt" class="form-label">Số điện thoại</label>
+            <input type="password" class="form-control" id="sodt" placeholder="Số điện thoại nhân viên"
+                name="sodt">
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Chức vụ</label>
+            <select class="form-select" id="inputGroupSelect01" name="chucvu">
+                <option value="ban_hang">Nhân viên bán hàng</option>
+                <option value="nhap_hang">Nhân viên nhập hàng</option>
+                <option value="quan_ly">Quản lý</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Giới tính</label>
+            <select class="form-select" id="inputGroupSelect01" name="gioitinh">
+                <option value="nam">Nam</option>
+                <option value="nu">Nữ</option>
+                <option value="chua_xac_dinh">Chưa xác định</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="ngayvao" class="form-label">Ngày vào làm chính thức</label>:</label>
+            <input type="date" class="form-control" id="ngayvao" name="ngayvao">
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+
+</div>
+
+
+
+<script>
+    //Tạo mã sản phẩm tự động 
+    function manhanvientudong() {
+        var title, slug;
+
+        //Lấy text từ thẻ input title 
+        title = document.getElementById("tennv").value;
+
+        //Đổi chữ hoa thành chữ thường
+        slug = title.toLowerCase();
+
+        //Đổi ký tự có dấu thành không dấu
+        slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+        slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+        slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+        slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+        slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+        slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+        slug = slug.replace(/đ/gi, 'd');
+        //Xóa các ký tự đặt biệt
+        slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+        //Đổi khoảng trắng thành ký tự gạch ngang
+        slug = slug.replace(/ /gi, " - ");
+        //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+        //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+        slug = slug.replace(/\-\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-/gi, '-');
+        //Xóa các ký tự gạch ngang ở đầu và cuối
+        slug = '@' + slug + '@';
+        slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+        //In slug ra textbox có id “slug”
+        document.getElementById('manv').value = slug;
+    }
+</script>

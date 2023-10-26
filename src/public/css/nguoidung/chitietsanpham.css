@@ -1,0 +1,329 @@
+.chi_tiet-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+}
+.chi_tiet-header--tongquan{
+    flex: 4;
+    text-align: center;
+    margin-right: 10px;
+}
+.chi_tiet-header--thongso{
+    flex: 3;
+    margin-left: 10px;
+}
+.chi_tiet-header--thongsochinh{
+    border: 5px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    padding: 5px 20px;
+}
+.chi_tiet-header--thongsochinh-ten{
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.chi_tiet-header--thongsochinh-gia{
+    color: red;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.chi_tiet-header--thongsochinh-tinhtrang{
+    color: green;
+    font-size: 15px;
+    font-weight: 600;
+}
+.chi_tiet-header--thongsochinh-chon{
+    display: flex;
+    flex-direction: row;
+}
+.chi_tiet-header--thongsochinh-mau select,
+.chi_tiet-header--thongsochinh-rom select{
+    background-color: var(--mau-phu-thu-2);
+    border-radius: 5px;
+    padding: 2px;
+}
+.chi_tiet-header--thongsochinh-mau{
+    height: 40px;
+    width: 50%;
+    background-color: var(--mau-phu-thu-3);
+    text-align: center;
+    padding-top: 6px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.chi_tiet-header--thongsochinh-rom{
+    height: 40px;
+    width: 50%;
+    background-color: var(--mau-phu-thu-4);
+    text-align: center;
+    padding-top: 6px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+.chi_tiet-header--thongsochinh-khuyenmai{
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-phu-thu-1);
+    border-radius: 10px;
+}
+.chi_tiet-header--thongsochinh-khuyenmai-ten {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.khuyen_mai_item{
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+.chi_tiet-header--thongsochinh-btn{
+    display: flex;
+    flex-direction: column;
+}
+.chi_tiet-header--thongsochinh-btn a{
+    width: 100%;
+}
+.chi_tiet-header--thongsochinh-btn-mua{
+    width: 100%;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px solid var(--mau-phu-thu-3);
+}
+.chi_tiet-header--thongsochinh-btn-mua p{
+    font-size: 15px;
+    margin: 0;
+}
+.chi_tiet-header--thongsochinh-btn-themvaogio{
+    width: 100%;
+    background-color: green;
+    color: white;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 2px solid var(--mau-phu-thu-3);
+}
+.chi_tiet-header--thongsochinh-btn-mua:hover,
+.chi_tiet-header--thongsochinh-btn-themvaogio:hover{
+    opacity: 80%;
+}
+.chi_tiet-header--thongsochinh-lienhe{
+    margin-top: 15px;
+    text-align: center;
+}
+.chi_tiet-header--thongsochinh-lienhe p{
+    font-size: 18px;
+    font-weight: 500;
+}
+.chi_tiet-header--thongsokythuat{
+    margin-top: 50px;
+}
+.thongsokythuat-tenbang{
+    font-size: 20px;
+    font-weight: 700;
+}
+.thongsochitiet{
+    padding: 5px 20px;
+    width: 100%;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    background-color: var(--mau-chinh);
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+.chi_tiet-header--tongquan-chinh{
+        height: 400px;
+}
+.chi_tiet-header--tongquan-con{
+
+    
+}
+.chi_tiet-header--tongquan-con_item{
+    margin-top: 20px;
+    height: 100px;
+    width: 100px ;
+}
+.chi_tiet-header--tongquan-con_item:hover{
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+}
+.chi_tiet-header--tongquan-chi_tiet{
+
+}
+.chi_tiet-header--tongquan-chi_tiet-img{
+    width: 100%;
+    padding: 20px;
+}
+.danh_gia-dau {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom:1px dashed var(--mau-phu-thu-3) ;
+}
+.danh_gia-than {
+    text-align: justify;
+}
+.danh_gia-than-muc{
+    font-size: 20px;
+    font-weight: 700;
+}
+.danh_gia-than-noidung{
+
+}
+
+.danhgia{
+    margin: 40px;
+}
+.danhgia-tensanpham{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+.danhgia-tong{
+    color: yellow;
+    margin: 0;
+}
+.sosao{
+    font-size: 20px;
+    font-weight: 700;
+}
+.tongdanhgia{
+    color: blue;
+}
+.danhgia-thongke--item{
+    list-style: none;
+    margin-top: 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.phantramsao{
+    width: 300px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: rgb(156, 156, 156);
+    margin: 0 10px;
+}
+.phantram{
+    height: inherit;
+    border-radius: 5px;
+    background-color: yellow;
+}
+.sophantram{
+
+}
+
+
+
+.chi_tiet-footer-hoidap{
+    text-align: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+.hoidap-guinoidung{
+
+}
+.hoidap-noidung{
+    border-radius: 5px;
+    border: 1px solid var(--mau-phu-thu-3);
+    padding: 5px 155px 5px 10px;
+}
+.hoidap-noidung--btn{
+    font-size: 18px;
+    font-weight:500;
+    position: absolute;
+    right: 55px;
+    top: 24px;
+    background-color: red;
+    color: white;
+    padding: 3px 6px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+}
+.hoidap-noidung--btn:hover{
+    border: 1px solid green;
+    opacity: 90%;
+}
+.chi_tiet-footer-hienthi{
+    display: flex;
+    padding: 0 20px;
+}
+.avatarnguoibl{
+    width: 50px;
+    padding: 5px;
+}
+.hienthi_noidungbl{
+    padding: 10px;
+}
+.hienthi_noidungbl--tennguoibl{
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+.hienthi_noidungbl--noidungbl{
+    margin: 10px 0;
+}
+.hienthi_noidungbl--thichbl{
+    font-size: 13px;
+    font-weight: 500;
+}
+.thichbl-thich{
+    cursor: pointer;
+    color: blue;
+    margin: 0 10px;
+}
+.thichbl-phanhoi {
+    cursor: pointer;
+    color: blue;
+}
+.chi_tiet-footer-hienthitraloi{
+    margin: 0 100px;
+    background-color: beige;
+    border-radius: 10px;
+}
+.thong_tin_chi_tiet{
+    width: 60%;
+    height: 100%;
+    position: fixed;
+    display: block;
+    padding: 20px;
+    top: 0;
+    left: 20%;
+    z-index: 3;
+    margin: 20px 0;
+}
+.close_btn{
+    color: black;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid var(--mau-phu-thu-3);
+    position: fixed;
+    top: 20px;
+    right: 269px;
+    z-index: 3;
+}
+.close_behind{
+    content: '';
+    width: 100%;
+    height: 1000px;
+    background-color: rgb(84, 84, 84, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
