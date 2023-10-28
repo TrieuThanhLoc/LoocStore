@@ -1,0 +1,25 @@
+<form method="get" class="form_dangnhap" id="gui_na_xac_thuc">
+    <p class="form_ten">Email của bạn ?</p>
+    {{#if chuacotaikhoan}}
+    <p class="emailchuacotk">Email <strong>{{emailkh}}</strong> chưa được đăng ký</p>
+    {{/if}}
+    <div class="mb-3">
+        <label for="emaildoimatkhau" class="form-label">Địa chỉ Email</label>
+        <input type="email" class="form-control" id="emaildoimatkhau" name='emaildoimatkhau' placeholder="Nhập dịa chỉ email của bạn cần...">
+    </div>
+    <div class="btn-dangnhap">
+        <button class="btn btn-primary" id="tiep_tuc_gui_na_xac_thuc">Tiếp tục</button>
+    </div>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const form_gui_na_xac_thuc = $('#gui_na_xac_thuc');
+        const tiep_tuc_gui_na_xac_thuc = $('#tiep_tuc_gui_na_xac_thuc');
+        const emaildoimatkhau = $('#emaildoimatkhau');
+
+        tiep_tuc_gui_na_xac_thuc.click(function(){
+            form_gui_na_xac_thuc.attr('action','/nhapmaxacthuc/' + emaildoimatkhau.val())
+            form_gui_na_xac_thuc.attr('type', 'submit');
+        })
+    })
+</script>

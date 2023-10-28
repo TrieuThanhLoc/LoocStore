@@ -11,6 +11,7 @@ const Pin = require('../../../resources/models/sanphaminfo/Pin');
 const NhanVien = require('../../../resources/models/NhanVien')
 
 const {MongooseToObject, multipleMongooseToObject} = require('../../../util/mongoose');
+const Ngay = require('../../../util/ngay');
 const KhachHang = require("../../../resources/models/khachhang/KhachHang");
 
 
@@ -40,10 +41,13 @@ class GioHangController {
         return res.render('khac/dangnhap')
         }
         giohang.masp = masp;
+        giohang.makh = makh;
         giohang.anh = sanpham.anh;
         giohang.giaban = sanpham.giaban;
         giohang.hangsx = sanpham.hangsx;
         giohang.tensp = sanpham.tensp;
+        giohang.ngaythemvaogio = Ngay.ngayhomnay();
+
         //Kiem tra san pham trong gio hang da co chua ?
         var sanphamtronggio = await GioHang.findOne({makh: giohang.makh, masp: giohang.masp })
         if(sanphamtronggio){
@@ -78,7 +82,7 @@ class GioHangController {
             return res.render('khac/dangnhap')
          }
 
-        var giohangs = await GioHang.find({makh: makh});
+        var giohangs = await GioHang.find({makh: makh}).sort({ngaythemvaogio: 'desc'});
         for(var i = 0; i < giohangs.length; i++){
             giohangs[i]._doc.giagiam = giohangs[i].giaban*0.9;
          }

@@ -10,5 +10,6 @@ const GioHang = new Schema ({
     giaban : Number,
     anh : String,
     soluongsp : Number,
+    ngaythemvaogio: String,
 })
 module.exports =  mongoose.model('GioHang', GioHang);

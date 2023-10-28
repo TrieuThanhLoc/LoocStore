@@ -7,43 +7,27 @@ const SanPham = require('../../../resources/models/SanPham')
 const { MongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const GioHang = require("../../../resources/models/GioHang");
 
+//Lay thong tin khach hang
+const LayThongTinKhachHang = require("../../../util/laythongtinkhachhang");
+
+//Gui email
+const nodemailer = require("nodemailer");
+const GuiEmail = require('../khac/guiemail/guimaxacthuc')
+
 
 
 class KhacController{
     async index(req,res){
         const sanphams = await SanPham.find({});
-
-        //Hiễn thị thông tin tài khoản đã đăng nhập
-        var thongtintaikhoan;
-        if(req.taikhoan != undefined){
-            if(req.taikhoan.chucvu != undefined){
-                var manv = req.taikhoan.id
-                thongtintaikhoan = await NhanVien.findOne({manv: manv})
-            }else{
-                var makh = req.taikhoan.id
-                thongtintaikhoan = await KhachHang.findOne({makh: makh})
-            }}
-        //Hiễn thị các sản phẩm trong giỏ hàng
-        if(thongtintaikhoan != undefined){
-            var makh = "makh";
-            if (thongtintaikhoan.manv){
-                makh = thongtintaikhoan.manv
-            }else{
-                makh = thongtintaikhoan.makh
-            }
-            const giohangs = await GioHang.find({makh: makh});
-            const soluongsptronggio = giohangs.length;
-            res.render('khac/home',{
-                    sanphams: multipleMongooseToObject(sanphams),
-                    //Thong tin hiễn thị trên header
-                    soluongsptronggio,
-                    giohangs: multipleMongooseToObject(giohangs),
-                    thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+        //Lay thong tin khach hang
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
         })
-        }else{
-             res.render('khac/home',{
-                sanphams: multipleMongooseToObject(sanphams),})
-        }
+         res.render('khac/home',{
+            sanphams: multipleMongooseToObject(sanphams),
+            thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+        })
     }
     lienhe(req,res){
         res.render('khac/lienhe');
@@ -95,7 +79,13 @@ class KhacController{
                         },'thanhloc')
                         return res.status(200).cookie('token',tokennhanvien).redirect('/');
                     }else{
-                        return res.status(404).json('Sai mat khau')
+                        //Nếu như mật Khẩu sai
+                        const email = req.body.email;
+                        const saimatkhau = true;
+                        return res.render('khac/dangnhap', {
+                            saimatkhau,
+                            email,
+                        })
                     }
                 })
                 .catch( next);
@@ -120,30 +110,59 @@ class KhacController{
                     || ketqua.loaisp.toLowerCase().includes(tukhoatimkiem.toLowerCase())
         })
          //Hiễn thị thông tin tài khoản đã đăng nhập
-        var thongtintaikhoan;
-        var makh
-        if(req.taikhoan != undefined){
-            if(req.taikhoan.chucvu != undefined){
-                var manv = req.taikhoan.id
-                thongtintaikhoan = await NhanVien.findOne({manv: manv})
-            }else{
-                var makh = req.taikhoan.id
-                thongtintaikhoan = await KhachHang.findOne({makh: makh})
-            }
-             if (thongtintaikhoan.manv){
-                makh = thongtintaikhoan.manv
-            }else{
-                makh = thongtintaikhoan.makh
-            }
-        }
-            const giohangs = await GioHang.find({makh: makh});
-            const soluongsptronggio = giohangs.length;
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
         res.render('khac/timkiem', {
             ketquatimkiems: multipleMongooseToObject(ketquatimkiems),
-            soluongsptronggio,
-            giohangs: multipleMongooseToObject(giohangs),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
+    }
+
+//Email can doi pass cua khach hang
+    async quenmatkhau(req, res, next){
+        res.render('khac/doimatkhau/quenmatkhau')
+    }
+    async nhapmaxacthuc(req, res, next){
+        const emailkh = req.params.emailkh;
+        const khachhang = await KhachHang.findOne({emailkh: emailkh})
+        if(khachhang != undefined){
+            const maxacthuc = GuiEmail.taoMa();
+            GuiEmail.guimaxacthuc(emailkh, maxacthuc);
+            await KhachHang.updateOne({emailkh: emailkh},{maxacthuc: maxacthuc})
+            return res.render('khac/doimatkhau/nhapmaxacthuc',{
+                emailkh,
+            })
+        }else {
+            const chuacotaikhoan = true;
+            return res.render('khac/doimatkhau/quenmatkhau',{
+                chuacotaikhoan,
+                emailkh,
+            })
+        }
+    }
+    async doimatkhau(req, res, next){
+        const emailkh = req.body.emailkh;
+        const khachhang = await KhachHang.findOne({emailkh: emailkh})
+        if(khachhang.maxacthuc == req.body.maxacthuc){
+            res.render('khac/doimatkhau/doimatkhau',{
+                emailkh,
+            })
+        }else{
+            const saimaxacthuc = true;
+            res.render('khac/doimatkhau/nhapmaxacthuc',{
+                emailkh,saimaxacthuc
+            })
+        }
+    }
+     async luumatkhaumoi(req, res, next){
+        const emailkh = req.params.emailkh;
+        const matkhaukh = req.body.matkhaukh;
+
+        await KhachHang.updateOne({emailkh: emailkh},{matkhaukh: matkhaukh, maxacthuc: ''});
+        res.redirect('../dangnhap')
+
     }
 }
 

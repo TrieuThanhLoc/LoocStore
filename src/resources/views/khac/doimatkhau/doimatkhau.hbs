@@ -1,0 +1,40 @@
+<form method="post" action="/luumatkhaumoi/{{emailkh}}" class="form_dangnhap">
+    <p class="form_ten">Đổi mật khẩu</p>
+    <div class="mb-3">
+        <label for="matkhaukhmoi" class="form-label">Mật khẩu mới</label>
+        <input type="password" class="form-control" id="matkhaukhmoi"placeholder="Mật khẩu mới">
+    </div>
+    <div class="mb-3">
+        <label for="xacnhanmatkhau" class="form-label">Xác nhận lại mật khẩu</label>
+        <input type="password" class="form-control" id="xacnhanmatkhau"name='matkhaukh'placeholder="Xác nhận lại mật khẩu !">
+        <i for="xacnhanmatkhau" class="form-label " style="text-align: center;" id="matkhaukhongkhop"></i>
+    </div>
+    <div class="btn-dangnhap">
+        <button class="btn btn-primary disabled" id="doimatkhaubtn">Tiếp tục</button>
+    </div>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const matkhaukhmoi = $('#matkhaukhmoi');
+        const xacnhanmatkhau = $('#xacnhanmatkhau');
+        const matkhaukhongkhop = $('#matkhaukhongkhop');
+        const doimatkhaubtn = $('#doimatkhaubtn');
+
+        xacnhanmatkhau.change(function(){
+            if(matkhaukhmoi.val() == xacnhanmatkhau.val()){
+                matkhaukhongkhop.removeClass('d-none');
+                matkhaukhongkhop.attr('style', 'color: green');
+                matkhaukhongkhop.text('Trùng khớp');
+                doimatkhaubtn.removeClass('disabled')
+                doimatkhaubtn.attr('type', 'submit');
+
+            }else{
+                matkhaukhongkhop.removeClass('d-none');
+                matkhaukhongkhop.attr('style', 'color: red');
+                matkhaukhongkhop.text('Mật khẩu không khớp');
+                doimatkhaubtn.addClass('disabled')
+                doimatkhaubtn.attr('type', '');
+            }
+        })
+    })
+</script>

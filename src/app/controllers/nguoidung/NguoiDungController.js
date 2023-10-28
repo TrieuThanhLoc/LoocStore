@@ -39,7 +39,7 @@ class thanhtoanController{
             makh = thongtintaikhoan.manv
         }
         }
-        var donhangs = await DonHang.find({makh: makh})
+        let donhangs = await DonHang.find({makh: makh}).sort({ngaydathang: 'desc'})
         for(var i = 0; i < donhangs.length; i++){
             if(donhangs[i].trangthai == 'da_tiep_nhan'){
                 donhangs[i]._doc.da_tiep_nhan = true;
@@ -62,7 +62,13 @@ class thanhtoanController{
             }
             donhangs[i]._doc.sanphams = sanphamstams;
         }
-        var donhangssort = donhangs.sort({ngaydathang: 1})
+        // donhangs = donhangs.sort(function(dh1, dh2){
+        //     let a = dh1.ngaydathang;
+        //     let b = dh2.ngaydathang;
+        //     if (a > b) return -1;
+        //     if (a < b) return 1;
+        //     return 0;
+        // })
         res.render('nguoidung/donhang',{
             donhangs: multipleMongooseToObject(donhangs),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),

@@ -39,18 +39,18 @@
                         <i class="fa-solid fa-cart-shopping anhdaidien mt-1"></i>
                         <p class="navbar_account-item-name">
                             Giỏ hàng
-                            {{#if soluongsptronggio}}
+                            {{#if thongtintaikhoan.soluongsptronggio}}
                             <div class="so_luong_sp"><p class="so_hien_thi">
-                                {{soluongsptronggio}}
+                                {{thongtintaikhoan.soluongsptronggio}}
                             </p></div>
                             {{/if}}
                         </p>
-                        {{#if giohangs}}
+                        {{#if thongtintaikhoan.giohangs}}
                         <div class="cart">
                             <p class="cart-ten">
                                 Sản phẩm trong giỏ hàng
                             </p>
-                            {{#each giohangs}}
+                            {{#each thongtintaikhoan.giohangs}}
                             <a href="/sanpham/{{this.masp}}" class="a_cart-item">
                             <div class="cart-item">
                                 <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="cart-item--img">

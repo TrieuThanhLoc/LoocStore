@@ -26,3 +26,14 @@
     color: rgb(104, 104, 104);
     font-weight: 400;
 }
+
+/* quên mật khẩu */
+.quenmatkhau{
+    font-weight: 500;
+}
+.matkhausai,
+.emailchuacotk{
+    text-align: center;
+    color: red;
+    margin: 0;
+}

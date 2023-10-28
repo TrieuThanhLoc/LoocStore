@@ -9,6 +9,7 @@ const KhachHang = new Schema({
     emailkh: String,
     ngaysinh: String,
     sodtkh: {type: Number, minLength:10, maxLength:12},
+    maxacthuc: {type: String},
     createdAt:{type: Date, default: Date.now},
     updatedAt:{type: Date, default: Date.now},
 },

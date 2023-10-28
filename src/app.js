@@ -6,6 +6,10 @@ const port = 3000;
 const methodOverride = require('method-override')
 var cookieParser = require('cookie-parser');
 
+//Sap xep
+const SapXep = require('./app/controllers/middleware/SapXep');
+//Sap xep 
+app.use(SapXep);
 
 //Cookie
 app.use(cookieParser())

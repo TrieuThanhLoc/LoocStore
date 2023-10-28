@@ -1,0 +1,12 @@
+<form method="post" action="/doimatkhau" class="form_dangnhap">
+    <p class="form_ten">Nhập mã xác thực</p>
+    <div class="mb-3">
+        <label for="maxacthuc" class="form-label">Mã xác thực đã được gửi qua email: <strong>{{emailkh}}</strong> <a href="/nhapmaxacthuc/{{emailkh}}"> Gửi lại mã</a></label>
+        <input type="text" class="form-control" id="maxacthuc" name='maxacthuc' placeholder="Nhập mã xác thực">
+        {{#if saimaxacthuc}}<i style="color: red;">Mã xác thực sai</i>{{/if}}
+        <input type="email" id="emailkh" name='emailkh' value="{{emailkh}}" hidden>
+    </div>
+    <div class="btn-dangnhap">
+        <button type="submit" class="btn btn-primary">Tiếp tục</button>
+    </div>
+</form>

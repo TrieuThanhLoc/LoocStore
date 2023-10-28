@@ -1,5 +1,7 @@
 const { render } = require('vue');
 const { multipleMongooseToObject, MongooseToObject } = require('../../../util/mongoose');
+const Ngay = require('../../../util/ngay');
+const LayThongTinKhachHang = require('../../../util/laythongtinkhachhang');
 //San pham
 const SanPham = require('../../../resources/models/SanPham');
 const TrongLuongVaThietKe = require('../../../resources/models/sanphaminfo/TrongLuongVaThietKe');
@@ -22,19 +24,15 @@ const ChiTietDonHang = require('../../../resources/models/ChiTietDonHang');
 const NhatKyDonHang = require('../../../resources/models/NhatKyDonHang');
 const DiachiKhachHang = require('../../../resources/models/khachhang/DiaChiKhachHang');
 
+
+
 class thanhtoanController{
 
     async index(req, res, next){
-        var thongtintaikhoan;
-        if(req.taikhoan != undefined){
-        if(req.taikhoan.chucvu != undefined){
-            var manv = req.taikhoan.id;
-            thongtintaikhoan = await NhanVien.findOne({manv: manv});
-        }else{
-            var makh = req.taikhoan.id;
-            thongtintaikhoan = await KhachHang.findOne({makh: makh});
-        }
-        }
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
         const giohangthanhtoan = await LuuGioHangThanhToan.findOne({makh: req.taikhoan.id})
         const diachikhachhangs = await DiachiKhachHang.find({makh: req.taikhoan.id})
         res.render('nguoidung/thanhtoan',{
@@ -96,18 +94,13 @@ class thanhtoanController{
     }
 
     async dathang(req, res, next){
-        //ngay dat hang
-        var today = new Date()
-        var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-        var time = today.getHours() + ":" + today.getMinutes();
-        
         const donhang = DonHang(req.body);
-        donhang.ngaydathang = date + ' ' + time;
+        donhang.ngaydathang = Ngay.ngayhomnay();
         donhang.trangthai = 'da_tiep_nhan';
 
         const nhatkydonhang = NhatKyDonHang();
         nhatkydonhang.madh = donhang._id;
-        nhatkydonhang.ngaytiepnhan = date + ' ' + time;
+        nhatkydonhang.ngaytiepnhan =  Ngay.ngayhomnay();
         await nhatkydonhang.save();
         await Promise.all( req.body.masp.map( async(masp, i) => {
             const chitietdonhang = new ChiTietDonHang();

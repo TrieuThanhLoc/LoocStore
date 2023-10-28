@@ -18,6 +18,9 @@ const Pin = require('../../../resources/models/sanphaminfo/Pin');
 const Kho = require('../../../resources/models/Kho');
 //Nhan vien
 const NhanVien = require ('../../../resources/models/NhanVien');
+
+const Ngay = require('../../../util/ngay');
+
 //Bo dau tieng viet
 function removeAccents(str) {
   var AccentsMap = [
@@ -343,7 +346,7 @@ class QuanLyController{
             }else{
                 makh = thongtintaikhoan.makh
             }
-            const giohangs = await GioHang.find({makh: makh});
+            const giohangs = await GioHang.find({makh: makh}).sort({ngaythemvaogio: 'desc'});
             const soluongsptronggio = giohangs.length;
 
             if ((req.taikhoan.chucvu != 'quan_ly')){
@@ -394,7 +397,7 @@ class QuanLyController{
             }
             const giohangs = await GioHang.find({makh: makh});
             const soluongsptronggio = giohangs.length;
-            const donhangs = await DonHang.find({});
+            const donhangs = await DonHang.find({}).sort({ngaydathang: 'desc'});
             res.render('quanly/quanlydonhang',{
                 donhangs: multipleMongooseToObject(donhangs),
                  //Thong tin hiễn thị trên header
@@ -419,26 +422,22 @@ class QuanLyController{
     async capnhattrangthai (req, res, next){
         var nhatkydonhang = await NhatKyDonHang();
         nhatkydonhang.madh = req.params._id;
-        //ngay dat hang
-        var today = new Date()
-        var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-        var time = today.getHours() + ":" + today.getMinutes();
 
         await DonHang.updateOne({_id: req.params._id},{trangthai: req.body.trangthai})
 
         const daconhatky = await NhatKyDonHang.findOne({madh: req.params._id})
         if(daconhatky != undefined){
              if(req.body.trangthai == 'van_chuyen'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayvanchuyen: date + ' ' + time})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayvanchuyen: Ngay.ngayhomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'dang_giao'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngaygiaohang: date + ' ' + time})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngaygiaohang: Ngay.ngayhomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'hoan_thanh'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhoanthanh: date + ' ' + time})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhoanthanh: Ngay.ngayhomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'da_huy'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhuyhang: date + ' ' + time})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhuyhang: Ngay.ngayhomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
                 //xoá yêu cầu huỷ đơn của khách hàng
                 await DonHang.findOne({_id: req.params._id})
@@ -455,19 +454,19 @@ class QuanLyController{
             }
         }else{
             if(req.body.trangthai == 'van_chuyen'){
-                nhatkydonhang.ngayvanchuyen = date + ' ' + time
+                nhatkydonhang.ngayvanchuyen = Ngay.ngayhomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'dang_giao'){
-                nhatkydonhang.ngaygiaohang = date + ' ' + time
+                nhatkydonhang.ngaygiaohang = Ngay.ngayhomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'hoan_thanh'){
-                nhatkydonhang.ngayhoanthanh = date + ' ' + time
+                nhatkydonhang.ngayhoanthanh = Ngay.ngayhomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'da_huy'){
-                nhatkydonhang.ngayhuy = date + ' ' + time
+                nhatkydonhang.ngayhuy = Ngay.ngayhomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
                 //xoá yêu cầu huỷ đơn của khách hàng
