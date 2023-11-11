@@ -10,4 +10,9 @@ router.post('/themdiachi/:makh',middleware.kiemtratoken, nguoidungController.the
 router.post('/donhang/timkiemdonhang',middleware.kiemtratoken, nguoidungController.timkiemdonhang);
 router.get('/donhang',middleware.kiemtratoken, nguoidungController.index);
 
+//Đánh giá 
+router.get('/danhgia',middleware.kiemtratoken, nguoidungController.danhgia);
+router.post('/thuchiendanhgia/:madh',middleware.kiemtratoken, nguoidungController.thuchiendanhgia);
+
+
 module.exports = router;

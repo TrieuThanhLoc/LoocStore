@@ -51,21 +51,6 @@
         <p class="kh-title">
             Thông tin người đặt hàng
         </p>
-        <div class="chon_gioi_tinh">
-            <p>Chọn giới tính: </p>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="gioitinh" id="nam" value="nam">
-                <label class="form-check-label" for="nam">
-                    Nam
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="gioitinh" id="nu"  value="nu">
-                <label class="form-check-label" for="nu">
-                    Nữ
-                </label>
-            </div>
-        </div>
         <div class="row">
             <div class="col">
                 <input type="text" class="form-control" placeholder="Số điện thoại" value="{{thongtintaikhoan.sodtnv}}{{thongtintaikhoan.sodtkh}}" name="sodtkh" id="sodtkh">
@@ -74,7 +59,7 @@
                 <input type="text" class="form-control" placeholder="Họ và tên" value="{{thongtintaikhoan.tennv}}{{thongtintaikhoan.tenkh}}" name="tenkh" id="tenkh" onchange="TaoMaDonTuDong()">
             </div>
             {{!-- <input type="text" id="madh" name="madh" hidden> --}}
-            <input type="text" id="makh" name="makh" value="{{thongtintaikhoan.makh}}{{thongtintaikhoan.manv}}" hidden>
+            <input type="text" id="makh" name="makh" value="{{thongtintaikhoan.makh}}" hidden>
         </div>
        <div class="chon_dia_chi">
             <p class="chon_dia_chi-title">
@@ -103,6 +88,7 @@
         <select class="form-select" aria-label="Default select example" name="phuongthucthanhtoan" onclick="showmomo()">
             <option >Phương thức thanh toán</option>
             <option value="cod" >Thanh toán khi nhận hàng</option>
+            <option value="cod"><a href="/thanhtoan/thanhtoanvnpay">Thanh toán VNPay</a></option>
             <option value="momo" id="momo" >Chuyển khoản momo</option>
         </select>
         <div class="momo_popup" id="momo_popup">
@@ -176,16 +162,17 @@
         </div>
     </div>
 </div>
-
-
+<form id="thanhtoanmomo" action="/thanhtoan/thanhtoanvnpay"></form>
 <script>
     //Thanh toan momo tạm thời
     var the_momo = document.getElementById('momo');
     var the_momo_popup = document.getElementById('momo_popup');
+    var formThanhToanMomo = document.getElementById('thanhtoanmomo')
     
     function showmomo(){
         if (the_momo.selected == true) {
-            the_momo_popup.style.display = "block"
+            //the_momo_popup.style.display = "block"
+            formThanhToanMomo.submit()
         } else {
             the_momo_popup.style.display = "none"
         }

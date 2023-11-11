@@ -6,7 +6,7 @@ const middleware = require('../app/controllers/middleware/middleware');
 
 
 // Tim kiem san pham 
-router.post('/timkiemsanpham', middleware.kiemtratoken, khaController.timkiemsanpham)
+router.get('/timkiemsanpham', middleware.kiemtratoken, khaController.timkiemsanpham)
 
 router.get('/dangnhap', khaController.dangnhap)
 router.get('/dangsuat', khaController.dangsuat)

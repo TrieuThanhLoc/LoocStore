@@ -4,8 +4,8 @@
             <img src="../../../images/logo.png" alt="">
             Looc Store
         </a>
-        <form class="navbar_search-form" method="post" action="/timkiemsanpham">
-            <input type="text" class="navbar_search-form-input" placeholder="Bạn đang tìm gì... " name="tukhoasp">
+        <form class="navbar_search-form" method="GET" action="./timkiemsanpham">
+            <input type="text" class="navbar_search-form-input" placeholder="Bạn đang tìm gì... " name="tukhoatimkiem">
             <button type="submit" class="navbar_search-form-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{!-- Lịch sử tìm kiếm --}}
             <div class="navbar_search-form-history">
@@ -335,15 +335,7 @@
         </li>
     </ui>
 </nav>
-
-
 <script>
-    document.addEventListener('DOMContentLoaded', function(){
-        var searchInput = $('.navbar_search-form-input')
-        var searchHistory = $('.navbar_search-form-history')
-
-
-       
-    })
-   
+    document.addEventListener("DOMContentLoaded", function(){
+    })  
 </script>

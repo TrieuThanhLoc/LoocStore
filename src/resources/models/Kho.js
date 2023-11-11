@@ -3,12 +3,10 @@ const Schema = mongoose.Schema;
 
 const Kho = new Schema({
     masp: {type: String, unique: false},
-    mamau: String,
+    tensp: String,
     mausac: String,
-    soluong: Number,
+    soluongtrongkho: Number,
     soluongdaban: {tyoe: Number},
-    rom: Number,
-    ram: Number,
     giaban: Number,
 });
 

@@ -36,6 +36,25 @@ app.engine('hbs', handlebars(
         chia: (a,b)=>{
           return a/b
         },
+        saodanhgia: (sosao)=>{
+          var sao = '';
+          for(var i = 1; i <= sosao; i++){
+            sao += '<span><i class="fa-solid fa-star" style="color: #ffd500;"></i></span>'
+          }
+          return sao;
+        },
+        trangthaidonhang:(trangthai)=>{
+          if(trangthai == 'da_tiep_nhan'){
+            return '<div style="width: 120px; text-align: center; background-color: coral; color: white; border-radius: 15px; padding: 5px 10px;">Đã tiếp nhận</div>'
+          }else if(trangthai == 'van_chuyen'){
+            return '<div style="width: 120px; text-align: center; background-color: cadetblue; color: white; border-radius: 15px; padding: 5px 10px;">Vận chuyển</div>'
+          }else if(trangthai == 'dang_giao'){
+            return '<div style="width: 120px; text-align: center; background-color: yellowgreen; color: white; border-radius: 15px; padding: 5px 10px;">Đang giao</div>'
+          }
+          else if(trangthai == 'hoan_thanh'){
+            return '<div style="width: 120px; text-align: center; background-color: green; color: white; border-radius: 15px; padding: 5px 10px;">Hoàn thành</div>'
+          }
+        }
       }
     }
 ));

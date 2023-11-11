@@ -1,0 +1,23 @@
+.tim_kiem_san_pham-header{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 140px;
+}
+.tim_kiem_san_pham-header--title{
+    margin: 10px 0;
+    padding: 0 40px;
+    font-size: 25px;
+    font-weight: 500;
+}
+.tim_kiem_san_pham-header--title span{
+    color: red;
+    font-weight: 600;
+}
+
+
+
+.tim_kiem_san_pham-body{
+    padding: 20px 110px;
+    display: flex;
+    flex-wrap: wrap;
+}

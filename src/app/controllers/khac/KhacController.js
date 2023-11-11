@@ -7,6 +7,8 @@ const SanPham = require('../../../resources/models/SanPham')
 const { MongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const GioHang = require("../../../resources/models/GioHang");
 
+const Kho = require('../../../resources/models/Kho')
+
 //Lay thong tin khach hang
 const LayThongTinKhachHang = require("../../../util/laythongtinkhachhang");
 
@@ -24,8 +26,33 @@ class KhacController{
         await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
             thongtintaikhoan = thongtin;
         })
+        // Sản phẩm bán chạy 
+         const khos = await Kho.find({}).sort({soluongban: 'desc'})
+        var topsanphams = [];
+        var temp = 4;
+        if(khos.length < 4){
+            temp = khos.length
+        }
+        for (var i = 0 ; i < temp; i++){
+            if(khos[i].soluongdaban >= 1){
+                const sanpham = await SanPham.findOne({masp: khos[i].masp})
+                khos[i]._doc.anh = sanpham.anh;
+                khos[i]._doc.hangsx = sanpham.hangsx;
+                topsanphams.push(khos[i]);
+            }
+        }
+        //Cặp nhặt giá bán và số lượng từ kho
+        for(var i = 0; i < topsanphams.length; i++){
+            const khos = await Kho.find({masp: topsanphams[i].masp}).sort({giaban: 'asc'});
+            var soluongspcon = 0;
+            // ketquatimkiems[i].giaban = await khos[1].giaban;
+            for(var j = 0; j < khos.length; j++){
+                soluongspcon += khos[j].soluongtrongkho
+            }
+            topsanphams[i].soluong = soluongspcon
+        }
          res.render('khac/home',{
-            sanphams: multipleMongooseToObject(sanphams),
+            topsanphams: multipleMongooseToObject(topsanphams),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
     }
@@ -48,6 +75,13 @@ class KhacController{
         }
     }
     dangnhap(req,res){
+        if(req.query.loginfalse == "false"){
+            const saimatkhau = true;
+            const email = req.query.email
+            return res.render('khac/dangnhap',{
+                email, saimatkhau
+            });
+        }
         res.render('khac/dangnhap');
     }
     dangsuat(req,res,next){
@@ -79,13 +113,7 @@ class KhacController{
                         },'thanhloc')
                         return res.status(200).cookie('token',tokennhanvien).redirect('/');
                     }else{
-                        //Nếu như mật Khẩu sai
-                        const email = req.body.email;
-                        const saimatkhau = true;
-                        return res.render('khac/dangnhap', {
-                            saimatkhau,
-                            email,
-                        })
+                        return res.redirect('../dangnhap/?loginfalse=false&email='+email)
                     }
                 })
                 .catch( next);
@@ -93,18 +121,16 @@ class KhacController{
         })
         .catch( next);
     }
-    timkiem(req,res){
-        res.render('khac/timkiem');
-    }
-
-
-
-
 
     // Tim kiem san pham
     async timkiemsanpham(req, res, next){
-        const sanphams = await SanPham.find({});
-        const tukhoatimkiem = req.body.tukhoasp;
+        var sanphams;
+        if(req.query.sapxep == 'desc'){
+            sanphams = await SanPham.find({}).sort({giaban: 'desc'});
+        }else{
+            sanphams = await SanPham.find({}).sort({giaban: 'asc'});
+        }
+        const tukhoatimkiem = req.query.tukhoatimkiem;
         var ketquatimkiems = sanphams.filter((ketqua)=>{
             return ketqua.tensp.toLowerCase().includes(tukhoatimkiem.toLowerCase())
                     || ketqua.loaisp.toLowerCase().includes(tukhoatimkiem.toLowerCase())
@@ -114,8 +140,20 @@ class KhacController{
         await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
             thongtintaikhoan = thongtin;
         })
+        // cặp nhật số lượng và giá tièn sản phẩm từ kho
+        for(var i = 0; i < ketquatimkiems.length; i++){
+            const khos = await Kho.find({masp: ketquatimkiems[i].masp}).sort({giaban: 'asc'});
+            var soluongspcon = 0;
+            // ketquatimkiems[i].giaban = await khos[1].giaban;
+            for(var j = 0; j < khos.length; j++){
+                soluongspcon += khos[j].soluongtrongkho
+            }
+            ketquatimkiems[i].soluong = soluongspcon
+        }
+
         res.render('khac/timkiem', {
             ketquatimkiems: multipleMongooseToObject(ketquatimkiems),
+            tukhoatimkiem,
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
     }

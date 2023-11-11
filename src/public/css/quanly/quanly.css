@@ -1,22 +1,91 @@
+.trang_quan_ly{
+    display: flex;
+    min-height: 707px;
+}
 .quan_ly{
-    /* background-color: rgb(255, 255, 255); */
-    width: 50%;
-    height: 300px;
     text-align: center;
-    margin: auto;
+    min-height: 707px;
+    background-color: var(--mau-phu-thu-5);
 }
 .quan_ly-header{
     color: rgb(191, 131, 131);
+}
+.logo_img{
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    width: 170px;
+    padding: 10px;
+    border-radius: 40px;
+    border: 2px solid var(--mau-phu-thu-3);
+    box-shadow: 3px 3px 5px rgb(255, 255, 255);
+    margin: 10px 20px 10px 20px;
+}
+.logo_img img{
+    width: 50px;
+}
+.trang_quan_ly-taikhoan{
+    display: flex;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    padding: 10px;
+    background-image: linear-gradient(to right,var(--mau-phu-thu-1), var(--mau-phu-thu-4));
+    margin-bottom: 20px;
+
+}
+.trang_quan_ly-taikhoan img{
+    width: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 30px;
+}
+.trang_quan_ly-taikhoan-trangthai p{
+    margin: 0;
+}
+.trang_quan_ly-taikhoan-trangthai i{
+    text-align: left;
+}
+.trang_quan_ly-taikhoan-trangthai i div{
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 10px;
+    display: inline-block;
+}
+.trang_quan_ly-taikhoan-trangthai{
+    display: flex;
+    flex-direction: column;
 }
 .quan_ly-body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.quan_ly-btn{
-    width: 300px;
+.quan_ly-body--item{
+    width: 200px;
     margin: auto;
-    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    -webkit-user-select: none;
+}
+.quan_ly-body--item-popup{
+    margin-left: 40px;
+    color: white;
+    list-style: none;
+    text-align: left;
+}
+.quan_ly-body--item-popup li:hover{
+    color: bisque;
+    cursor: pointer;
+}
+.quan_ly-body--item-clicked{
+    background-color: black;
+}
+.quan_ly-body--item:hover{
+    color: silver;
+    background-color: rgb(47, 47, 47);
+    cursor: pointer;
 }
 .quan_ly-link{
     color: white;
@@ -28,4 +97,13 @@
 }
 .quan_ly_san_pham-header{
     color: aqua;
+}
+
+
+
+/* Cửa sổ chức năng */
+.cua_so_chuc_nang{
+    width: 100%;
+    min-height: 707px;
+    padding: 20px;
 }

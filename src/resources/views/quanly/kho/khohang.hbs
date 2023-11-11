@@ -1,0 +1,29 @@
+<p class="kho_title">
+    Kho
+</p>
+<div class="kho_table">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Màu</th>
+                <th scope="col">SL kho</th>
+                <th scope="col">SL bán</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each kho}}
+            <tr>
+                <th scope="row">{{cong @index 1}}</th>
+                <td>{{this.tensp}}</td>
+                <td><span>{{this.mausac}}</span></td>
+                <td>{{this.soluongtrongkho}} </td>
+                <td>{{this.soluongdaban}} </td>
+                <td><a href="/quanly/xoakho/{{this._id}}"><button class="btn btn-danger">Xoá</button></a> </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

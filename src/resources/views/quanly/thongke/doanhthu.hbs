@@ -1,0 +1,43 @@
+
+<div class="bieu_do_thong_ke_theo_thang">
+    <canvas id="bieudoduong"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    //Lấy dữ liệu thống kê số lượng sản phẩm đã bán trong tháng và vẽ biểu đồ
+    var label, laybels, data;
+    if (Array({{ doanhthuthang }}) != undefined && Array({{ doanhthuthang }}).length > 0) { //Theo tháng
+        laybels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',]
+        data = Array({{ doanhthuthang }});
+        laybel = "DOANH THU THEO THÁNG";
+    }else if (Array({{ doanhthungay }}) != undefined && Array({{ doanhthungay }}).length > 0) { //Theo tháng
+        laybels = Array({{ laybelsngay }});
+        data = Array({{ doanhthungay }});
+        laybel = "DOANH THU THEO NGÀY";
+    }
+    const ctx = document.getElementById('bieudoduong');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: laybels,
+            datasets: [{
+                label: laybel,
+                data: data,
+                borderWidth: 5,
+                backgroundColor: 'rgb(255,99,132)',
+                line: {
+                    radius: 1// disable for all `'line'` datasets
+                }
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

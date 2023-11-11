@@ -1,0 +1,297 @@
+<div class="thong_ke">
+    <p class="thong_ke-title">
+        LOOC STORE
+    </p>
+    <div class="thong_ke-dongtien">
+        <div class="dongtien-item">
+            <div class="dongtien-item--title">
+                <p>Tổng doanh thu</p>
+            </div>
+            <div class="dongtien-item--data">
+                <div class="dongtien-item--data-name">
+                    Tháng {{doanhthuthang.thang}}
+                </div>
+                <div class="dongtien-item--data-content">
+                    <span class="gia_format">{{doanhthuthang.doanhthu}}</span> vnd
+                </div>
+            </div>
+            <div class="dongtien-item--data">
+                <div class="dongtien-item--data-name">
+                    Năm {{doanhthunam.nam}}
+                </div>
+                <div class="dongtien-item--data-content">
+                    <span class="gia_format">{{doanhthunam.doanhthu}}</span> vnd
+                </div>
+            </div>
+        </div>
+        <div class="dongtien-item">
+            <div class="dongtien-item--title">
+                <p>Tổng phí nhập hàng</p>
+            </div>
+            <div class="dongtien-item--data">
+                <div class="dongtien-item--data-name">
+                    Tháng {{phinhaphangthang.thang}}
+                </div>
+                <div class="dongtien-item--data-content">
+                    <span class="gia_format">{{phinhaphangthang.phinhap}}</span> vnd
+                </div>
+            </div>
+            <div class="dongtien-item--data">
+                <div class="dongtien-item--data-name">
+                    Năm {{phinhaphangnam.nam}}
+                </div>
+                <div class="dongtien-item--data-content">
+                    <span class="gia_format">{{phinhaphangnam.phinhap}}</span> vnd
+                </div>
+            </div>
+        </div>
+        <div class="dongtien-item">
+            <div class="dongtien-item--title">
+                <p>Lợi nhuận</p>
+            </div>
+            <div class="dongtien-item--data">
+                <div class="dongtien-item--data-name">
+                    Tháng {{loinhuanthang.thang}}
+                </div>
+                <div class="dongtien-item--data-content">
+                    <span class="gia_format">{{loinhuanthang.loinhuan}}</span> vnd
+                </div>
+            </div>
+            <div class="dongtien-item--data">
+                <div class="dongtien-item--data-name">
+                    Năm {{loinhuannam.nam}}
+                </div>
+                <div class="dongtien-item--data-content">
+                    <span class="gia_format">{{loinhuannam.loinhuan}}</span> vnd
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="thong_ke-chung">
+        <div class="thong_ke-chung-item">
+            <div class="thong_ke-chung-item--icon">
+                <i class="fa-solid fa-cube"></i>
+            </div>
+            <div class="thong_ke-chung-item--info">
+                <div class="thong_ke-chung-item--info-title">
+                    Tổng số đơn
+                </div>
+                <div class="thong_ke-chung-item--info-detail">
+                    <span>{{tongdon}}</span> đơn hàng
+                </div>
+            </div>
+        </div>
+        <div class="thong_ke-chung-item">
+            <div class="thong_ke-chung-item--icon">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+            <div class="thong_ke-chung-item--info">
+                <div class="thong_ke-chung-item--info-title">
+                    Thành viên
+                </div>
+                <div class="thong_ke-chung-item--info-detail">
+                    <span>{{tongtaikhoankh}}</span> thành viên
+                </div>
+            </div>
+        </div>
+        <div class="thong_ke-chung-item san_pham">
+            <div class="thong_ke-chung-item--icon">
+                <i class="fa-solid fa-mobile"></i>
+            </div>
+            <div class="thong_ke-chung-item--info">
+                <div class="thong_ke-chung-item--info-title">
+                    Sản phẩm
+                </div>
+                <div class="thong_ke-chung-item--info-detail">
+                    <span>{{tongsanpham}}</span> sản phẩm
+                </div>
+            </div>
+        </div>
+        <div class="thong_ke-chung-item">
+            <div class="thong_ke-chung-item--icon">
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="thong_ke-chung-item--info">
+                <div class="thong_ke-chung-item--info-title">
+                    Đánh giá
+                </div>
+                <div class="thong_ke-chung-item--info-detail">
+                    <span>{{tongdanhgia}}</span> lượt đánh giá
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cua_so_tong_quan_thon_ke  d-none">
+        <iframe id="cua_so_tong_quan_thon_ke" src="" frameborder="0" height="100%" width="100%"></iframe>
+        <button class="btn btn-secondary btn_dong_cua_so_tongquan">X</button>
+    </div>
+    <div class="thong_ke-bieu_do">
+        <div class="thong_ke-bieu_do_duong">
+            <div class="thong_ke-bieu_do_duong--dieuhuong">
+                <p class="thong_ke-bieu_do_duong--bieudo-title">
+                    Thống kê doanh thu
+                </p>
+                <div class="xemtheo">
+                    <div class="form-check">
+                        <input class="form-check-input" name="xemtheo" type="radio" id="xemtheongay" >
+                        <label class="form-check-label" for="xemtheongay">
+                            Ngày
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="xemtheo" type="radio" id="xemtheothang" checked>
+                        <label class="form-check-label" for="xemtheothang">
+                            Tháng
+                        </label>
+                    </div>
+                </div>
+                <iframe class="frame_bieu_do_duong" src="../quanly/thongke/doanhthu?xemtheo=thang" frameborder="0"></iframe>
+            </div>
+        </div>
+        <div class="thong_ke-bieu_do_tron">
+            <p class="thong_ke-bieu_do_tron--bieudo-title">
+                Thống kê trạng thái
+            </p>
+            <iframe class="frame_bieu_do_tron" src="../quanly/thongke/trangthaidonhang" frameborder="0"></iframe>
+        </div>
+    </div>
+    <div class="thong_ke-top">
+        <div class="top_item">
+            <div class="top_item-title">
+                <p>Khách hàng thân thiết</p>
+            </div>
+            {{#each top3kh}}
+            <div class="top_item-contemt">
+                <div class="top_thanthiet-icon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div class="top_thanthiet-info">
+                    <img src="../..//images/{{this.anhkh}}" alt="" class="top_thanthiet-info--img">
+                    <div class="top_thanthiet-info--thanthiet">
+                        <div class="top_thanthiet-info--thanthiet-tenkh">
+                            {{this.tenkh}}
+                        </div>
+                        <div class="top_thanthiet-info--thanthiet-luotmua">
+                            {{this.soluotmua}} lượt mua
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="top_item">
+            <div class="top_item-title">
+                <p>Top sản phẩm bán chạy</p>
+            </div>
+            {{#each topsanphams}}
+            <div class="top_item-contemt">
+                <div class="top_sanpham">
+                    <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="top_sanpham-img">
+                    <div class="top_sanpham-detail">
+                        <div class="top_sanpham-detail--luotmua">
+                            {{this.soluongdaban}} lượt mua
+                        </div>
+                        <div class="top_sanpham-detail--tensp">
+                            {{this.tensp}}
+                        </div>
+                    </div>
+                    <div class="top_sanpham-giaban">
+                        <span class="gia_format">{{this.giaban}}</span> vnd
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="top_item">
+            <div class="top_item-title">
+                <p>Sản phẩm được đánh giá cao</p>
+            </div>
+            {{#each topdanhgia}}
+            <div class="top_item-contemt">
+                <div class="top_sanpham">
+                    <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="top_sanpham-img">
+                    <div class="top_sanpham-detail">
+                        <div class="top_sanpham-detail--luotmua">
+                            {{{saodanhgia this.sosao}}}
+                        </div>
+                        <div class="top_sanpham-detail--tensp">
+                            {{this.tensp}}
+                        </div>
+                    </div>
+                    <div class="top_sanpham-giaban">
+                        <span class="gia_format">{{this.giaban}}</span> vnd
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="thong_ke-don_hang_moi_nhat">
+        <div class="don_hang_moi_nhat-title">
+            Đơn hàng mới nhất
+        </div>
+        <table class="don_hang_moi_nhat-bang table table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th>STT</th>
+                    <th>Khách hàng</th>
+                    <th>Giá đơn</th>
+                    <th>Trạng thái</th>
+                    <th>Thời gian đặt</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each donhangsmoi}}
+                <tr>
+                    <th>{{cong @index 1}}</th>
+                    <td>{{this.tenkh}}</td>
+                    <td><span class="gia_format">{{this.tienthanhtoan}}</span> vnd</td>
+                    <td>{{{trangthaidonhang this.trangthai}}}</td>
+                    <td>{{this.ngaydathang}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(){
+        var FrameCuaSoTongQuanThongKe = $('#cua_so_tong_quan_thon_ke');
+        var CuaSoTongQuanThongKe = $('.cua_so_tong_quan_thon_ke');
+        var thongKeTongQuan = $('.thong_ke-chung-item');
+        var btnDongCuaSoTongQuan = $('.btn_dong_cua_so_tongquan')
+
+        thongKeTongQuan.click(function(){
+            if ($(this).hasClass('san_pham')) {
+            console.log(this)
+                $(this).click(function () {
+                    FrameCuaSoTongQuanThongKe.attr('src', '../quanly/sanpham')
+                    CuaSoTongQuanThongKe.removeClass('d-none')
+                })
+            }
+        })
+        btnDongCuaSoTongQuan.click(function(){
+            CuaSoTongQuanThongKe.addClass('d-none')
+        })
+
+        //Chuyển chế độ xem biểu đồ đường 
+        var inputXemTheoNgay = $('#xemtheongay');
+        var inputXemTheoThang = $('#xemtheothang');
+        var frameBieuDoDuong = $('.frame_bieu_do_duong')
+
+        inputXemTheoNgay.change(function(){
+            if($(this).prop('checked')){
+                frameBieuDoDuong.attr('src', '../quanly/thongke/doanhthu?xemtheo=ngay')
+            }
+        })
+        inputXemTheoThang.change(function () {
+            if ($(this).prop('checked')) {
+                frameBieuDoDuong.attr('src', '../quanly/thongke/doanhthu?xemtheo=thang')
+            }
+        })
+    })
+</script>

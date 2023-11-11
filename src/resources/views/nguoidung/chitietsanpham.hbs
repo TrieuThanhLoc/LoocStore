@@ -39,15 +39,22 @@
                     <span class="gia_format">{{sanpham.giaban}}</span> VND
                 </p>
                 {{#if sanpham.soluong}}
-                <p class="chi_tiet-header--thongsochinh-tinhtrang">
-                    <i class="fa-solid fa-circle-check"></i> Còn hàng
-                </p>
+                <div class="chi_tiet-header--thongsochinh-tinhtrang">
+                    <span><i class="fa-solid fa-circle-check"></i> Còn hàng</span>
+                    <div class="mau_con_hang">
+                        {{#each sanpham.mausac}}
+                        <span class="mau_con_hang-item">
+                            {{this}}
+                        </span>
+                        {{/each}}
+                    </div>
+                </div>
                 {{else}}
                 <p class="chi_tiet-header--thongsochinh-tinhtrang" style="color: red;">
                     <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
                 </p>
                 {{/if}}
-                <div class="chi_tiet-header--thongsochinh-chon">
+                {{!-- <div class="chi_tiet-header--thongsochinh-chon">
                     <div class="chi_tiet-header--thongsochinh-mau">
                         Màu:
                         <select type="checkbox" id="chon_mau">
@@ -64,7 +71,7 @@
                             <option for="chon_rom">!6GB</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
                 <div class="chi_tiet-header--thongsochinh-khuyenmai">
                     <p class="chi_tiet-header--thongsochinh-khuyenmai-ten">
                         Khuyến mãi
@@ -83,11 +90,10 @@
                             <p>Giao hàng tận nơi miễn phí !</p>
                         </button>
                     </a>
-                    <a href="/giohang/themgiohang/{{sanpham.masp}}" class="">
-                        <button class="chi_tiet-header--thongsochinh-btn-themvaogio" id="them_vao_gio_hang">
-                            THÊM VÀO GIỎ HÀNG
-                        </button>
-                    </a>
+                    <form class="form_them_gio_hang" action="/giohang/themgiohang">
+                        <input type="text" name="masp" value="{{sanpham.masp}}" hidden>
+                        <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary chi_tiet-header--thongsochinh-btn-themvaogio">THÊM VÀO GIỎ HÀNG</button>
+                    </form>
                 </div>
                 <div class="chi_tiet-header--thongsochinh-lienhe">
                     <p>Gọi đên <a href="tel: +84932575508">0932575508</a> để được tư vấn miễn phí!</p>
@@ -154,63 +160,59 @@
     <div class="chi_tiet-footer">
         <div class="danhgia">
             <p class="danhgia-tensanpham">
-                Đánh giá iphone 14 pro max
+                Đánh giá {{sanpham.tensp}}
             </p>
             <div class="danhgia-thongke">
                <p class="danhgia-tong">
-                <span class="sosao"> 5  </span> 
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
+                <span class="sosao">{{danhgiasanpham.trungbinhsao}}</span> 
+                {{{saodanhgia danhgiasanpham.trungbinhsao}}}
                </p>
-                <span class="tongdanhgia">400 đánh giá</span>
+                <span class="tongdanhgia">{{danhgiasanpham.luotdanhgia}} đánh giá</span>
                 <ul class="danhgia-thongke--bang">
                     <li class="danhgia-thongke--item">
                         1  <i class="fa-solid fa-star"></i>
                         <div class="phantramsao">
-                            <p class="phantram" style="width: 10%">
+                            <p class="phantram" style="width: {{danhgiasanpham.motsao}}%">
                                  
                             </p>
                         </div>
-                        <span class="sophantram">50%</span>
+                        <span class="sophantram">{{danhgiasanpham.motsao}}%</span>
                     </li>
                     <li class="danhgia-thongke--item">
                         2  <i class="fa-solid fa-star"></i>
                         <div class="phantramsao">
-                            <p class="phantram" style="width: 10%">
+                            <p class="phantram" style="width: {{danhgiasanpham.haisao}}%">
                         
                             </p>
                         </div>
-                        <span class="sophantram">50%</span>
+                        <span class="sophantram">{{danhgiasanpham.haisao}}%</span>
                     </li>
                     <li class="danhgia-thongke--item">
                         3  <i class="fa-solid fa-star"></i>
                         <div class="phantramsao">
-                            <p class="phantram" style="width: 11%">
+                            <p class="phantram" style="width: {{danhgiasanpham.basao}}%">
                         
                             </p>
                         </div>
-                        <span class="sophantram">50%</span>
+                        <span class="sophantram">{{danhgiasanpham.basao}}%</span>
                     </li>
                     <li class="danhgia-thongke--item">
                         4  <i class="fa-solid fa-star"></i>
                         <div class="phantramsao">
-                            <p class="phantram" style="width: 10%">
+                            <p class="phantram" style="width: {{danhgiasanpham.bonsao}}%">
                         
                             </p>
                         </div>
-                        <span class="sophantram">50%</span>
+                        <span class="sophantram">{{danhgiasanpham.bonsao}}%</span>
                     </li>
                     <li class="danhgia-thongke--item">
                         5  <i class="fa-solid fa-star"></i>
                         <div class="phantramsao">
-                            <p class="phantram" style="width: 10%">
+                            <p class="phantram" style="width: {{danhgiasanpham.namsao}}%">
                         
                             </p>
                         </div>
-                        <span class="sophantram">50%</span>
+                        <span class="sophantram">{{danhgiasanpham.namsao}}%</span>
                     </li>
                 </ul>
             </div>

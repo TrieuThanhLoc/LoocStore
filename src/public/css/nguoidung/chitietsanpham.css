@@ -33,6 +33,19 @@
     font-size: 15px;
     font-weight: 600;
 }
+
+.mau_con_hang{
+    margin: 10px 20px;
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+}
+.mau_con_hang-item{
+    border: 1px solid var(--mau-phu-thu-3);
+    padding: 2px 8px;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 1px green;
+}
 .chi_tiet-header--thongsochinh-chon{
     display: flex;
     flex-direction: row;

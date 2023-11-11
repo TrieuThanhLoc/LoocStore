@@ -1,5 +1,7 @@
 const { render } = require('vue');
 const { multipleMongooseToObject, MongooseToObject } = require('../../../util/mongoose');
+const LayThongTinKhachHang = require('../../../util/laythongtinkhachhang');
+const Ngay = require('../../../util/ngay');
 //San pham
 const SanPham = require('../../../resources/models/SanPham');
 const NhatKyDonHang = require('../../../resources/models/NhatKyDonHang');
@@ -16,9 +18,13 @@ const Kho = require('../../../resources/models/Kho');
 //Nhan vien
 const NhanVien = require ('../../../resources/models/NhanVien');
 const KhachHang = require ('../../../resources/models/khachhang/KhachHang');
+const DanhGia = require ('../../../resources/models/khachhang/DanhGia');
+const ChatLuongDichVu = require ('../../../resources/models/khachhang/ChatLuongDichVu');
 const DonHang = require('../../../resources/models/DonHang');
 const GioHang = require('../../../resources/models/GioHang');
 const ChiTietDonHang = require('../../../resources/models/ChiTietDonHang');
+
+
 
 class thanhtoanController{
     async index (req,res, next){
@@ -39,7 +45,7 @@ class thanhtoanController{
             makh = thongtintaikhoan.manv
         }
         }
-        let donhangs = await DonHang.find({makh: makh}).sort({ngaydathang: 'desc'})
+        var donhangs = await DonHang.find({makh: makh}).sort({ngaydathang: 'desc'})
         for(var i = 0; i < donhangs.length; i++){
             if(donhangs[i].trangthai == 'da_tiep_nhan'){
                 donhangs[i]._doc.da_tiep_nhan = true;
@@ -188,6 +194,60 @@ class thanhtoanController{
             donhangs: multipleMongooseToObject(donhangs),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
+    }
+
+    async danhgia(req, res, next){
+        const madh = req.query.ma_don
+        const chitietdonhangs = await ChiTietDonHang.find({madh: madh});
+        var donhang = await DonHang.findOne({_id: madh});
+        var sanphams = [];
+
+        for(var i = 0; i < chitietdonhangs.length; i++){
+            const sanpham = await SanPham.findOne({masp: chitietdonhangs[i].masp});
+            sanphams.push(sanpham);
+        }
+        donhang._doc.sanphams = sanphams
+        res.render('nguoidung/danhgia',{
+            madh,
+            donhang: MongooseToObject(donhang),
+        })
+    } 
+    async thuchiendanhgia(req, res, next){
+        const masp = req.body.masp;
+        const sosao = req.body.sosao;
+        const noidungdanhgia = req.body.noidungdanhgia;
+
+         //Lay thong tin khach hang
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+
+        for(var i = 0; i < masp.length; i ++){
+            const danhgia = new DanhGia();
+            const chatluongdichvu = new ChatLuongDichVu();
+            if(masp[i] == 'chat_luong_dich_vu'){
+                chatluongdichvu.makh = thongtintaikhoan._doc.makh;
+                chatluongdichvu.sosao = sosao[i];
+                chatluongdichvu.noidungdanhgia = noidungdanhgia[i];
+
+                chatluongdichvu.ngaydanhgia = Ngay.ngaygiohomnay()
+                await chatluongdichvu.save();
+            }else{
+                danhgia.makh = thongtintaikhoan._doc.makh;
+                danhgia.masp = masp[i];
+                danhgia.sosao = sosao[i];
+                danhgia.noidungdanhgia = noidungdanhgia[i];
+                danhgia.ngaydanhgia = Ngay.ngaygiohomnay();
+                await danhgia.save();
+            }
+
+        }
+        await DonHang.updateOne({_id: req.params.madh},{
+            danhgia: true,
+        })
+
+        res.redirect('../../nguoidung/donhang')
     }
 }
 module.exports = new thanhtoanController;

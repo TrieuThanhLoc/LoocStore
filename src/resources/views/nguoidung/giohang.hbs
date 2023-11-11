@@ -116,12 +116,12 @@
         var tong_tien_sp_nay = $('.tong_tien_sp_nay_value');
         var gia_khuyen_mai = $('.gia_khuyen_mai_value');
         var so_luong_input = $('.so_luong--input');
-        console.log(tong_tien_sp_nay)
+        
+        tinhtongtien(so_luong_input, gia_khuyen_mai, tong_tien_sp_nay)
         so_luong_input.change(function(){
             tinhtongtien(so_luong_input, gia_khuyen_mai, tong_tien_sp_nay)
         })
 
-        tinhtongtien(so_luong_input, gia_khuyen_mai, tong_tien_sp_nay)
 
         function tinhtongtien(thesoluong, thegiaban, theketqua){
             for(var i = 0; i < theketqua.length; i++){

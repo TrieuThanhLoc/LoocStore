@@ -17,7 +17,7 @@
 }
 
 .the_san_pham-item:hover {
-    box-shadow: 3px 3px var(--mau-phu-thu-2);
+    box-shadow:0 0 3px 3px silver;
 }
 
 .the_san_pham-item-img-box {

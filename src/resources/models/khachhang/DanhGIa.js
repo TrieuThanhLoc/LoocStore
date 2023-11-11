@@ -5,6 +5,7 @@ const DanhGia = new Schema ({
     masp : String,
     makh : String,
     sosao: Number,
-    ngaydanhgia: Date
+    noidungdanhgia: String,
+    ngaydanhgia: String,
 })
 module.exports =  mongoose.model('DanhGia', DanhGia);

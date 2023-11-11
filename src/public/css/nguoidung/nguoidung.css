@@ -113,3 +113,113 @@
 .van_chuyen, .dang_giao, .hoan_thanh, .da_huy, .tat_ca{
     background-color: rgb(102, 102, 199);
 }
+
+
+/* Trang danh gia */
+.danh_gia_sp-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: orange;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--mau-phu-thu-3);
+}
+.danh_gia_sp{
+    width: 50%;
+    margin: auto;
+    background-color: var(--mau-phu-thu-2);
+    border-radius: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+.danh_gia_sp-header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+}
+.danh_gia_sp-header a{
+    font-size: 18px;
+    font-weight: 500;
+    color: blue;
+}
+.danh_gia_sp-header a:hover{
+    color: rgb(92, 92, 255);
+}
+.danh_gia_sp-body-item{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    padding: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.item-sanpham{
+    display: flex;
+}
+.item-sanpham--img{
+    width: 80px;
+    height: 85px;
+    border-radius: 10px;
+    padding: 5px;
+}
+.item-sanpham--thongtinsp{
+    padding-top: 10px;
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 600;
+}
+.thongtinsp-tensp{
+    margin: 0;
+}
+.thongtinsp-sao_danh_gia{
+    font-size: 20px;
+    color: rgb(255, 193, 7);
+}
+.danh_gia_sp-body-binhluan-input{
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline-color: var(--mau-phu-thu-3);
+}
+.danh_gia_sp-footer{
+    margin-top: 20px;
+}
+.danh_gia_sp-footer .sosao_danhgia{
+    margin-left: 20px;
+}
+.danh_gia_sp-footer-giaohang{
+    background-color: aliceblue;
+    padding: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.danh_gia_sp-footer-giaohang-title{
+    display: flex;
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+.danh_gia_sp-footer-btn{
+    margin: 20px 0;
+    text-align: right;
+}
+
+.sao_widget{ 
+    margin-left: 20px;
+    font-size: 20px;
+    color: #444;
+    transition: all 0.3s ease;
+}
+.sao_checked{
+    transition: all 0.3s ease;
+    color: #fd4;
+}
+

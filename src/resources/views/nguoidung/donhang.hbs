@@ -180,9 +180,12 @@
             </span>
         </div>
         <div class="don_hang-item--btn ">
-            <a href="/danhgia">
+                {{!-- Modal danh gia san pham --}}
+            {{#unless this.danhgia}}
+            <a href="/nguoidung/danhgia?ma_don={{this._id}}">
                 <button type="button" class="btn btn-warning px-5">Đánh giá</button>
             </a>
+            {{/unless}}
             <a href="/">
                 <button type="button" class="btn btn-secondary px-5">Mua lại</button>
             </a>
@@ -232,7 +235,6 @@
     {{/each}}
 </div>
 <script>
-    
     document.addEventListener('DOMContentLoaded', function(){
         //button thanh trang thai
         var tat_ca_btn = $('#tat_ca_btn');

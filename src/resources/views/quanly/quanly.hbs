@@ -1,33 +1,105 @@
 <link rel="stylesheet" href="./css/quanly/quanly.css">
 
-<div class="quan_ly">
-    <h1 class="quan_ly-header">
-        Looc Store
-    </h1>
-    <div class="quan_ly-body">
-        <a href="./quanly/sanpham" class="quan_ly-link">
-            <button class="quan_ly-btn btn btn-success">
-            <i class="fa-solid fa-mobile"></i>
+<div class="trang_quan_ly">
+    <div class="quan_ly">
+        <div class="quan_ly-header">
+            <div class="logo_img">
+                <a href="/">
+                    <img src="../../../images/logo.png" alt="">
+                    <span style="color: white;">Looc Store</span>
+                </a>
+            </div>
+           <div class="trang_quan_ly-taikhoan">
+                <img src="../../../images/{{thongtintaikhoan.anhkh}}{{thongtintaikhoan.anhnv}}">
+               <div class="trang_quan_ly-taikhoan-trangthai">
+                    <p>
+                        {{thongtintaikhoan.tennv}}{{thongtintaikhoan.tenkh}}
+                    </p>
+                    <i>
+                        <div> </div> Online
+                    </i>
+               </div>
+           </div>
+        </div>
+        <div class="quan_ly-body">
+            <div class="quan_ly-body--item thong_ke quan_ly-body--item-clicked" id="btn_quan_ly_thongke">
+            <i class="fa-solid fa-chart-line"></i>
+               Thống kê
+            </div>
+            <div class="quan_ly-body--item san_pham" id="btn_quan_ly_sanpham">
+                <i class="fa-solid fa-mobile"></i>
                 Quản lý sản phẩm
-            </button> 
-        </a>
-        <a href="./quanly/nhanvien" class="quan_ly-link">
-            <button class="quan_ly-btn btn btn-success">
+            </div>
+            <div class="quan_ly-body--item kho_hang" id="btn_quan_ly_kho">
+                <i class="fa-regular fa-user"></i>
+                Quản lý kho hàng
+            </div>
+            <div class="quan_ly-body--item nhan_vien" id="btn_quan_ly_nhanvien">
             <i class="fa-solid fa-user-group"></i>
                 Quản lý nhân viên
-            </button>
-        </a>
-        <a href="./quanly/donhang" class="quan_ly-link">
-            <button class="quan_ly-btn btn btn-success">
+            </div>
+            <div class="quan_ly-body--item don_hang" id="btn_quan_ly_donhang">
             <i class="fa-solid fa-cart-shopping"></i>   
                 Quản lý đơn hàng
-            </button>
-        </a>
-        <a href="./quanly/taikhoan" class="quan_ly-link">
-            <button class="quan_ly-btn btn btn-success">
+            </div>
+            <div class="quan_ly-body--item tai_khoan" id="btn_quan_ly_taikhoan">
             <i class="fa-regular fa-user"></i> 
                 Quản lý tài khoản
-            </button>
-        </a>
+            </div>
+        </div>
     </div>
+    <iframe class="cua_so_chuc_nang" id="cua_so_chuc_nang" src="./quanly/thongke" frameborder="0"></iframe>
 </div>
+
+
+
+<script>
+ document.addEventListener('DOMContentLoaded', function(){
+    var CuaSoChucNang = $('#cua_so_chuc_nang');
+    var btnQuanLyItem = $('.quan_ly-body--item')
+    btnQuanLyItem.click(function(){
+        if ($(this).hasClass('san_pham')) {
+            $(this).click(function () {
+                CuaSoChucNang.attr('src', './quanly/sanpham')
+                btnQuanLyItem.removeClass('quan_ly-body--item-clicked')
+                $(this).addClass('quan_ly-body--item-clicked')
+            })
+        }
+        if ($(this).hasClass('thong_ke')) {
+            $(this).click(function () {
+                CuaSoChucNang.attr('src', './quanly/thongke')
+                btnQuanLyItem.removeClass('quan_ly-body--item-clicked')
+                $(this).addClass('quan_ly-body--item-clicked')
+            })
+        }
+        if ($(this).hasClass('kho_hang')) {
+            $(this).click(function () {
+                CuaSoChucNang.attr('src', './quanly/quanlykho')
+                btnQuanLyItem.removeClass('quan_ly-body--item-clicked')
+                $(this).addClass('quan_ly-body--item-clicked')
+            })
+        }
+        if ($(this).hasClass('nhan_vien')) {
+            $(this).click(function () {
+                CuaSoChucNang.attr('src', './quanly/nhanvien')
+                btnQuanLyItem.removeClass('quan_ly-body--item-clicked')
+                $(this).addClass('quan_ly-body--item-clicked')
+            })
+        }
+        if ($(this).hasClass('don_hang')) {
+            $(this).click(function () {
+                CuaSoChucNang.attr('src', './quanly/donhang')
+                btnQuanLyItem.removeClass('quan_ly-body--item-clicked')
+                $(this).addClass('quan_ly-body--item-clicked')
+            })
+        }
+        if ($(this).hasClass('tai_khoan')) {
+            $(this).click(function () {
+                CuaSoChucNang.attr('src', './quanly/taikhoan')
+                btnQuanLyItem.removeClass('quan_ly-body--item-clicked')
+                $(this).addClass('quan_ly-body--item-clicked')
+            })
+        }
+    })
+ })
+</script>

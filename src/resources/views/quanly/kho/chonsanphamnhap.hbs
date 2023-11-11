@@ -1,0 +1,64 @@
+<div class="chon_san_pham_nhap">
+    <p class="chon_san_pham_nhap-title">
+        Chọn sản phẩm nhập kho
+    </p>
+    <table class="phieu_nhap_hang-bang table table-striped table-hover">
+        <thead>
+            <tr>
+                <th ></th>
+                <th >STT</th>
+                <th >Ảnh</th>
+                <th >Hãng</th>
+                <th >Tên</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form method="post" action="../quanly/nhapkho" id="gui_san_pham_nhap_hang">
+                {{#each sanphams}}
+                <tr class="the_san_pham_bang">
+                    <td class="table_checkbox"><input type="checkbox" name="masp[]" value="{{this.masp}}"></td>
+                    <th class="table_stt">{{cong @index 1}}</th>
+                    <td class="table_anh">
+                        <img src="../../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="ảnh điện thoại" >
+                    </td>
+                    <td class="table_hang">{{this.hangsx}}</td>
+                    <td class="table_ten">{{this.tensp}}</td>
+                </tr>
+                {{/each}}
+            </form>
+        </tbody>
+    </table>
+    <div class="btn_tiep_tuc_nhap_hang">
+        Tiếp tục tạo phiếu nhập
+        <span class="so_luong_sp_nhap">
+            0
+        </span>
+        sản phẩm
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var inputTableCheckbox = $('.table_checkbox')
+        var soluongSP = $('.so_luong_sp_nhap')
+        var thesanpham = $('.the_san_pham_bang')
+        //form
+        var formGuiSanPhamNhapHang = $('#gui_san_pham_nhap_hang')
+        var btnGuiFormNhap = $('.btn_tiep_tuc_nhap_hang')
+
+       
+        thesanpham.click(function(){
+           if(!$(this.children[0].firstChild).prop('checked')){
+                $(this.children[0].firstChild).prop('checked', true) 
+           }else{
+             $(this.children[0].firstChild).prop('checked', false) 
+           }
+            soluongSP.text($('input[name="masp[]"]:checked').length)
+        })
+
+        btnGuiFormNhap.click(function(){
+            if($('input[name="masp[]"]:checked').length != 0){
+                formGuiSanPhamNhapHang.submit();
+            }
+        })
+    })
+</script>

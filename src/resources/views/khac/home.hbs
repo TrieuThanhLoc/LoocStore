@@ -90,7 +90,7 @@
             <a href="" class="dien_thoai_ban_chay-header-link">Xem thêm sản phẩm <i class="fa-solid fa-angles-right"></i></a>
         </div>
         <div class="dien_thoai_ban_chay-sanpham">
-            {{#each sanphams}}
+            {{#each topsanphams}}
             <div class="the_san_pham-item">
                 <div class="the_san_pham-item-img-box">
                     <a href="/sanpham/{{this.masp}}">
@@ -100,7 +100,7 @@
                 <p class="the_san_pham-item-ten">
                     {{this.tensp}}
                 </p>
-                {{#if this.soluong}}
+                {{#if this.soluongtrongkho}}
                 <p class="the_san_pham-item-tinhtrang">
                     <i class="fa-solid fa-circle-check"></i> Còn hàng
                 </p>
@@ -114,7 +114,10 @@
                 </p>
                <div class="the_san_pham-item-btn">
                     <a href="/thanhtoan/muangay/{{this.masp}}"><button class="the_san_pham-item-btn-mua btn btn-danger">Mua ngay</button></a>
-                    <a href="/giohang/themgiohang/{{this.masp}}"><button class="the_san_pham-item-btn-themgh btn btn-primary">Thêm giỏ hàng</button></a>
+                    <form class="form_them_gio_hang" action="/giohang/themgiohang">
+                        <input type="text" name="masp" value="{{this.masp}}" hidden>
+                        <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary">Thêm giỏ hàng</button>
+                    </form>
                </div>
             </div>
             {{/each}}
@@ -131,5 +134,8 @@
             <img src="images/camket/chatluong.jpg" alt="">
         </div>
     </div>
-
 </div>
+
+<script>
+    
+</script>

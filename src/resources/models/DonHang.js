@@ -18,5 +18,7 @@ const DonHang = new Schema ({
     ngaydathang : String,
 
     yeucauhuydon : Boolean,
+
+    danhgia : {type: Boolean, default: false},
 })
 module.exports =  mongoose.model('DonHang', DonHang);

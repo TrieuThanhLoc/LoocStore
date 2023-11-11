@@ -4,6 +4,7 @@
     --mau-phu-thu-2: rgb(255, 196, 164);
     --mau-phu-thu-3: rgb(251, 162, 208);
     --mau-phu-thu-4: rgb(198, 136, 235);
+    --mau-phu-thu-5: rgb(8, 0, 36);
     --border-color: rgb(90, 90, 90);
     --text-color: rgb(66, 66, 66);
 }
@@ -11,7 +12,9 @@
 .disable_click:hover{
     cursor: no-drop;
 }
-
+input{
+    border-radius: 5px;
+}
 input:focus {
     outline: 2px solid var(--mau-phu-thu-3);
 }
@@ -23,4 +26,11 @@ a{
 a:hover{
     text-decoration: none;
     color: black;
+}
+
+select{
+    border-radius: 5px;
+    padding: 2px 5px;
+    border: 1px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-phu-thu-1);
 }

@@ -1,5 +1,6 @@
 const { render } = require('vue');
 const { multipleMongooseToObject, MongooseToObject } = require('../../../util/mongoose');
+const LayThongTinDangNhap = require('../../../util/laythongtinkhachhang');
 //San pham
 const SanPham = require('../../../resources/models/SanPham');
 const DonHang = require('../../../resources/models/DonHang');
@@ -16,10 +17,17 @@ const LuuTru = require('../../../resources/models/sanphaminfo/LuuTru');
 const ManHinh = require('../../../resources/models/sanphaminfo/ManHinh');
 const Pin = require('../../../resources/models/sanphaminfo/Pin');
 const Kho = require('../../../resources/models/Kho');
+const PhieuNhap = require('../../../resources/models/PhieuNhap');
 //Nhan vien
 const NhanVien = require ('../../../resources/models/NhanVien');
+const KhachHang = require ('../../../resources/models/khachhang/KhachHang');
+const DanhGia = require ('../../../resources/models/khachhang/DanhGia');
 
 const Ngay = require('../../../util/ngay');
+
+
+var storage = require('node-persist');
+
 
 //Bo dau tieng viet
 function removeAccents(str) {
@@ -75,6 +83,7 @@ class QuanLyController{
                     soluongsptronggio,
                     giohangs: multipleMongooseToObject(giohangs),
                     thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                    layout: 'admin'
                 });
             }else{
                 return res.send('Không có quyền truy cặp trang quản lý');
@@ -112,6 +121,8 @@ class QuanLyController{
                     soluongsptronggio,
                     giohangs: multipleMongooseToObject(giohangs),
                     thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                    layout: 'admin'
+
                 });
             })
             .catch(next);
@@ -201,14 +212,6 @@ class QuanLyController{
         pin.dungluongpin = req.body.dungluongpin;
         pin.congnghepin = req.body.congnghepin;
 
-        kho.masp = req.body.masp;
-        kho.mausac = req.body.mausac;
-        kho.mamau = removeAccents(req.body.mausac);
-        kho.ram = req.body.ram;
-        kho.rom = req.body.rom;
-        kho.soluong = req.body.soluong;
-        kho.giaban = req.body.giaban;
-
         boxuly.save();
         camera.save();
         giaotiepvaketnoi.save();
@@ -220,54 +223,345 @@ class QuanLyController{
         sanpham.save();
         kho.save();
         res.redirect('../quanly/sanpham');
-        // res.json(req.body)
     }
-// Quan ly kho
+// Quan ly kho ----------------------------------------
     async kho(req, res, next){
-        const masp = req.params.masp
-        var kho = await Kho.find({masp: masp})
-        res.render('quanly/kho',{
+        var kho = await Kho.find({}).sort({tensp: 'asc'})
+        res.render('quanly/kho/khohang',{
             kho: multipleMongooseToObject(kho),
-            masp,
+            layout: 'admin'
         });
     }
-    async capnhatkho(req, res, next){
-        const masp = req.body.masp;
-        const mamau = req.body.mamau;
-        const kho = await Kho.findOne({masp: masp, mamau: mamau});
-        res.render('quanly/capnhatkho',{
-            kho: MongooseToObject(kho),
+    async quanlykho(req, res, next){
+        res.render('quanly/kho/quanlykho',{
+        layout: 'admin'
+        });
+    }
+    async chonsanphamnhap(req, res, next){
+        const sanphams = await SanPham.find({}).sort({hangsx: 'asc'});
+
+        res.render('quanly/kho/chonsanphamnhap',{
+            sanphams: multipleMongooseToObject(sanphams),
+            layout:'admin',
+        });
+   }
+   async nhapkho(req, res, next){
+        var sanphams = [];
+        const ngaynhaphang = Ngay.ngayhomnay();
+        //Thông tin khách hàng lên header
+        let thongtintaikhoan = new Object;
+        await LayThongTinDangNhap(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
         })
-    }
-    async luuthaydoikho (req, res, next){
-        const masp = req.body.masp;
-        const mamau = req.body.mamau;
-        const soluong = req.body.soluong;
-        await  SanPham.updateOne({masp: masp}, {soluong: soluong})
-        await Kho.updateOne({masp: masp, mamau: mamau}, req.body)
-        res.redirect('../../quanly/sanpham')
-    }
-    async themmausanpham (req, res, next){
-        const sanpham = await SanPham.findOne({masp: req.params.masp})
-        return res.render('quanly/themmausp',{
-            sanpham: MongooseToObject(sanpham),
+        await Promise.all(req.body.masp.map(async (masp, i)=>{
+            const sanpham = await SanPham.findOne({masp: masp})
+            sanphams.push(sanpham)
+        }))
+        res.render('quanly/kho/phieunhapkho',{
+            sanphams: multipleMongooseToObject(sanphams),
+            thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+            ngaynhaphang,
+            layout:'admin'
+        });
+   }
+    async luukho(req, res, next){
+        var tongtiennhaphang = 0;
+        for(var i = 0; i < req.body.masp.length; i++){
+            //Kiem tra trong kho co san pham nay chua 
+            const trongkho = await Kho.findOne({masp: req.body.masp[i], mausac: req.body.mausac[i]});
+            if(!trongkho){
+                var kho = new Kho();
+                kho.masp = req.body.masp[i];
+                kho.tensp = req.body.tensp[i];
+                kho.mausac = req.body.mausac[i];
+                kho.soluongtrongkho = req.body.soluongnhap[i];
+                kho.soluongdaban = 0;
+                kho.gianhap = req.body.gianhap[i];
+                kho.giaban =  Number(req.body.gianhap[i])*1.2;
+                await kho.save();
+                tongtiennhaphang += Number(req.body.gianhap[i])*req.body.soluongnhap[i];
+            }else{
+                var giaban = Number(req.body.gianhap[i])*1.2;
+                var soluongtrongkho = trongkho.soluongtrongkho + Number(req.body.soluongnhap[i]);
+                await Kho.updateOne({masp: req.body.masp[i], mausac: req.body.mausac[i]},{
+                    soluongtrongkho: soluongtrongkho,
+                    gianhap: Number(req.body.gianhap[i]),
+                    giaban: giaban,
+                })
+            }
+        }
+        
+        //Thông tin khách hàng lên header
+        let thongtintaikhoan = new Object;
+        await LayThongTinDangNhap(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
         })
+        var phieunhap = new PhieuNhap();
+        phieunhap.masp = req.body.masp;
+        phieunhap.tensp = req.body.tensp;
+        phieunhap.mausac = req.body.mausac;
+        phieunhap.soluongsp = req.body.soluongnhap;
+        phieunhap.gianhapsp = req.body.gianhap;
+        phieunhap.manv = thongtintaikhoan.manv;
+        phieunhap.ngaynhaphang = Ngay.ngayhomnay();
+        phieunhap.tongtiennhaphang = tongtiennhaphang;
+        await phieunhap.save();
+
+        res.redirect('../quanly/kho')
     }
-    async luumausanpham(req, res, next){
-        const kho = await Kho(req.body);
-        const mamau = removeAccents(req.body.mausac);
-        kho.mamau = mamau;
-        kho.masp =  req.params.masp;
-        const timmausp = await Kho.findOne({ mamau: mamau, masp: req.params.masp});
-        if(timmausp != undefined){
-            await Kho.updateOne({masp: req.params.masp, mamau: mamau},req.body)
-            res.redirect('back')
-        }else{
-            kho.save()
+    async xoakho(req, res, next){
+            await Kho.deleteOne({_id: req.params._id});
             res.redirect('back')
         }
-      
-       
+    async phieunhap(req, res, next){
+        const phieunhaps = await PhieuNhap.find({}).sort({ngaynhaphang: 'asc'})
+        res.render('quanly/kho/quanlyphieunhap',{
+            phieunhaps: multipleMongooseToObject(phieunhaps),
+            layout: 'admin'
+        })
+    }
+    
+    // -------------------------------------Thóng kê-------------------------------------
+    async thongke(req, res, next){
+        //------Thống kê dòng tiền ------
+        //TỔng doanh thu 
+        const donhangstam = await DonHang.find({trangthai: 'hoan_thanh'});
+        var doanhthuthang, doanhthunam;
+        var thuthang = 0, thunam = 0;
+        for(var i  = 0; i < donhangstam.length; i++){
+            const thangdathang = donhangstam[i].ngaydathang.split('-',2)
+            if(Number(thangdathang[1]) == Ngay.thangnay()){
+                thuthang += Number(donhangstam[i].tienthanhtoan);
+            }
+            const namdathang = donhangstam[i].ngaydathang.split('-',3)
+            if(Number(namdathang[2]) == Ngay.namnay()){
+                thunam += Number(donhangstam[i].tienthanhtoan);
+            }
+        }
+        doanhthuthang = ({thang: Ngay.thangnay(), doanhthu: thuthang})
+        doanhthunam = ({nam: Ngay.namnay(), doanhthu: thunam})
+        //Tổng phí nhập hàng 
+        const phieunhaps = await PhieuNhap.find({});
+        var phinhaphangthang;
+        var phinhaphangnam;
+        var nhapthang =0;
+        var nhapnam = 0;
+         for(var i  = 0; i < phieunhaps.length; i++){
+            const thangdathang = phieunhaps[i].ngaynhaphang.split('-',2)
+            if(Number(thangdathang[1]) == Ngay.thangnay()){
+                nhapthang += Number(phieunhaps[i].tongtiennhaphang);
+            }
+            const namdathang = phieunhaps[i].ngaynhaphang.split('-',3)
+            if(Number(namdathang[2]) == Ngay.namnay()){
+                nhapnam += Number(phieunhaps[i].tongtiennhaphang);
+            }
+        }
+        phinhaphangthang = ({thang: Ngay.thangnay(), phinhap: nhapthang})
+        phinhaphangnam = ({nam: Ngay.namnay(), phinhap: nhapthang})
+
+        //Lợi nhuận theo tháng, năm
+        var loinhuanthang, loinhuannam;
+        loinhuanthang = ({thang: Ngay.thangnay(), loinhuan: doanhthuthang.doanhthu - phinhaphangthang.phinhap})
+        loinhuannam = ({nam: Ngay.namnay(), loinhuan: doanhthunam.doanhthu - phinhaphangnam.phinhap })
+        
+        //thông tin thống kê tổng quan 
+        const donhangs = await DonHang.find({}).sort({ngaydathang: 'desc'})
+        const tongdon = donhangs.length;
+
+        const khachhangs = await KhachHang.find({});
+        const tongtaikhoankh = khachhangs.length;
+
+        const sanphams = await SanPham.find({});
+        const tongsanpham = sanphams.length;
+
+        const danhgias = await DanhGia.find({}).sort({sosao: 'desc'})
+        const tongdanhgia = danhgias.length;
+
+        //thông tin top
+        for(var i = 0; i < khachhangs.length; i++){
+            const sodonhang = (await DonHang.find({makh: khachhangs[i].makh, trangthai: {$ne: 'da_huy'}})).length;
+            khachhangs[i]._doc.soluotmua = sodonhang;
+            await KhachHang.updateOne({makh: khachhangs[i].makh},{
+                soluotmua: sodonhang,
+            })
+        }
+
+        //Khách hàng thân thiết
+        const topkhachhangs = await KhachHang.find({}).sort({soluotmua: 'desc'})
+        const top3kh = []
+        for (var i = 0 ; i < 2 ; i++){
+            if(topkhachhangs[i].soluotmua >= 1){
+                top3kh.push(topkhachhangs[i])
+            }
+        }
+        //top sảm phẩm bán chạy
+        const khos = await Kho.find({}).sort({soluongban: 'desc'})
+        var topsanphams = [];
+        var temp = 5;
+        if(khos.length < 5){
+            temp = khos.length
+        }
+        for (var i = 0 ; i < temp; i++){
+            if(khos[i].soluongdaban >= 1){
+                const sanpham = await SanPham.findOne({masp: khos[i].masp})
+                khos[i]._doc.anh = sanpham.anh;
+                khos[i]._doc.hangsx = sanpham.hangsx;
+                topsanphams.push(khos[i]);
+            }
+        }
+
+
+        //San pham duoc danh gia cao
+        var topdanhgia = [];
+        var temp = 5;
+        if(khos.length < 5){
+            temp = khos.length
+        }
+        for (var i = 0 ; i < temp; i++){
+            if(danhgias[i].sosao >= 1){
+                const sanpham = await SanPham.findOne({masp: khos[i].masp})
+                const kho = await Kho.findOne({masp: khos[i].masp})
+                danhgias[i]._doc.anh = sanpham.anh;
+                danhgias[i]._doc.tensp = sanpham.tensp;
+                danhgias[i]._doc.hangsx = sanpham.hangsx;
+                danhgias[i]._doc.giaban = kho.giaban;
+                topdanhgia.push(danhgias[i]);
+            }
+        }
+
+        //Đơn hàng mới nhất
+        var donhangsmoi = [];
+        var temp = 5;
+        if(donhangs.length < 5){
+            temp = donhangs.length
+        }
+        for (var i = 0 ; i < temp; i++){
+            if(donhangs[i].trangthai != 'da_huy'){
+                donhangsmoi.push(donhangs[i]);
+            }
+        }
+        res.render('quanly/thongke/tongquan',{
+            //tổng doanh thu
+            doanhthuthang,
+            doanhthunam,
+
+            phinhaphangthang,
+            phinhaphangnam,
+
+            loinhuanthang,
+            loinhuannam,
+            //tong quan
+            tongdon,
+            tongtaikhoankh,
+            tongsanpham,
+            tongdanhgia,
+            //top
+            top3kh: multipleMongooseToObject(top3kh),
+            topsanphams: multipleMongooseToObject(topsanphams),
+            topdanhgia: multipleMongooseToObject(topdanhgia),
+            donhangsmoi: multipleMongooseToObject(donhangsmoi),
+
+            layout:'admin'
+        })
+    }
+    async trangthaidonhang(req, res, next){
+        const donhangs = await DonHang.find({});
+        var trangthaidonhangs = [];
+        var tiep_nhan = 0, van_chuyen = 0, dang_giao = 0, hoan_thanh = 0, da_huy = 0;
+        for (var i = 0; i<donhangs.length; i++){
+            if(donhangs[i].trangthai == 'da_tiep_nhan'){
+                tiep_nhan++;
+            }else if(donhangs[i].trangthai == 'van_chuyen'){
+                van_chuyen++;
+            }else if(donhangs[i].trangthai == 'dang_giao'){
+                dang_giao++;
+            }else if(donhangs[i].trangthai == 'hoan_thanh'){
+                hoan_thanh++;
+            }else if(donhangs[i].trangthai == 'da_huy'){
+                da_huy++;
+            }
+        }
+        trangthaidonhangs.push(tiep_nhan);
+        trangthaidonhangs.push(van_chuyen);
+        trangthaidonhangs.push(dang_giao);
+        trangthaidonhangs.push(hoan_thanh);
+        trangthaidonhangs.push(da_huy);
+        res.render('quanly/thongke/trangthaidonhang',{
+            trangthaidonhangs,
+            layout:'admin'
+        })
+    }
+    async doanhthu(req, res, next){
+        if(req.query.xemtheo == 'ngay'){
+             //Thống kê số lượng sản phẩm  theo tháng
+            var doanhthungay = [0,0,0,0,0,0,0]
+            var laybelsngay = [0,0,0,0,0,0,0];
+            const today = new Date();
+            const day = today.getDate();
+            const donhangs = await DonHang.find({ngaydathang: {$gt : ''}, trangthai: 'hoan_thanh'});
+            
+            for(var i  = 0; i < donhangs.length; i++){
+                var ngayganday = Number(day) - Number(donhangs[i].ngaydathang.split('-',1))
+
+                if(Math.abs(ngayganday) < 7){
+                    for(var j = 6; j >= 0; j--){
+                        if(Math.abs(ngayganday) == j){
+                            doanhthungay[6-j] += Number(donhangs[i].tienthanhtoan);
+                        }
+                    }
+                }
+                for(var j = 6; j >= 0; j--){
+                    var ngayhomnay = today.getDate()-j;
+                    if (ngayhomnay <= 0 && today.getMonth() == 2){
+                        ngayhomnay += 28
+                        
+                    }else if(ngayhomnay <= 0 && 
+                    (today.getMonth() == 1 
+                    || today.getMonth() == 3 
+                    || today.getMonth() == 5
+                    || today.getMonth() == 7
+                    || today.getMonth() == 9
+                    || today.getMonth() == 11)
+                    ){
+                        ngayhomnay += 31
+                    }
+                    else if(ngayhomnay <= 0 &&
+                    (today.getMonth() == 2
+                    || today.getMonth() == 4
+                    || today.getMonth() == 6
+                    || today.getMonth() == 8
+                    || today.getMonth() == 10
+                    || today.getMonth() == 12)
+                    ){
+                        ngayhomnay += 30
+                    }else{
+                    }
+                    laybelsngay[6-j] = ngayhomnay
+                }
+            }
+            res.render('quanly/thongke/doanhthu',{
+                doanhthungay,
+                laybelsngay,
+                layout:'admin'
+            })
+        }
+        if(req.query.xemtheo == 'thang'){
+             //Thống kê số lượng sản phẩm  theo tháng
+            var doanhthuthang = [0,0,0,0,0,0,0,0,0,0,0,0]
+            const donhangs = await DonHang.find({ngaydathang: {$gt : ''}, trangthai: 'hoan_thanh'});
+            for(var i  = 0; i < donhangs.length; i++){
+                for(var j = 1; j <= 12; j++){
+                    const ngaydathang = donhangs[i].ngaydathang.split('-',2)
+                    if(Number(ngaydathang[1]) == j){
+                        doanhthuthang[j-1] += Number(donhangs[i].tienthanhtoan);
+                    }
+                }
+            }
+            res.render('quanly/thongke/doanhthu',{
+                doanhthuthang,
+                layout:'admin'
+            })
+        }
     }
 
     async sua(req, res, next){
@@ -361,6 +655,7 @@ class QuanLyController{
                         soluongsptronggio,
                         giohangs: multipleMongooseToObject(giohangs),
                         thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                        layout: 'admin'
                     }
                 )
             }   
@@ -404,6 +699,7 @@ class QuanLyController{
                 soluongsptronggio,
                 giohangs: multipleMongooseToObject(giohangs),
                 thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                layout: 'admin'
             })
         }
     }
@@ -417,7 +713,7 @@ class QuanLyController{
             sanpham.save();
         }
 
-        res.redirect('/');
+        res.redirect('/quanly/donhang');
     }
     async capnhattrangthai (req, res, next){
         var nhatkydonhang = await NhatKyDonHang();
@@ -428,16 +724,16 @@ class QuanLyController{
         const daconhatky = await NhatKyDonHang.findOne({madh: req.params._id})
         if(daconhatky != undefined){
              if(req.body.trangthai == 'van_chuyen'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayvanchuyen: Ngay.ngayhomnay()})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayvanchuyen: Ngay.ngaygiohomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'dang_giao'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngaygiaohang: Ngay.ngayhomnay()})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngaygiaohang: Ngay.ngaygiohomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'hoan_thanh'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhoanthanh: Ngay.ngayhomnay()})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhoanthanh: Ngay.ngaygiohomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'da_huy'){
-                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhuyhang: Ngay.ngayhomnay()})
+                await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhuyhang: Ngay.ngaygiohomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
                 //xoá yêu cầu huỷ đơn của khách hàng
                 await DonHang.findOne({_id: req.params._id})
@@ -454,19 +750,19 @@ class QuanLyController{
             }
         }else{
             if(req.body.trangthai == 'van_chuyen'){
-                nhatkydonhang.ngayvanchuyen = Ngay.ngayhomnay()
+                nhatkydonhang.ngayvanchuyen = Ngay.ngaygiohomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'dang_giao'){
-                nhatkydonhang.ngaygiaohang = Ngay.ngayhomnay()
+                nhatkydonhang.ngaygiaohang = Ngay.ngaygiohomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'hoan_thanh'){
-                nhatkydonhang.ngayhoanthanh = Ngay.ngayhomnay()
+                nhatkydonhang.ngayhoanthanh = Ngay.ngaygiohomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'da_huy'){
-                nhatkydonhang.ngayhuy = Ngay.ngayhomnay()
+                nhatkydonhang.ngayhuy = Ngay.ngaygiohomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
                 //xoá yêu cầu huỷ đơn của khách hàng
@@ -526,6 +822,7 @@ class QuanLyController{
                 soluongsptronggio,
                 giohangs: multipleMongooseToObject(giohangs),
                 thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                layout: 'admin'
             })
         }
     }
@@ -533,7 +830,9 @@ class QuanLyController{
 
 
     quanlytaikhoan(req,res){
-        res.render('quanly/quanlytaikhoan');
+        res.render('quanly/quanlytaikhoan',{
+            layout: 'admin'
+        });
     }
 }
 

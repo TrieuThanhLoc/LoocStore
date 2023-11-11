@@ -1,0 +1,51 @@
+<p class="kho_title">
+    Quản lý phiếu nhập
+</p>
+<div class="kho_table">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Ngày nhập</th>
+                <th scope="col">Người nhập</th>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Màu</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Giá nhập</th>
+                <th scope="col">Tổng tiền nhập</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each phieunhaps}}
+            <tr>
+                <th scope="row">{{cong @index 1}}</th>
+                <td>{{this.ngaynhaphang}}</td>
+                <td><span>{{this.manv}}</span></td>
+                <td >
+                    {{#each this.tensp}}
+                    <p>{{this}}</p>
+                    {{/each}}
+                </td>
+                <td>
+                    {{#each this.mausac}}
+                    <p>{{this}}</p>
+                    {{/each}}
+                </td>
+                <td>
+                    {{#each this.soluongsp}}
+                    <p>{{this}}</p>
+                    {{/each}}
+                </td>
+                <td>
+                    {{#each this.gianhapsp}}
+                    <p>
+                        <span class="gia_format">{{this}}</span> vnd
+                    </p>
+                    {{/each}}
+                </td>
+                <td><span class="gia_format">{{this.tongtiennhaphang}}</span> vnd</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

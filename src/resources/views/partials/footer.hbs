@@ -101,4 +101,49 @@
                     return ((index % 3) ? next : (next + ' ')) + prev
                 })
             }
+
+
+        //Thông báo
+        function thongbaopopup(noidung, trangthai) {
+            let icon;
+            if (trangthai) {
+                icon = '<div style="text-align: center; width:40px; height: 100%; border-right:3px solid #44ff00; margin-right: 10px;"><i class="fa-regular fa-circle-check" style="color: #44ff00;"></i></div>'
+            } else {
+                icon = '<div style="text-align: center; width:40px; height: 100%; border-right:3px solid #ff0000; margin-right: 10px;"><i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i></div>'
+            }
+
+            Swal.fire({
+                width: 'auto',
+                padding: '2px',
+                html: '<div style="padding: 20px; border-radius: 5px; color: black; background-color:aliceblue; margin: height: 100px; display: flex; font-size: 18px; font-weigh: 600">' + icon + noidung + '</div>',
+                position: "top-end",
+                background: 'var(--mau-phu-thu-3)',
+                showConfirmButton: false,
+                showClass: {
+                    popup: 'swal2-show',
+                    backdrop: 'swal2-backdrop-show',
+                    icon: 'swal2-icon-show'
+                },
+                hideClass: {
+                    popup: 'swal2-hide',
+                    backdrop: 'swal2-backdrop-hide',
+                    icon: 'swal2-icon-hide'
+                },
+                timer: 2000
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            //Thông báo thêm vào giỏ hàng
+            var btnThemSanPhamVaoGio = $('.the_san_pham-item-btn-themgh');
+            var formThemGioHang = $('.form_them_gio_hang')
+
+            btnThemSanPhamVaoGio.click(function () {
+                setTimeout(() => {
+                    formThemGioHang.submit();
+                }, 1500)
+                thongbaopopup('Đã thêm vào giỏ !', true)
+            })
+        })
 </script>

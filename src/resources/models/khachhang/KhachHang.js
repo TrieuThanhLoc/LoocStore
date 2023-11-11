@@ -12,6 +12,7 @@ const KhachHang = new Schema({
     maxacthuc: {type: String},
     createdAt:{type: Date, default: Date.now},
     updatedAt:{type: Date, default: Date.now},
+    soluotmua: Number,
 },
     {tinmestamps: true}
 );

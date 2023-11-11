@@ -11,12 +11,20 @@ router.get('/:masp/sua', middleware.kiemtratoken,quanlyController.sua);
 router.post('/luu', quanlyController.luuhang);
 router.post('/:masp/capnhathang', middleware.kiemtratoken,quanlyController.capnhathang);
 router.get('/nhaphang',middleware.kiemtratoken, quanlyController.nhaphang);
+//Thống kê 
+router.get('/thongke/doanhthu',middleware.kiemtratoken, quanlyController.doanhthu);
+router.get('/thongke/trangthaidonhang',middleware.kiemtratoken, quanlyController.trangthaidonhang);
+router.get('/thongke',middleware.kiemtratoken, quanlyController.thongke);
+
+
 //Quan ly kho
-router.get('/:masp/kho',middleware.kiemtratoken, quanlyController.kho);
-router.post('/capnhatkho/luuthaydoikho',middleware.kiemtratoken, quanlyController.luuthaydoikho);
-router.post('/capnhatkho',middleware.kiemtratoken, quanlyController.capnhatkho);
-router.post('/:masp/luumausanpham',middleware.kiemtratoken, quanlyController.luumausanpham);//Luu mau san pham
-router.get('/:masp/themmausanpham',middleware.kiemtratoken, quanlyController.themmausanpham);//them mau san pham
+router.post('/nhapkho',middleware.kiemtratoken, quanlyController.nhapkho);
+router.get('/phieunhap',middleware.kiemtratoken, quanlyController.phieunhap);
+router.get('/xoakho/:_id',middleware.kiemtratoken, quanlyController.xoakho);
+router.post('/luukho',middleware.kiemtratoken, quanlyController.luukho);
+router.get('/kho',middleware.kiemtratoken, quanlyController.kho);
+router.get('/quanlykho',middleware.kiemtratoken, quanlyController.quanlykho);
+router.get('/chonsanphamnhap',middleware.kiemtratoken, quanlyController.chonsanphamnhap);
 
 
 //Quan ly nhan vien

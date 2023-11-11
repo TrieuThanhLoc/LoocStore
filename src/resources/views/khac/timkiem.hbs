@@ -1,34 +1,66 @@
 <div class="tim_kiem_san_pham">
-    {{#each ketquatimkiems}}
-    <div class="the_san_pham-item">
-        <div class="the_san_pham-item-img-box">
-            <a href="/sanpham/{{this.masp}}">
-                <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="{{this.anh}}"
-                    class="the_san_pham-item-img">
-            </a>
-        </div>
-        <p class="the_san_pham-item-ten">
-            {{this.tensp}}
-        </p>
-        {{#if this.soluong}}
-        <p class="the_san_pham-item-tinhtrang">
-            <i class="fa-solid fa-circle-check"></i> Còn hàng
-        </p>
-        {{else}}
-        <p class="the_san_pham-item-tinhtrang" style="color: red;">
-            <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
-        </p>
-        {{/if}}
-        <p class="the_san_pham-item-gia ">
-            <span class="gia_format">{{this.giaban}}</span> VND
-        </p>
-        <div class="the_san_pham-item-btn">
-            <a href="/thanhtoan/muangay/{{this.masp}}"><button class="the_san_pham-item-btn-mua btn btn-danger">Mua ngay</button></a>
-            {{!-- <a href="/giohang/themgiohang/{{this.masp}}"><button type="button"
-                    class="the_san_pham-item-btn-themgh btn btn-primary">Thêm
-                    giỏ hàng</button>
-            </a> --}}
-        </div>
+    <div class="tim_kiem_san_pham-header--title">
+        Tìm thầy 
+        <span>{{ketquatimkiems.length}}</span>
+        kết quả cho từ khoá 
+        <span>"{{tukhoatimkiem}}"</span>
     </div>
-    {{/each}}
+    <div class="tim_kiem_san_pham-header">
+        <form class="tim_kiem_san_pham-header--xemtheo" action="/timkiemsanpham">
+            <input type="text" name="tukhoatimkiem" value="{{tukhoatimkiem}}" hidden>
+            <div class="tim_kiem_san_pham-header--xemtheo-item">
+                <select name="sapxep" id="sap_xep_gia">
+                    <option selected>Giá theo</option>
+                    <option value="desc">Giá giảm dần</option>
+                    <option value="asc">Giá tăng dần</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="tim_kiem_san_pham-body">
+        {{#each ketquatimkiems}}
+        <div class="the_san_pham-item">
+            <div class="the_san_pham-item-img-box">
+                <a href="/sanpham/{{this.masp}}">
+                    <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="{{this.anh}}"
+                        class="the_san_pham-item-img">
+                </a>
+            </div>
+            <p class="the_san_pham-item-ten">
+                {{this.tensp}}
+            </p>
+            {{#if this.soluong}}
+            <p class="the_san_pham-item-tinhtrang">
+                <i class="fa-solid fa-circle-check"></i> Còn hàng
+            </p>
+            {{else}}
+            <p class="the_san_pham-item-tinhtrang" style="color: red;">
+                <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
+            </p>
+            {{/if}}
+            <p class="the_san_pham-item-gia ">
+                <span class="gia_format">{{this.giaban}}</span> VND
+            </p>
+            <div class="the_san_pham-item-btn">
+                <a href="/thanhtoan/muangay/{{this.masp}}"><button class="the_san_pham-item-btn-mua btn btn-danger">Mua ngay</button></a>
+                <form class="form_them_gio_hang" action="/giohang/themgiohang">
+                    <input type="text" name="masp" value="{{this.masp}}" hidden>
+                    <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary">Thêm giỏ hàng</button>
+                </form>
+            </div>
+        </div>
+        {{/each}}
+    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        var formTimKiem = $('.tim_kiem_san_pham-header--xemtheo');
+        //btn
+        var btnSapXepGia = $('#sap_xep_gia')
+        
+        btnSapXepGia.change(function () {
+            formTimKiem.submit()
+        })
+    })
+</script>

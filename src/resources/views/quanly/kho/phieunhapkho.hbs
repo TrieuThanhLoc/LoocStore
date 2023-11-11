@@ -1,0 +1,223 @@
+<div class="phieu_nhap_hang">
+    <div class="phieu_nhap_hang-hearder">
+        <p class="phieu_nhap_hang-header--title">
+            Phiếu nhập hàng
+        </p>
+        <div class="phieu_nhap_hang-header--infonhanvien">
+            <div class="phieu_nhap_hang-header--infonhanvien-item">
+                Tên người nhập hàng: <span>{{thongtintaikhoan.tennv}}</span>
+            </div>
+            <div class="phieu_nhap_hang-header--infonhanvien-item">
+                Ngày nhập: <span>{{ngaynhaphang}}</span>
+            </div>
+        </div>
+    </div>
+    <form method="post" action="/quanly/luukho" id="form_nhap_hang">
+        <table class="phieu_nhap_hang-bang table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên</th>
+                    <th>Ảnh</th>
+                    <th>Màu</th>
+                    <th>Số lượng</th>
+                    <th>Giá nhập</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each sanphams}}
+                <tr class="phieu_nha_hang_sanpham">
+                    <th class="phieu_nhap_hang-bang--stt">{{cong @index 1}}</th>
+                    <td class="phieu_nhap_hang-bang--tensp">{{this.tensp}}</td>
+                    <input type="text" name="tensp[]" value="{{this.tensp}}" hidden>
+                    <input type="text" name="masp[]" value="{{this.masp}}" hidden>
+                    <td class="phieu_nhap_hang-bang--anh">
+                        <img src="../../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="ảnh điện thoại">
+                    </td>
+                    <td class="phieu_nhap_hang-bang--mausac">
+                    <select name="mausac[]">
+                        <option value="" selected>Màu sắc</option>
+                            <option style="color: black;" value="black">Đen</option>
+                            <option style="color: white;" value="white">Trắng</option>
+                            <option style="color: blue;" value="blue">Xanh dương</option>
+                            <option style="color: green;" value="green">Xanh lá</option>
+                            <option style="color: silver;" value="silver">Xám</option>
+                            <option style="color: purple;" value="purple">Tím</option>
+                            <option style="color: red;" value="red">Đỏ</option>
+                            <option style="color: yellow;" value="yellow">Vàng</option>
+                    </select>
+                    </td>
+                    <td >
+                        <input type="Number" class="phieu_nhap_hang-bang--soluong" name="soluongnhap[]">
+                    </td>
+                    <td><input type="text" class="phieu_nhap_hang-bang--gianhap" name="gianhap[]"> VND</td>
+                    <td class="phieu_nhap_hang-bang--thanhtien-td"> <span class="phieu_nhap_hang-bang--thanhtien" name="thanhtien">0</span> VND</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </form>
+    <div class="phieu_nhap_hang-footer">
+        <div class="phieu_nhap_hang-footer--tongtien">
+            <div class="tong_tien_viet_bang_so">
+                Tổng số tiền:
+                <span id="tong_tien_viet_bang_so" style="color: red;">0</span> VND
+            </div>
+            <div class="tong_tien_viet_bang_chu">
+                Tổng số tiền <i>viết bằng chữ</i>:
+                <span class="gia_thanh_chu" id="gia_thanh_chu">Không</span> đồng
+            </div>
+        </div>
+    </div>
+    <div class="btn_tiep_tuc_nhap_hang">
+        Xác nhận nhập hàng
+    </div>
+</div>
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var TheSanPham = $('.phieu_nha_hang_sanpham');
+        var SoLuong = $('.phieu_nhap_hang-bang--soluong');
+        var ThanhTien = $('.phieu_nhap_hang-bang--thanhtien');
+        var GiaNhap = $('.phieu_nhap_hang-bang--gianhap');
+        var TongTienPhieuNhap = $('#tong_tien_viet_bang_so');
+        var GiaThanhChu = $('#gia_thanh_chu');
+
+        var btnTiepTucNhapHang = $('.btn_tiep_tuc_nhap_hang');
+        var formNhapHang = $('#form_nhap_hang');
+
+        btnTiepTucNhapHang.click(function(){
+            formNhapHang.submit();
+        })
+        //Tinh tong tien tren moi san pham nhap
+        SoLuong.change(function(){
+            tinhtongtien(SoLuong, GiaNhap, ThanhTien);
+            tongtienphieunhap(ThanhTien, GiaThanhChu, TongTienPhieuNhap);
+        })
+         GiaNhap.change(function () {
+            tinhtongtien(SoLuong, GiaNhap, ThanhTien);
+            tongtienphieunhap(ThanhTien, GiaThanhChu, TongTienPhieuNhap);
+        })
+    
+        //ham tinh tong tien
+        function tinhtongtien(thesoluong, thegiaban, theketqua) {
+            for (var i = 0; i < theketqua.length; i++) {
+                //lấy giá bán từ string éo kiểu thành number để tính toán
+                var giaban = $(thegiaban[i]).val();
+                var soluong = $(thesoluong[i]).val();
+
+                //chuyển kết quả thành string 
+                var ketqua = String(giaban * soluong)
+
+                $(theketqua[i]).text(formatCash(ketqua))
+            }
+        }
+
+
+        //Tinh tong tien cua phieu nhap 
+        function tongtienphieunhap(tongtienmoisanpham, giathanhchu, theketqua){
+            var tongtienphieunhap = 0;
+            for (var i = 0; i < tongtienmoisanpham.length; i++) {
+                    var tongtien = $(tongtienmoisanpham[i]).text().split(' ').join('');
+                    tongtienphieunhap += Number(tongtien);
+                }
+            var ketqua = String(tongtienphieunhap);
+            $(giathanhchu).text(to_vietnamese(tongtienphieunhap));
+            $(theketqua).text(formatCash(ketqua));
+        }
+    })
+
+
+
+    //Hàm đổi số tiền từ số sang chữ
+    const defaultNumbers = ' hai ba bốn năm sáu bảy tám chín';
+
+        const chuHangDonVi = ('1 một' + defaultNumbers).split(' ');
+        const chuHangChuc = ('lẻ mười' + defaultNumbers).split(' ');
+        const chuHangTram = ('không một' + defaultNumbers).split(' ');
+
+        function convert_block_three(number) {
+            if (number == '000') return '';
+            var _a = number + ''; //Convert biến 'number' thành kiểu string
+
+            //Kiểm tra độ dài của khối
+            switch (_a.length) {
+                case 0: return '';
+                case 1: return chuHangDonVi[_a];
+                case 2: return convert_block_two(_a);
+                case 3:
+                    var chuc_dv = '';
+                    if (_a.slice(1, 3) != '00') {
+                        chuc_dv = convert_block_two(_a.slice(1, 3));
+                    }
+                    var tram = chuHangTram[_a[0]] + ' trăm';
+                    return tram + ' ' + chuc_dv;
+            }
+        }
+
+        function convert_block_two(number) {
+            var dv = chuHangDonVi[number[1]];
+            var chuc = chuHangChuc[number[0]];
+            var append = '';
+
+            // Nếu chữ số hàng đơn vị là 5
+            if (number[0] > 0 && number[1] == 5) {
+                dv = 'lăm'
+            }
+
+            // Nếu số hàng chục lớn hơn 1
+            if (number[0] > 1) {
+                append = ' mươi';
+
+                if (number[1] == 1) {
+                    dv = ' mốt';
+                }
+            }
+
+            return chuc + '' + append + ' ' + dv;
+        }
+
+    const dvBlock = '1 nghìn triệu tỷ'.split(' ');
+
+        function to_vietnamese(number) {
+            var str = parseInt(number) + '';
+            var i = 0;
+            var arr = [];
+            var index = str.length;
+            var result = [];
+            var rsString = '';
+
+            if (index == 0 || str == 'NaN') {
+                return '';
+            }
+
+            // Chia chuỗi số thành một mảng từng khối có 3 chữ số
+            while (index >= 0) {
+                arr.push(str.substring(index, Math.max(index - 3, 0)));
+                index -= 3;
+            }
+
+            // Lặp từng khối trong mảng trên và convert từng khối đấy ra chữ Việt Nam
+            for (i = arr.length - 1; i >= 0; i--) {
+                if (arr[i] != '' && arr[i] != '000') {
+                    result.push(convert_block_three(arr[i]));
+
+                    // Thêm đuôi của mỗi khối
+                    if (dvBlock[i]) {
+                        result.push(dvBlock[i]);
+                    }
+                }
+            }
+
+            // Join mảng kết quả lại thành chuỗi string
+            rsString = result.join(' ');
+
+            // Trả về kết quả kèm xóa những ký tự thừa
+            return rsString.replace(/[0-9]/g, '').replace(/ /g, ' ').replace(/ $/, '');
+        }
+</script>

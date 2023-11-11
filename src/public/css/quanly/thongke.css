@@ -1,0 +1,290 @@
+.thong_ke{
+    
+}
+.thong_ke-title{
+    font-size: 25px;
+    font-weight: 600;
+    background: linear-gradient(to bottom, var(--mau-chinh), var(--mau-phu-thu-5));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;    
+}
+.thong_ke-chung{
+    display: flex;
+    padding: 20px;
+    justify-content: space-evenly;
+}
+.thong_ke-chung-item{
+    width: 260px;
+    height: 100px;
+    background-color: var(--mau-phu-thu-2);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px silver;
+    display: flex;
+    cursor: pointer;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+}
+.thong_ke-chung-item:hover{
+    opacity: 0.9;
+}
+.thong_ke-chung-item--icon{
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(to bottom, var(--mau-phu-thu-1), var(--mau-phu-thu-4));
+    border-radius: 10px 0 0 10px;
+}
+.thong_ke-chung-item--info{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.thong_ke-chung-item--info-detail{
+    font-size: 15px;
+    font-weight: 500;
+}
+.thong_ke-chung-item--info-detail span{
+    font-weight: 800;
+    color: black;
+}
+.thong_ke-chung-item--info a{
+    font-size: 15px;
+    font-weight: 600;
+    color: blue;
+}
+.thong_ke-chung-item--info a:hover {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(0, 0, 152);
+}
+
+/* của sô xem chi tiết các thống kê tổng quan */
+.cua_so_tong_quan_thon_ke{
+    margin: 20px 0;
+    width: 100%;
+    height: 500px;
+    position: relative;
+}
+.btn_dong_cua_so_tongquan{
+    position: absolute;
+    right:10px;
+    top: 10px;
+}
+
+/* Thống kê doanh thu chung của tháng vừa qua và năm vừa qua */
+.thong_ke-dongtien{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: antiquewhite;
+    padding: 10px;
+    margin: 20px 50px 0 50px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.dongtien-item--title{
+    color: var(--mau-chinh);
+    font-size: 18px;
+    font-weight: 700;
+}
+.dongtien-item--title p{
+    margin: 0;
+    text-align: center;
+}
+.dongtien-item--data{
+    display: flex;
+    margin-top: 5px;
+}
+.dongtien-item--data-name {
+    width: 80px;
+    border-right: 1px solid var(--mau-chinh);
+    font-size: 15px;
+    font-weight: 600;
+}
+.dongtien-item--data-content {
+    text-align: right;
+    width: 150px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+
+
+/* Biểu đồ đường */
+.thong_ke-bieu_do_tron--bieudo-title,
+.thong_ke-bieu_do_duong--bieudo-title{
+    font-size: 20px;
+    font-weight: 500;
+    background: linear-gradient(to bottom, rgb(251, 151, 29), rgb(12, 0, 250));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin: 0;
+}
+.xemtheo{
+    display: flex;
+    width: 120px;
+    margin-left: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    justify-content: space-between;
+}
+.thong_ke-bieu_do{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.thong_ke-bieu_do_duong{
+    width: 840px;
+    padding: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.frame_bieu_do_duong{
+    margin: 20px 0;
+    width: 100%;
+    height: 420px;
+}
+.thong_ke-bieu_do_tron{
+    padding: 10px;
+    justify-content: space-between;
+    width: 32%;
+    align-items: center;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.frame_bieu_do_tron{
+    margin-top: 50px;
+    width: 100%;
+    height: 400px;
+}
+
+
+/* top */
+.thong_ke-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    background-color: silver;
+}
+.top_item{
+    width: 33%;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+}
+.top_item-title{
+    font-size: 20px;
+    font-weight: 500;
+    background: linear-gradient(to bottom, rgb(251, 151, 29), rgb(12, 0, 250));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.top_item-contemt{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: rgb(193, 193, 193);
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 5px;
+}
+.top_thanthiet-icon:first-child{
+    color: yellow;
+}
+.top_thanthiet-icon{
+    font-size: 30px;
+    color: rgb(179, 179, 179);
+    margin: 5px;
+}
+.top_thanthiet-icon:last-child{
+    color: #D2691E;
+}
+.top_thanthiet-info{
+    display: flex;
+}
+.top_thanthiet-info--img{
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+}
+.top_thanthiet-info--thanthiet,
+.top_sanpham-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.top_thanthiet-info--thanthiet-luotmua,
+.top_sanpham-detail--luotmua {
+    color: blue;
+}
+
+.top_sanpham{
+    display: flex;
+}
+.top_sanpham-img{
+    margin: 5px;
+    height: 50px;
+    width: 45px;
+    border-radius: 5px;
+}
+.top_sanpham-giaban{
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 5px;
+    margin-top: 16px;
+    color: red;
+    text-align: right;
+    width: 120px;
+}
+.top_sanpham-detail{
+    width: 190px;
+}
+/* Bảng đơn hàng mới nhất */
+.thong_ke-don_hang_moi_nhat{
+    margin-top: 20px;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}
+.don_hang_moi_nhat-title{
+    font-size: 20px;
+    font-weight: 500;
+    background: linear-gradient(to bottom, rgb(251, 151, 29), rgb(12, 0, 250));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin: 10px;
+}
+.don_hang_moi_nhat-bang{
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+}

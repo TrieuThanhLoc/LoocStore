@@ -1,0 +1,31 @@
+<div class="kho-dieuhuong">
+    <li class="kho-dieuhuong--item tong_kho kho-dieuhuong-clicked"> <i class="fa-solid fa-warehouse"></i> Tổng kho </li>
+    <li class="kho-dieuhuong--item nhap_kho"> <i class="fa-solid fa-plus"></i>  Nhập kho </li>
+    <li class="kho-dieuhuong--item quan_ly_phieu_nhap"> <i class="fa-solid fa-list"></i>  Quản lý phiếu nhập{{test}}</li>
+</div>
+<iframe id="cua_so_kho_hang" src="../quanly/kho" frameborder="0"></iframe>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var btnKhoDieuHuong = $('.kho-dieuhuong--item');
+        var CuaSoKhoHang = $('#cua_so_kho_hang');
+
+        btnKhoDieuHuong.click(function(){
+            if($(this).hasClass('tong_kho')){
+                CuaSoKhoHang.attr('src', '../quanly/kho')
+                btnKhoDieuHuong.removeClass('kho-dieuhuong-clicked')
+                $(this).addClass('kho-dieuhuong-clicked')
+            }
+            if ($(this).hasClass('nhap_kho')) {
+                CuaSoKhoHang.attr('src', '../quanly/chonsanphamnhap')
+                btnKhoDieuHuong.removeClass('kho-dieuhuong-clicked')
+                $(this).addClass('kho-dieuhuong-clicked')
+            }
+            if ($(this).hasClass('quan_ly_phieu_nhap')) {
+                CuaSoKhoHang.attr('src', '../quanly/phieunhap')
+                btnKhoDieuHuong.removeClass('kho-dieuhuong-clicked')
+                $(this).addClass('kho-dieuhuong-clicked')
+            }
+        })
+    })
+</script>

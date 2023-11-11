@@ -19,8 +19,9 @@ module.exports = async function LayThongTinDangNhap(req){
         }else{
             makh = thongtintaikhoan.makh
         }
-        thongtintaikhoan._doc.giohangs = await GioHang.find({makh: makh}).sort({ngaythemvaogio: 'desc'});
-        thongtintaikhoan._doc.soluongsptronggio = [thongtintaikhoan.giohangs].length;
+        const giohangs = await GioHang.find({makh: makh}).sort({ngaythemvaogio: 'desc'});
+        thongtintaikhoan._doc.giohangs = giohangs;
+        thongtintaikhoan._doc.soluongsptronggio = giohangs.length;
         thongtintaikhoan._doc.makh = makh
     }
     return thongtintaikhoan;

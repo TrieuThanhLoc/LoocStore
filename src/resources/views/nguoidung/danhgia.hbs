@@ -1,0 +1,92 @@
+<form class="danh_gia_sp" method="post" action="/nguoidung/thuchiendanhgia/{{madh}}">
+    <div class="danh_gia_sp-title">
+        Đánh giá
+    </div>
+    <div class="danh_gia_sp-header">
+        <span>Đơn hàng</span>
+        <span>Mã đơn hàng: <a href="/nguoidung/chitietdonhang/{{madh}}">{{madh}}</a></span>
+    </div>
+    <div class="danh_gia_sp-body">
+        {{#each donhang.sanphams}}
+        <div class="danh_gia_sp-body-item">
+            <div class="item-sanpham">
+                <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="item-sanpham--img">
+                <div class="item-sanpham--thongtinsp">
+                    <p class="thongtinsp-tensp">
+                        {{this.tensp}}
+                    </p>
+                    <input type="text" name="masp[]" value="{{this.masp}}" hidden>
+                    <input type="number" name="sosao[]" class="input_sosao" hidden>
+                    <div class="sao_widget">
+                        <span class="sao_item fa-solid fa-star "></span>
+                        <span class="sao_item fa-solid fa-star "></span>
+                        <span class="sao_item fa-solid fa-star "></span>
+                        <span class="sao_item fa-solid fa-star "></span>
+                        <span class="sao_item fa-solid fa-star "></span>
+                    </div>
+                </div>
+            </div>
+            <div class="danh_gia_sp-body-binhluan">
+                <textarea class="danh_gia_sp-body-binhluan-input" name="noidungdanhgia[]" id="" cols="50" rows="1" placeholder="Đánh giá sản phảm..."></textarea>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="danh_gia_sp-footer">
+        <div class="danh_gia_sp-footer-giaohang">
+            <div class="danh_gia_sp-footer-giaohang-title">
+                <span>Đánh giá chất lượng dịch vụ</span>
+                <input type="text" name="masp[]" value="chat_luong_dich_vu" hidden>
+                <input type="number" name="sosao[]"  class="input_sosao" hidden>
+                <div class="sao_widget">
+                    <span class="sao_item fa-solid fa-star "></span>
+                    <span class="sao_item fa-solid fa-star "></span>
+                    <span class="sao_item fa-solid fa-star "></span>
+                    <span class="sao_item fa-solid fa-star "></span>
+                    <span class="sao_item fa-solid fa-star "></span>
+                </div>
+            </div>
+            <textarea class="danh_gia_sp-body-binhluan-input" name="noidungdanhgia[]" id="" cols="10" rows="1" placeholder="Đánh giá dịch vụ..."></textarea>
+        </div>
+        <div class="danh_gia_sp-footer-btn">
+            <button type="button" class="btn btn-warning px-5 btnDanhGia">Đánh giá</button>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var inputSoSao = $('.input_sosao')
+        var saoWidget = $('.sao_widget');
+        var sao = $('.sao_item');
+        var btnDanhGia = $('.btnDanhGia');
+        var formDanhGia = $('.danh_gia_sp')
+
+        btnDanhGia.click(function(){
+            setTimeout(()=>{
+                formDanhGia.submit();
+            }, 2000)
+            thongbaopopup('Đã dánh giá thành công', true)
+        })
+
+        //Đánh giá
+        for(var s = 0; s < saoWidget.length; s++){
+           danhgiasao($(saoWidget[s]), inputSoSao[s])
+        }
+        function danhgiasao(theSao, theValue){
+             $(theSao).children().click(function () {
+                $($(theSao).children()).removeClass('sao_checked')
+                $(this).addClass('sao_checked')
+                $($(theSao).children()).each((index, item) => {
+                    if ($(item).hasClass('sao_checked')) {
+                        for (var i = 0; i <= index; i++) {
+                            $($(theSao).children()[i]).addClass('sao_checked')
+                        }
+                        $(theValue).val(index+1)
+                    }
+                })
+            })
+        }
+    })
+</script> 

@@ -1,0 +1,166 @@
+ /* Thanh dieu huong cua kho hang */
+.kho-dieuhuong{
+    display: flex;
+}
+.kho-dieuhuong li{
+    list-style: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-bottom: 1px solid var(--mau-phu-thu-3);
+}
+.kho-dieuhuong li:hover{
+    border-radius: 10px;
+    background-color: rgb(219, 219, 219);
+    color: rgb(42, 42, 42);
+    cursor: pointer;
+}
+.kho-dieuhuong-clicked{
+    background-color: rgb(219, 219, 219);
+    border-radius: 10px;
+}
+/* -------------------Chọn sản phẩm nhập kho----------------------- */
+.kho_table{
+    margin: 10px;
+}
+.chon_san_pham_nhap-title{
+    text-align: center;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--mau-phu-thu-1);
+}
+.phieu_nhap_hang-bang{
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+.table_stt{
+    width: 60px;
+}
+.table_checkbox {
+    width: 40px;
+}
+.table_ten {
+    width: auto;
+}
+.table_hang {
+    width: 120px;
+}
+.table_anh{
+    width: 80px;
+}
+.table_anh img{
+    border-radius: 5px;
+    border: 1px solid var(--mau-phu-thu-3);
+    width: 40px;
+}
+.btn_tiep_tuc_nhap_hang{
+    padding: 5px 10px;
+    width: 350px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid var(--mau-phu-thu-3);
+    background-color: var(--mau-phu-thu-2);
+    margin: auto;
+    margin-top: 20px;
+}
+.btn_tiep_tuc_nhap_hang:hover{
+    background-color: rgb(255, 182, 92);
+    cursor: pointer;
+}
+.so_luong_sp_nhap{
+    font-size: 18px;
+    font-weight: 700;
+    color: red;
+}
+ 
+
+
+/*------------------------------------Phiếu nhập--------------------------------------- */
+.phieu_nhap_hang{
+    width: 90%;
+    margin: auto;
+}
+.phieu_nhap_hang-header--title{
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px;
+}
+.phieu_nhap_hang-header--infonhanvien{
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.phieu_nhap_hang-header--infonhanvien-item{
+    margin-bottom: 5px;
+}
+.phieu_nhap_hang-header--infonhanvien-item span{
+    font-weight: 500;
+}
+.phieu_nhap_hang-bang{
+    width: 100%;
+}
+.phieu_nhap_hang-bang--stt{
+    width: 40px;
+}
+.phieu_nhap_hang-bang--tensp{
+    font-size: 15px;
+    font-weight: 600;
+}
+.phieu_nhap_hang-bang--anh{
+    width: 70px;
+}
+.phieu_nhap_hang-bang--anh img{
+    width: 40px;
+}
+.phieu_nhap_hang-bang--mausac select{
+    width: 100px;
+}
+.phieu_nhap_hang-bang--soluong{
+    width: 60px;
+}
+.phieu_nhap_hang-bang--gianhap{
+    width: 80px;
+}
+.phieu_nhap_hang-bang--thanhtien{
+    width: 50px;
+}
+.phieu_nhap_hang-bang--thanhtien-td{
+    width: 180px;
+}
+.phieu_nhap_hang-footer{
+    display: flex;
+    justify-content: flex-end;
+}
+.phieu_nhap_hang-footer--tongtien{
+    margin-top: 20px;
+    font-size: 15;
+    font-weight: 700;
+    width: 700px;
+}
+.tong_tien_viet_bang_so .gia_format,
+.tong_tien_viet_bang_chu .gia_thanh_chu{
+    font-weight: 600;
+}
+
+
+/*------------------------------------Kho tổng--------------------------------------- */
+ .kho_title {
+     font-size: 25px;
+     font-weight: 700;
+     color: rgb(255, 166, 0);
+     text-align: center;
+ }
+
+#cua_so_kho_hang{
+    width: 100%;
+    min-height: 700px;
+}
+
