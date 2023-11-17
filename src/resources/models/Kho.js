@@ -6,8 +6,8 @@ const Kho = new Schema({
     tensp: String,
     mausac: String,
     soluongtrongkho: Number,
-    soluongdaban: {tyoe: Number},
+    soluongdaban: Number,
     giaban: Number,
+    tinhtrang: String,
 });
-
 module.exports = mongoose.model('Kho', Kho);

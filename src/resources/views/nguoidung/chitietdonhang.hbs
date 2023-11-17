@@ -1,12 +1,10 @@
 <div class="chi_tiet_don_hang">
     <div class="chi_tiet_don_hang-timeline">
         <div class="chi_tiet_don_hang-timeline-header">
-            <a href="" class="">
-                <button onclick="quay_lai_trang_truoc()" class="btn btn-secondary">
-                    <i class="fa-solid fa-angle-left"></i>
-                    Trở lại
-                </button>
-            </a>
+            <button onclick="quay_lai_trang_truoc()" class="btn btn-secondary">
+                <i class="fa-solid fa-angle-left"></i>
+                Trở lại
+            </button>
             <span class="chi_tiet_don_hang-timeline-madh">
                 Mã đơn hàng: <span> {{donhang._id}}</span>
             </span>
@@ -58,8 +56,11 @@
                 <div class="timeline-item-text">
                     Đánh giá
                 </div>
+                {{#if nhatkydonhang.ngaydanhgia}}
                 <div class="timeline-item-data">
+                    {{nhatkydonhang.ngaydanhgia}}
                 </div>
+                {{/if}}
             </div>
         </div>
         {{!-- Thanh Range --}}
@@ -67,9 +68,13 @@
         </div>
     </div>
     {{!-- Khi giao hàng thành công thì hiễn thị thêm nút đánh giá --}}
-    <div class="danh_gia">
-        <button type="button" class="btn btn-warning px-5">Đánh giá</button>
-    </div>
+    {{#if chuadanhgia}}
+    <a href="/nguoidung/danhgia?ma_don={{donhang._id}}">
+        <div class="danh_gia">
+            <button type="button" class="btn btn-warning px-5">Đánh giá</button>
+        </div>
+    </a>
+    {{/if}}
     <div class="chi_tiet_don_hang-thong_tin">
         <div class="thong_tin-khach_hang">
             <p class="thong_tin-khach_hang-text">
@@ -196,21 +201,32 @@
         var timelineIcon = $('.timeline-giaohang-item-icon');
         var timelineData = $('.timeline-item-data');
         var thanh_timeline = $('.chi_tiet_don_hang-timeline-thanh_timeline-range')
-
+    console.log(timelineData.length)
+        if (timelineData.length == 1) {
+            thanh_timeline.attr('style', 'width: 25%')
+            thanh_timeline.addClass ('d-none')
+        }
+        if(timelineData.length == 2){
+            thanh_timeline.attr('style', 'width: 25%')
+            thanh_timeline.removeClass('d-none')
+        }
+        if (timelineData.length == 3) {
+            thanh_timeline.attr('style', 'width: 50%')
+            thanh_timeline.removeClass('d-none')
+        }
+        if (timelineData.length == 4) {
+            thanh_timeline.attr('style', 'width: 75%')
+            thanh_timeline.removeClass('d-none')
+        }
+        if (timelineData.length == 5) {
+            thanh_timeline.attr('style', 'width: 100%')
+            thanh_timeline.removeClass('d-none')
+        }
         for(var i = 0; i < timelineIcon.length; i++){
             if($(timelineData[i]).text().length>30){
                 $(timelineIcon[i]).addClass('icon_checked')
-                if(i==0){
-                    thanh_timeline.attr('style','width: 0%')
-                }else if(i==1){
-                    thanh_timeline.attr('style', 'width: 25%')
-                }else if(i == 2) {
-                    thanh_timeline.attr('style', 'width: 50%')
-                }else if(i == 3) {
-                    thanh_timeline.attr('style', 'width: 75%')
-                }
             }
-        }
+        } 
     })
      function quay_lai_trang_truoc() {
             history.back();

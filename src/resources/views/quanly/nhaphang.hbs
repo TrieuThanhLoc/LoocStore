@@ -1,5 +1,6 @@
 <form method="POST" action="../quanly/luu">
     <div class="form-nhap_hang">
+        <h3>Nhập thông số sản phẩm</h3>
         <h6 class="ten_muc">
             Thông tin cơ bản                
         </h5>
@@ -11,25 +12,33 @@
                 <input type="text" class="form-control" placeholder="Ma san pham"name="masp" id="slug" readonly>
             </div>
             <div class="col">
-                <select class="form-select" aria-label="Default select example" name="loaisp">
+                <select class="form-select loai_san_pham" aria-label="Default select example" name="loaisp">
                     <option >Loại sản phẩm</option>
                     <option value="dien_thoai">Điện thoại</option>
                     <option value="may_tinh_bang">Máy tính bảng</option>
                     <option value="phu_kien">Phụ kiện</option>
                 </select>
+                <select class="form-select loai_phu_kien d-none" aria-label="Default select example" name="loaipk" disabled>
+                    <option>Loại phụ kiện</option>
+                    <option value="op_lung">Ốp lưng</option>
+                    <option value="ban_phim">Bàn phím</option>
+                    <option value="chuot">Chuột</option>
+                    <option value="tai_nghe">Tai nghe</option>
+                    <option value="sac_du_phong">Sạc dự phòng</option>
+                </select>
             </div>
-            <div class="col">
+            {{!-- <div class="col">
                 <input type="text" class="form-control" placeholder="Giá gốc" name="giagoc">
-            </div>
-            <div class="col">
+            </div> --}}
+            {{!-- <div class="col">
                 <input type="text" class="form-control" placeholder="Giá bán" name="giaban">
-            </div>
+            </div> --}}
             <div class="col">
                 <input type="text" class="form-control" placeholder="Ảnh" name="anh">
             </div>
-            <div class="col">
+            {{!-- <div class="col">
                 <input type="number" class="form-control" placeholder="Số lượng" name="soluong">
-            </div>
+            </div> --}}
             <div class="col">
                 <input type="text" class="form-control" placeholder="Hãng sản xuất" name="hangsx">
             </div>
@@ -52,9 +61,9 @@
             <div class="col">
                 <input type="text" class="form-control" placeholder="Chất liệu" name="chatlieu">
             </div>
-            <div class="col">
+            {{!-- <div class="col">
                 <input type="text" class="form-control" placeholder="Màu sắc" name="mausac">
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="form-nhap_hang">
@@ -216,3 +225,19 @@
     </div>
     <button type="submit" class="btn btn-primary"> Thêm sản phẩm</button>
 </form>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        var loaisp = $('.loai_san_pham')
+        var loaipk = $('.loai_phu_kien')
+
+        loaisp.change(function(){
+            if($(this).val() == 'phu_kien'){
+                loaipk.removeClass('d-none');
+                loaipk.prop('disabled', false);
+            }else{
+                loaipk.addClass('d-none');
+                loaipk.prop('disabled', true);
+            }
+        })
+    })
+</script>

@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 const KhachHang = new Schema({
     tenkh: String,
-    makh: {type: String, slug: "", unique: true},
+    makh: {type: String, unique: true},
     anhkh: {type: String, default: 'noavatar.jpg'},
     matkhaukh: String,
     emailkh: String,
     ngaysinh: String,
     sodtkh: {type: Number, minLength:10, maxLength:12},
     maxacthuc: {type: String},
-    createdAt:{type: Date, default: Date.now},
-    updatedAt:{type: Date, default: Date.now},
+    ngaytao: String,
+    ngaychinhsua: String,
     soluotmua: Number,
 },
     {tinmestamps: true}

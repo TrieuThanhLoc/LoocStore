@@ -1,4 +1,10 @@
 <footer class="footer">
+    <div class="chatIcon">
+        <a href="https://m.me/162078830325396" class="popup_chatwithus">
+            <span>Chat với chúng tôi</span>
+        </a>
+        <img src="../images/logo/logo_mes.jpg" alt="">
+    </div>
     <div class="footer-item">
         <h5>
             LOOC STORE
@@ -12,7 +18,8 @@
             LIÊN HỆ HỖ TRỢ
         </h5>
         <p class="footer-item-bio">
-           <a href="#">Hỗ trợ</a>
+            Mội vấn đề thắc mắc vui lòng liên hệ HOTLINE:
+           <a href="tel: 0932575508">0932575508</a>
         </p>
     </div>
     <div class="footer-item">
@@ -30,13 +37,13 @@
             </a>
         </div>
         <div class="footer-item-bio">
-           <a href="https://www.facebook.com/15ThanhLoc">
+           <a href="https://www.facebook.com/profile.php?id=61553763922371">
                 <i class="fa-brands fa-facebook"></i>
             </a>
-            <a href="https://www.facebook.com/15ThanhLoc">
+            <a href="https://www.facebook.com/profile.php?id=61553763922371">
                 <i class="fa-brands fa-twitter"></i>
             </a>
-            <a href="https://www.facebook.com/15ThanhLoc">
+            <a href="https://www.facebook.com/profile.php?id=61553763922371">
                 <i class="fa-brands fa-discord"></i>
             </a>
         </div>
@@ -54,53 +61,20 @@
 
 
 <script>
-    //Tạo mã sản phẩm tự động 
-    function ChangeToSlug() {
-            var title, slug;
-
-            //Lấy text từ thẻ input title 
-            title = document.getElementById("tensp").value;
-
-            //Đổi chữ hoa thành chữ thường
-            slug = title.toLowerCase();
-
-            //Đổi ký tự có dấu thành không dấu
-            slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
-            slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
-            slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-            slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
-            slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
-            slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
-            slug = slug.replace(/đ/gi, 'd');
-            //Xóa các ký tự đặt biệt
-            slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
-            //Đổi khoảng trắng thành ký tự gạch ngang
-            slug = slug.replace(/ /gi, " - ");
-            //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
-            //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
-            slug = slug.replace(/\-\-\-\-\-/gi, '-');
-            slug = slug.replace(/\-\-\-\-/gi, '-');
-            slug = slug.replace(/\-\-\-/gi, '-');
-            slug = slug.replace(/\-\-/gi, '-');
-            //Xóa các ký tự gạch ngang ở đầu và cuối
-            slug = '@' + slug + '@';
-            slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-            //In slug ra textbox có id “slug”
-            document.getElementById('slug').value = slug;
-        }
+    
 
 
         //FORTMAT lai gia san pham
         var spgia = document.querySelectorAll('.gia_format')
-            for (var i = 0; i < spgia.length; i++) {
-                spgia[i].innerText = formatCash(spgia[i].innerText)
-            }
+        for (var i = 0; i < spgia.length; i++) {
+            spgia[i].innerText = formatCash(spgia[i].innerText)
+        }
 
-            function formatCash(str) {
-                return str.split('').reverse().reduce((prev, next, index) => {
-                    return ((index % 3) ? next : (next + ' ')) + prev
-                })
-            }
+        function formatCash(str) {
+            return str.split('').reverse().reduce((prev, next, index) => {
+                return ((index % 3) ? next : (next + ' ')) + prev
+            })
+        }
 
 
         //Thông báo
@@ -138,12 +112,42 @@
             //Thông báo thêm vào giỏ hàng
             var btnThemSanPhamVaoGio = $('.the_san_pham-item-btn-themgh');
             var formThemGioHang = $('.form_them_gio_hang')
+            var btnMuaNgay = $('.the_san_pham-item-btn-mua')
 
             btnThemSanPhamVaoGio.click(function () {
-                setTimeout(() => {
-                    formThemGioHang.submit();
-                }, 1500)
-                thongbaopopup('Đã thêm vào giỏ !', true)
+                if(document.cookie && document.cookie.length > 10){
+                    setTimeout(() => {
+                        formThemGioHang.submit();
+                    }, 1500)
+                    thongbaopopup('Đã thêm vào giỏ !', true)
+                }else{
+                    setTimeout(() => {
+                        formThemGioHang.submit();
+                    }, 1500)
+                    thongbaopopup('Chưa đăng nhập', false)
+                }
+            })
+            btnMuaNgay.click(function () {
+                if (document.cookie.length < 10){
+                    thongbaopopup('Chưa đăng nhập', false)
+                }
             })
         })
+
+        //Lay gia tri params 
+        function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+
+
+        //Chat
+
+         
 </script>

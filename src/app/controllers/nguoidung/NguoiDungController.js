@@ -14,6 +14,10 @@ const HeDieuHanh = require('../../../resources/models/sanphaminfo/HeDieuHanh');
 const LuuTru = require('../../../resources/models/sanphaminfo/LuuTru');
 const ManHinh = require('../../../resources/models/sanphaminfo/ManHinh');
 const Pin = require('../../../resources/models/sanphaminfo/Pin');
+
+const BinhLuan = require('../../../resources/models/sanphaminfo/BinhLuan');
+const TraLoiBinhLuan = require('../../../resources/models/sanphaminfo/TraLoiBinhLuan');
+
 const Kho = require('../../../resources/models/Kho');
 //Nhan vien
 const NhanVien = require ('../../../resources/models/NhanVien');
@@ -87,49 +91,38 @@ class thanhtoanController{
         await donhang.save()
         res.redirect('back')
     }
-    
     async chitietdonhang(req, res, next){
         //Load Nhật ký dơn hàng
         var nhatkydonhang = await NhatKyDonHang.findOne({madh: req.params._id})
-        var thongtintaikhoan;
-        if(req.taikhoan != undefined){
-            if(req.taikhoan.chucvu != undefined){
-                var manv = req.taikhoan.id
-                thongtintaikhoan = await NhanVien.findOne({manv: manv})
-            }else{
-                var makh = req.taikhoan.id
-                thongtintaikhoan = await KhachHang.findOne({makh: makh})
-            }}
-        //Hiễn thị các sản phẩm trong giỏ hàng
-        if(thongtintaikhoan != undefined){
-                var makh = "makh";
-                if (thongtintaikhoan.manv){
-                    makh = thongtintaikhoan.manv
-                }else{
-                    makh = thongtintaikhoan.makh
-                }
-                const giohangs = await GioHang.find({makh: makh});
-                const soluongsptronggio = giohangs.length;
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+        const giohangs = await GioHang.find({makh: thongtintaikhoan.makh});
+        const soluongsptronggio = giohangs.length;
 
-                const donhang = await DonHang.findOne({_id: req.params._id})
+        const donhang = await DonHang.findOne({_id: req.params._id})
 
-                var chitietdonhangs = await ChiTietDonHang.find({madh: req.params._id})
-                var sanphamstams = [];
-                for (var j = 0; j < chitietdonhangs.length; j++){
-                    var sanpham = await SanPham.findOne({masp: chitietdonhangs[j].masp})
-                    sanpham._doc.mausacdat = chitietdonhangs[j].mausacdat;
-                    sanpham._doc.soluongdat = chitietdonhangs[j].soluongdat;
-                    sanphamstams.push(sanpham)
-                }
-                donhang._doc.sanphams = sanphamstams;
-
+        var chitietdonhangs = await ChiTietDonHang.find({madh: req.params._id})
+        var sanphamstams = [];
+        for (var j = 0; j < chitietdonhangs.length; j++){
+            var sanpham = await SanPham.findOne({masp: chitietdonhangs[j].masp})
+            sanpham._doc.mausacdat = chitietdonhangs[j].mausacdat;
+            sanpham._doc.soluongdat = chitietdonhangs[j].soluongdat;
+            sanphamstams.push(sanpham)
+        }
+        donhang._doc.sanphams = sanphamstams;
+        var chuadanhgia = false
+        if(donhang.trangthai == 'hoan_thanh' && donhang.danhgia == false){
+            chuadanhgia = true
+        }
         res.render('nguoidung/chitietdonhang',{
                 nhatkydonhang: MongooseToObject(nhatkydonhang),
                 thongtintaikhoan: MongooseToObject(thongtintaikhoan),
                 donhang: MongooseToObject(donhang),
+                chuadanhgia,
                 soluongsptronggio,
         })
-        }
     }
     async themdiachi(req, res, next){
         const diachimoi = new DiaChiKhachHang(req.body)
@@ -195,7 +188,6 @@ class thanhtoanController{
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
     }
-
     async danhgia(req, res, next){
         const madh = req.query.ma_don
         const chitietdonhangs = await ChiTietDonHang.find({madh: madh});
@@ -246,8 +238,69 @@ class thanhtoanController{
         await DonHang.updateOne({_id: req.params.madh},{
             danhgia: true,
         })
-
+        await NhatKyDonHang.updateOne({madh: req.params.madh},{
+            ngaydanhgia: Ngay.ngaygiohomnay(),
+        })
         res.redirect('../../nguoidung/donhang')
+    }
+    //Binh luan san pham 
+    async binhluan(req, res, next){
+        //Lay thong tin nguoi dung
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+
+        var binhluan = new BinhLuan();
+        binhluan.makh = thongtintaikhoan._doc.makh;
+        binhluan.masp = req.params.masp;
+        binhluan.noidungbinhluan = req.query.noidungbinhluan;
+        binhluan.ngaybinhluan = Ngay.ngaygiohomnay();
+        await binhluan.save();
+        res.redirect('back');
+    }
+     async traloibinhluan(req, res, next){
+        //Lay thong tin nguoi dung
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+
+        var traloibinhluan = new TraLoiBinhLuan();
+        traloibinhluan.makh = thongtintaikhoan._doc.makh;
+        traloibinhluan.mabl = req.params.mabl;
+        traloibinhluan.noidungtraloi = req.query.noidungtraloi;
+        traloibinhluan.ngaytraloi = Ngay.ngaygiohomnay();
+        await traloibinhluan.save();
+        res.redirect('back');
+    }
+
+    //tài khoản của tôi 
+    async taikhoancuatoi(req, res, next){
+        //Lay thong tin nguoi dung
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+        const donhangs = await DonHang.find({makh: thongtintaikhoan.makh})
+        let tongtienthanhtoan = 0;
+        let sosanphammua = 0
+        for(var i = 0 ; i < donhangs.length; i++){
+            tongtienthanhtoan += Number(donhangs[i].tienthanhtoan);
+            const chitietdonhangs = await ChiTietDonHang.find({madh: donhangs[i]._id})
+            for(var j = 0 ; j < chitietdonhangs.length; j++){
+                sosanphammua += chitietdonhangs[j].soluongdat
+            }
+        }
+
+        res.render('nguoidung/taikhoancuatoi',{
+            thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+            donhangs: multipleMongooseToObject(donhangs),
+            sosanphammua,
+            tongtienthanhtoan,
+
+
+        })
     }
 }
 module.exports = new thanhtoanController;

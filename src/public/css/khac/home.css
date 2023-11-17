@@ -87,7 +87,8 @@
     padding: 10px;
 }
 .cac_dong_san_pham_noi_bat-item:hover{
-    border: 3px solid rgb(212, 212, 212);
+    transform: scale(1.1);
+    box-shadow: 0 0 2px 1px silver;
 }
 .cac_dong_san_pham_noi_bat-item-img{
     width: 100px;

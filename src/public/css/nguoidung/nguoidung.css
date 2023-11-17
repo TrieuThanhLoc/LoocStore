@@ -223,3 +223,225 @@
     color: #fd4;
 }
 
+/* ---------------------- Trang dat hang thanh cong --------------------------- */
+.dat_hang_thanh_cong{
+    width: 1000px;
+    margin: 20px auto;
+    font-size: 18px;
+    font-weight: 400;
+}
+.dat_hang_thanh_cong-title{
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+.dat_hang_thanh_cong-title i{
+    color: greenyellow;
+    font-size: 30px;
+}
+.dat_hang_thanh_cong-title p {
+    margin: 0;
+}
+.dat_hang_thanh_cong-loicamon{
+    padding: 10px 100px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+.dat_hang_thanh_cong-loicamon p{
+    margin: 0;
+}
+.dat_hang_thanh_cong-loicamon p span{
+    font-size: 16px;
+    font-weight: 700;
+}
+.dat_hang_thanh_cong-loicamon p a{
+    color: red;
+    font-size: 16px;
+    font-weight: 700px;
+}
+.dat_hang_thanh_cong-loicamon p a:hover{
+    color: rgb(255, 119, 0);
+}
+
+
+.dat_hang_thanh_cong--body{
+    background-color: rgb(243, 243, 243);
+    border-radius: 10px;
+    padding: 10px;
+}
+.dat_hang_thanh_cong--body-title{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 600;
+}
+.dat_hang_thanh_cong--body-donhangtc{
+    display: flex;
+    flex-direction: row;
+}
+.donhangtc_info,
+.donhangtc_info-sanpham{
+    background-color: white;
+    padding: 20px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 1px silver;
+    height: 100%;
+}
+.donhangtc_info p {
+    font-weight: 600;
+    margin-left: 10px;
+}
+.donhangtc_info-khachhang{
+    font-size: 15px;
+    display: flex;
+    margin-left: 10px;
+}
+.donhangtc_info-khachhang p {
+    margin: 0;
+}
+.donhangtc_info-khachhang--title{
+    font-weight: 600;
+}
+.donhangtc_info-khachhang--data{
+    margin-left: 20px;
+}
+
+.donhangtc_info-sanpham{
+    margin-left: 20px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+.donhangtc_info-sanpham p{
+    margin: 0;
+    font-weight: 600;
+}
+.donhangtc_info-sanpham--item{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+    padding: 0 10px;
+    background-color: rgb(243, 243, 243);
+    border-radius: 10px;
+    box-shadow: 0 0 2px 1px silver;
+}
+.donhangtc_info-sanpham--item img{
+    padding: 10px;
+    width: 120px;
+    height: 125px;
+}
+.donhangtc_info-sanpham--item .thongtinsp{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.donhangtc_info-sanpham--item .thongtinsp p{
+    margin: 0;
+}
+.donhangtc_info-sanpham--item .thongtinsp .tensp{
+    font-size: 18px;
+    font-weight: 600;
+}
+.donhangtc_info-sanpham--item .thongtinsp .soluong,
+.donhangtc_info-sanpham--item .thongtinsp .mausac {
+    font-size: 15px;
+    font-weight: 600;
+}
+.donhangtc_info-sanpham--item .giasp{
+    color: red;
+    display: flex;
+    font-size: 15px;
+    font-weight: 700;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.donhangtc_info-sanpham--tongtien {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 700;
+}
+.donhangtc_info-sanpham--tongtien div:last-child{
+    color: red;
+}
+.donhangtc_info-sanpham--tongtien p{
+    margin: 0;
+}
+
+.dat_hang_thanh_cong-footer{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* -----------------Tài khoản của tôi-------------- */
+.tai_khoan_cua_toi{
+    border: 1px solid var(--mau-phu-thu-3);
+    padding: 20px;
+    width: 40%;
+    margin: 10px auto;
+    text-align: center;
+    background: linear-gradient(to bottom, var(--mau-chinh), var(--mau-phu-thu-2));
+    border-radius: 100px;
+}
+.tai_khoan_cua_toi img{
+    border-radius: 100px;
+    width: 150px;
+    height: 150px;
+}
+.tai_khoan_cua_toi p {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+.tai_khoan_cua_toi-thongke--item{
+    margin: 10px auto;
+    width: 300px ;
+    border-radius: 10px;
+    padding: 10px;
+    background: linear-gradient(to bottom, rgb(197, 197, 197), rgb(167, 167, 167))
+}
+.tai_khoan_cua_toi-thongke--item p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+.tai_khoan_cua_toi-thongke--item span {
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: 500;
+    background-color: rgb(255, 241, 181);
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.tai_khoan_cua_toi-suataikhoan{
+    margin: 10px auto;
+    width: 300px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.tai_khoan_cua_toi-suataikhoan a{
+    background: linear-gradient(to bottom, var(--mau-chinh), var(--mau-phu-thu-1));
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    color: white;
+}
+.tai_khoan_cua_toi-suataikhoan a:last-child{
+    background: linear-gradient(to bottom, var(--mau-chinh), red);
+}
+.tai_khoan_cua_toi-suataikhoan a:hover{
+    color: aliceblue;
+    transform: scale(1.02);
+}

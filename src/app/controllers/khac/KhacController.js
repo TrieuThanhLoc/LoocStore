@@ -5,6 +5,7 @@ const NhanVien = require("../../../resources/models/NhanVien");
 const KhachHang = require("../../../resources/models/khachhang/KhachHang");
 const SanPham = require('../../../resources/models/SanPham')
 const { MongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
+const Ngay = require("../../../util/ngay");
 const GioHang = require("../../../resources/models/GioHang");
 
 const Kho = require('../../../resources/models/Kho')
@@ -27,7 +28,7 @@ class KhacController{
             thongtintaikhoan = thongtin;
         })
         // Sản phẩm bán chạy 
-         const khos = await Kho.find({}).sort({soluongban: 'desc'})
+         const khos = await Kho.find({}).sort({soluongdaban: 'desc'})
         var topsanphams = [];
         var temp = 4;
         if(khos.length < 4){
@@ -51,7 +52,7 @@ class KhacController{
             }
             topsanphams[i].soluong = soluongspcon
         }
-         res.render('khac/home',{
+        res.render('khac/home',{
             topsanphams: multipleMongooseToObject(topsanphams),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
@@ -60,18 +61,27 @@ class KhacController{
         res.render('khac/lienhe');
     }
     dangky(req,res){
-        res.render('khac/dangky');
+        if(req.query._emaildacotk){
+            const emailkh = req.query._emaildacotk
+            return res.render('khac/dangky',{
+                emailkh,
+            });
+        }else{
+            res.render('khac/dangky');
+        }
     }
     async dangkykh(req,res){
         const khachhang = await KhachHang(req.body);
         const khachhangdatao = await KhachHang.findOne({makh: khachhang.makh})
         if(!khachhangdatao){
+            khachhang.ngaytao = Ngay.ngaygiohomnay();
             khachhang.save().then(
             res.redirect('/dangnhap')
             )
         }else{
             const emailkh = khachhang.emailkh
-            return res.render('khac/dangky', {emailkh})
+            const URL = 'dangky?_emaildacotk=' + emailkh
+            res.redirect(URL)
         }
     }
     dangnhap(req,res){

@@ -84,9 +84,10 @@ class GioHangController {
 
         var giohangs = await GioHang.find({makh: makh}).sort({ngaythemvaogio: 'desc'});
         for(var i = 0; i < giohangs.length; i++){
-            giohangs[i]._doc.giagiam = giohangs[i].giaban*0.9;
+            giohangs[i]._doc.giagiam = giohangs[i].giaban*1.2;
+            const sanpham = await SanPham.findOne({masp: giohangs[i].masp})
+            giohangs[i]._doc.mausacconhang = sanpham.mausacconhang
          }
-
         res.render('nguoidung/giohang',{
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
             giohangs: multipleMongooseToObject(giohangs),

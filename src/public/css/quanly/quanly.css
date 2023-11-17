@@ -5,7 +5,7 @@
 .quan_ly{
     text-align: center;
     min-height: 707px;
-    background-color: var(--mau-phu-thu-5);
+    background: linear-gradient(to bottom, var(--mau-chinh), var(--mau-phu-thu-4));
 }
 .quan_ly-header{
     color: rgb(191, 131, 131);
@@ -18,7 +18,7 @@
     padding: 10px;
     border-radius: 40px;
     border: 2px solid var(--mau-phu-thu-3);
-    box-shadow: 3px 3px 5px rgb(255, 255, 255);
+    box-shadow: 0 0 5px 3px rgb(255, 255, 255);
     margin: 10px 20px 10px 20px;
 }
 .logo_img img{
@@ -80,11 +80,13 @@
     cursor: pointer;
 }
 .quan_ly-body--item-clicked{
-    background-color: black;
+    transform: scale(1.05);
+    background-color: var(--mau-phu-thu-1);
 }
 .quan_ly-body--item:hover{
-    color: silver;
-    background-color: rgb(47, 47, 47);
+    transform: scale(1.05);
+    color: rgb(56, 56, 56);
+    background-color: var(--mau-phu-thu-3);
     cursor: pointer;
 }
 .quan_ly-link{

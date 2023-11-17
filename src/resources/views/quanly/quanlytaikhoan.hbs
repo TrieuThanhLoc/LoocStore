@@ -1,1 +1,33 @@
-<h1>Trang quan lý tai khoan</h1>
+<div class="quan_ly_tai_khoan">
+    <div class="quan_ly_tai_khoan-title">
+        <p>Quản lý tài khoản</p>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>SDT</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Ngày tạo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each khachhangs}}
+            <tr>
+                <th>{{cong @index 1}}</th>
+                <td>{{this.sdtkh}}</td>
+                <td>{{this.tenkh}}</td>
+                <td>{{this.emailkh}}</td>
+                <td>{{this.ngaytao}}</td>
+                <td>
+                    <a href="">
+                        <button class="btn btn-danger">Xoá</button>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

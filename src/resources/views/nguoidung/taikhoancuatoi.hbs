@@ -1,0 +1,37 @@
+<div class="tai_khoan_cua_toi">
+    <div class="tai_khoan_cua_toi-avatar">
+        <img src="../images/noavatar.jpg" alt="">
+        <P>{{thongtintaikhoan.tenkh}}{{thongtintaikhoan.tennv}}</P>
+    </div>
+    <div class="tai_khoan_cua_toi-thongke">
+        <div class="tai_khoan_cua_toi-thongke--item">
+            <p>
+                Tổng số đơn đã mua
+            </p>
+            <span>
+                {{donhangs.length}} đơn
+            </span>
+        </div>
+        <div class="tai_khoan_cua_toi-thongke--item">
+            <p>
+                Tổng số sản phẩm đã mua
+            </p>
+            <span>
+                 {{sosanphammua}} sản phẩm
+            </span>
+        </div>
+        <div class="tai_khoan_cua_toi-thongke--item">
+            <p>
+                Tiền đã thanh toán tại LoocStore
+            </p>
+            <span>
+                <span class="gia_format">{{tongtienthanhtoan}}</span> VND
+            </span>
+        </div>
+    </div>
+    <div class="tai_khoan_cua_toi-suataikhoan">
+        <a href="/nguoidung/donhang" class="tai_khoan_cua_toi-suataikhoan--item">Đơn mua</a>
+        <a href="/quenmatkhau" class="tai_khoan_cua_toi-suataikhoan--item">Đổi mật khẩu</a>
+        <a href="/dangsuat" class="tai_khoan_cua_toi-suataikhoan--item">Đăng suất</a>
+    </div>
+</div>

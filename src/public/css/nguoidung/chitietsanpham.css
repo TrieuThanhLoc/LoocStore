@@ -42,9 +42,13 @@
 }
 .mau_con_hang-item{
     border: 1px solid var(--mau-phu-thu-3);
+    font-size: 15px;
+    font-weight: 500;
     padding: 2px 8px;
-    border-radius: 5px;
-    box-shadow: 0 0 1px 1px green;
+    border-width: 3px;
+    border-radius: 15px;
+    box-shadow: 0 0 1px 1px white;
+    margin-left: 5px;
 }
 .chi_tiet-header--thongsochinh-chon{
     display: flex;
@@ -260,7 +264,7 @@
     font-size: 18px;
     font-weight:500;
     position: absolute;
-    right: 55px;
+    right: 140px;
     top: 24px;
     background-color: red;
     color: white;
@@ -305,7 +309,7 @@
     color: blue;
 }
 .chi_tiet-footer-hienthitraloi{
-    margin: 0 100px;
+    margin: 10px 100px;
     background-color: beige;
     border-radius: 10px;
 }
@@ -339,4 +343,18 @@
     left: 0;
     top: 0;
     z-index: 1;
+}
+
+.traloibinhluan{
+    width: 1000px;
+    position: relative;
+}
+.traloibinhluan textarea{
+    height: 50px;
+    width: 100%;
+}
+.traloibinhluan button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
 }

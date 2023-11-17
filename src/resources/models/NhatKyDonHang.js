@@ -7,6 +7,7 @@ const NhatKyDonHang = new Schema ({
     ngayvanchuyen: String,
     ngaygiaohang: String,
     ngayhoanthanh: String,
+    ngaydanhgia: String,
     ngayhuyhang: String,
     ngaygiaohangkhongthanhcong: String,
 })

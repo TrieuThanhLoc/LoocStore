@@ -29,7 +29,7 @@ const Ngay = require('../../../util/ngay');
 var storage = require('node-persist');
 
 
-//Bo dau tieng viet
+    //Bo dau tieng viet
 function removeAccents(str) {
   var AccentsMap = [
     "aàảãáạăằẳẵắặâầẩẫấậ",
@@ -86,10 +86,14 @@ class QuanLyController{
                     layout: 'admin'
                 });
             }else{
-                return res.send('Không có quyền truy cặp trang quản lý');
+                return res.render('khac/pageError',{
+                    layout: 'admin',
+                });
             }
         }else{
-            return res.send('Không có quyền truy cặp trang quản lý !');
+            return res.render('khac/pageError',{
+                layout: 'admin',
+            });
         }
     }}
     async quanlysanpham(req,res, next){
@@ -129,10 +133,34 @@ class QuanLyController{
         }
     }
     nhaphang(req, res, next){
-        res.render('quanly/nhaphang');
+        res.render('quanly/nhaphang',{
+            layout: 'admin',
+        });
     }
     luuhang(req, res, next){
-        // Xu ly nhap hang 
+        const sanpham =  SanPham.findOne({masp: req.body.masp});
+        const trongluongvathietke =  TrongLuongVaThietKe.findOne({masp: req.body.masp}); 
+        const boxuly =  BoXuLy.findOne({masp: req.body.masp});
+        const camera =  Camera.findOne({masp: req.body.masp});
+        const giaotiepvaketnoi =  GiaoTiepVaKetNoi.findOne({masp: req.body.masp});
+        const hedieuhanh =  HeDieuHanh.findOne({masp: req.body.masp});
+        const luutru =  LuuTru.findOne({masp: req.body.masp});
+        const manhinh =  ManHinh.findOne({masp: req.body.masp});
+        const pin =  Pin.findOne({masp: req.body.masp});
+        const kho =  Kho.findOne({masp: req.body.masp}); 
+        if(
+            !sanpham.masp &&
+            !trongluongvathietke.masp &&
+            !boxuly.masp &&
+            !camera.masp &&
+            !giaotiepvaketnoi.masp &&
+            !hedieuhanh.masp &&
+            !luutru.masp &&
+            !manhinh.masp &&
+            !pin.masp &&
+            !kho.masp
+        ){
+             // Xu ly nhap hang 
         const sanpham = new SanPham();
         const trongluongvathietke = new TrongLuongVaThietKe(); 
         const boxuly = new BoXuLy();
@@ -142,7 +170,6 @@ class QuanLyController{
         const luutru = new LuuTru();
         const manhinh = new ManHinh();
         const pin = new Pin();
-        const kho = new Kho();
 
         sanpham.masp = req.body.masp;
         sanpham.tensp = req.body.tensp;
@@ -221,10 +248,12 @@ class QuanLyController{
         pin.save();
         trongluongvathietke.save();
         sanpham.save();
-        kho.save();
         res.redirect('../quanly/sanpham');
+        }else {
+            res.send('Sản phẩm đã tồn tại')
+        }
     }
-// Quan ly kho ----------------------------------------
+    // Quan ly kho ----------------------------------------
     async kho(req, res, next){
         var kho = await Kho.find({}).sort({tensp: 'asc'})
         res.render('quanly/kho/khohang',{
@@ -268,7 +297,7 @@ class QuanLyController{
         var tongtiennhaphang = 0;
         for(var i = 0; i < req.body.masp.length; i++){
             //Kiem tra trong kho co san pham nay chua 
-            const trongkho = await Kho.findOne({masp: req.body.masp[i], mausac: req.body.mausac[i]});
+            const trongkho = await Kho.findOne({masp: req.body.masp[i], mausac: req.body.mausac[i], tinhtrang: req.body.tinhtrang[i]});
             if(!trongkho){
                 var kho = new Kho();
                 kho.masp = req.body.masp[i];
@@ -278,6 +307,7 @@ class QuanLyController{
                 kho.soluongdaban = 0;
                 kho.gianhap = req.body.gianhap[i];
                 kho.giaban =  Number(req.body.gianhap[i])*1.2;
+                kho.tinhtrang =  req.body.tinhtrang[i];
                 await kho.save();
                 tongtiennhaphang += Number(req.body.gianhap[i])*req.body.soluongnhap[i];
             }else{
@@ -289,6 +319,22 @@ class QuanLyController{
                     giaban: giaban,
                 })
             }
+            //Cặp nhặt giá bán và số lượng từ kho
+            var khos = await Kho.find({masp: req.body.masp[i]}).sort({giaban: 'asc'});
+            var soluongspcon = 0;
+            var giaban = await khos[0].giaban;
+            let mausacconhang = [];
+            for(var j = 0; j < khos.length; j++){
+                soluongspcon += khos[j].soluongtrongkho
+                if(khos[j].soluongtrongkho >= 1){
+                    mausacconhang.push(khos[j].mausac)
+                }
+            }
+            await SanPham.updateOne({masp: req.body.masp[i]},{
+                giaban: giaban,
+                mausacconhang: mausacconhang,
+                soluong: soluongspcon
+            })
         }
         
         //Thông tin khách hàng lên header
@@ -310,7 +356,29 @@ class QuanLyController{
         res.redirect('../quanly/kho')
     }
     async xoakho(req, res, next){
+            const kho = await Kho.findOne({_id: req.params._id})
             await Kho.deleteOne({_id: req.params._id});
+            //Cặp nhặt giá bán và số lượng từ kho
+            var khos = await Kho.find({masp: kho.masp}).sort({giaban: 'asc'});
+            var soluongspcon = 0;
+            var giaban = 0;
+            var mausacconhang = [];
+            if(khos!= ''){
+                soluongspcon = 0;
+                giaban = khos[0].giaban;
+                mausacconhang = [];
+            }
+            for(var j = 0; j < khos.length; j++){
+                soluongspcon += khos[j].soluongtrongkho
+                if(khos[j].soluongtrongkho >= 1){
+                    mausacconhang.push(khos[j].mausac)
+                }
+            }
+            await SanPham.updateOne({masp: kho.masp},{
+                giaban: giaban,
+                mausacconhang: mausacconhang,
+                soluong: soluongspcon
+            })
             res.redirect('back')
         }
     async phieunhap(req, res, next){
@@ -333,7 +401,7 @@ class QuanLyController{
             if(Number(thangdathang[1]) == Ngay.thangnay()){
                 thuthang += Number(donhangstam[i].tienthanhtoan);
             }
-            const namdathang = donhangstam[i].ngaydathang.split('-',3)
+            const namdathang = donhangstam[i].ngaydathang.split(/[ ,-]/,3)
             if(Number(namdathang[2]) == Ngay.namnay()){
                 thunam += Number(donhangstam[i].tienthanhtoan);
             }
@@ -351,7 +419,7 @@ class QuanLyController{
             if(Number(thangdathang[1]) == Ngay.thangnay()){
                 nhapthang += Number(phieunhaps[i].tongtiennhaphang);
             }
-            const namdathang = phieunhaps[i].ngaynhaphang.split('-',3)
+            const namdathang = phieunhaps[i].ngaynhaphang.split(/[ ,-]/,3)
             if(Number(namdathang[2]) == Ngay.namnay()){
                 nhapnam += Number(phieunhaps[i].tongtiennhaphang);
             }
@@ -395,7 +463,7 @@ class QuanLyController{
             }
         }
         //top sảm phẩm bán chạy
-        const khos = await Kho.find({}).sort({soluongban: 'desc'})
+        const khos = await Kho.find({}).sort({soluongdaban: 'desc'})
         var topsanphams = [];
         var temp = 5;
         if(khos.length < 5){
@@ -414,13 +482,13 @@ class QuanLyController{
         //San pham duoc danh gia cao
         var topdanhgia = [];
         var temp = 5;
-        if(khos.length < 5){
-            temp = khos.length
+        if(danhgias.length < 5){
+            temp = danhgias.length
         }
         for (var i = 0 ; i < temp; i++){
-            if(danhgias[i].sosao >= 1){
-                const sanpham = await SanPham.findOne({masp: khos[i].masp})
-                const kho = await Kho.findOne({masp: khos[i].masp})
+            if(danhgias[i].sosao >= 3){
+                const sanpham = await SanPham.findOne({masp: danhgias[i].masp})
+                const kho = await Kho.findOne({masp: danhgias[i].masp})
                 danhgias[i]._doc.anh = sanpham.anh;
                 danhgias[i]._doc.tensp = sanpham.tensp;
                 danhgias[i]._doc.hangsx = sanpham.hangsx;
@@ -428,7 +496,6 @@ class QuanLyController{
                 topdanhgia.push(danhgias[i]);
             }
         }
-
         //Đơn hàng mới nhất
         var donhangsmoi = [];
         var temp = 5;
@@ -620,7 +687,7 @@ class QuanLyController{
         await Kho.deleteOne({masp: masp});
         res.redirect('back');
     }
-//Quan ly nhan vien
+    //Quan ly nhan vien
     async qunalynhanvien(req,res,next){
          //Hiễn thị thông tin tài khoản đã đăng nhập
         var thongtintaikhoan;
@@ -736,18 +803,38 @@ class QuanLyController{
                 await NhatKyDonHang.updateOne({madh:  req.params._id},{ngayhuyhang: Ngay.ngaygiohomnay()})
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
                 //xoá yêu cầu huỷ đơn của khách hàng
-                await DonHang.findOne({_id: req.params._id})
-                    .then((donhang)=>{
-                        const chitietdonhangs = ChiTietDonHang.find({madh: donhang._id});
-                        for(var i = 0; i < chitietdonhangs.length; i++){
-                            var sanpham = SanPham.findOne({masp: chitietdonhangs[i].masp});
-                            sanpham.soluong = sanpham.soluong + 1;
-                            sanpham.save();
-                        }
-                        donhang.yeucauhuydon = false;
-                        donhang.save();
+                const donhang = await DonHang.findOne({_id: req.params._id})
+                const chitietdonhangs = await ChiTietDonHang.find({madh: req.params._id});
+                for(var i = 0; i < chitietdonhangs.length; i++){
+                    var kho = await Kho.findOne({masp: chitietdonhangs[i].masp, mausac: chitietdonhangs[i].mausacdat});
+                    const soluongtrongkho = kho.soluongtrongkho + chitietdonhangs[i].soluongdat;
+                    const soluongdaban = kho.soluongdaban - chitietdonhangs[i].soluongdat;
+                    await Kho.updateOne({masp: chitietdonhangs[i].masp, mausac: chitietdonhangs[i].mausacdat},{
+                        soluongtrongkho: soluongtrongkho,
+                        soluongdaban: soluongdaban
                     })
-            }
+
+                     //Cặp nhặt giá bán và số lượng từ kho
+                    var khos = await Kho.find({masp: chitietdonhangs[i].masp}).sort({giaban: 'asc'});
+                    var soluongspcon = 0;
+                    var giaban = await khos[0].giaban;
+                    let mausacconhang = [];
+                    for(var j = 0; j < khos.length; j++){
+                        soluongspcon += khos[j].soluongtrongkho
+                        if(khos[j].soluongtrongkho >= 1){
+                            mausacconhang.push(khos[j].mausac)
+                        }
+                    }
+                    await SanPham.updateOne({masp: chitietdonhangs[i].masp},{
+                        giaban: giaban,
+                        mausacconhang: mausacconhang,
+                        soluong: soluongspcon
+                    })//////////////////////
+
+                }
+                donhang.yeucauhuydon = false;
+                donhang.save();
+    }
         }else{
             if(req.body.trangthai == 'van_chuyen'){
                 nhatkydonhang.ngayvanchuyen = Ngay.ngaygiohomnay()
@@ -762,21 +849,42 @@ class QuanLyController{
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
             }else if(req.body.trangthai == 'da_huy'){
+                console.log('Da vo day')
                 nhatkydonhang.ngayhuy = Ngay.ngaygiohomnay()
                 await nhatkydonhang.save();
                 await DonHang.updateOne({_id:  req.params._id},req.body.trangthai)
                 //xoá yêu cầu huỷ đơn của khách hàng
-                await DonHang.findOne({_id: req.params._id})
-                    .then((donhang)=>{
-                        const chitietdonhangs = ChiTietDonHang.find({madh: req.params._id});
-                        for(var i = 0; i < chitietdonhangs.length; i++){
-                            var sanpham = SanPham.findOne({masp: chitietdonhangs[i].masp});
-                            sanpham.soluong = sanpham.soluong + 1;
-                            sanpham.save();
+                const donhang = await DonHang.findOne({_id: req.params._id})
+                const chitietdonhangs = await ChiTietDonHang.find({madh: req.params._id});
+                for(var i = 0; i < chitietdonhangs.length; i++){
+                    var kho = await Kho.findOne({masp: chitietdonhangs[i].masp, mausac: chitietdonhangs[i].mausacdat});
+                    const soluongtrongkho = kho.soluongtrongkho + chitietdonhangs[i].soluongdat;
+                    const soluongdaban = kho.soluongdaban - chitietdonhangs[i].soluongdat;
+                    await Kho.updateOne({masp: chitietdonhangs[i].masp, mausac: chitietdonhangs[i].mausacdat},{
+                        soluongtrongkho: soluongtrongkho,
+                        soluongdaban: soluongdaban
+                    })
+
+                     //Cặp nhặt giá bán và số lượng từ kho
+                    var khos = await Kho.find({masp: chitietdonhangs[i].masp}).sort({giaban: 'asc'});
+                    var soluongspcon = 0;
+                    var giaban = await khos[0].giaban;
+                    let mausacconhang = [];
+                    for(var j = 0; j < khos.length; j++){
+                        soluongspcon += khos[j].soluongtrongkho
+                        if(khos[j].soluongtrongkho >= 1){
+                            mausacconhang.push(khos[j].mausac)
                         }
-                        donhang.yeucauhuydon = false;
-                        donhang.save();
-                })
+                    }
+                    await SanPham.updateOne({masp: chitietdonhangs[i].masp},{
+                        giaban: giaban,
+                        mausacconhang: mausacconhang,
+                        soluong: soluongspcon
+                    })//////////////////////
+                    
+                }
+                donhang.yeucauhuydon = false;
+                donhang.save();
             }
         }
         res.redirect('back')
@@ -826,11 +934,10 @@ class QuanLyController{
             })
         }
     }
-
-
-
-    quanlytaikhoan(req,res){
+    async quanlytaikhoan(req,res, next){
+        const khachhangs = await KhachHang.find({});
         res.render('quanly/quanlytaikhoan',{
+            khachhangs:multipleMongooseToObject(khachhangs),
             layout: 'admin'
         });
     }

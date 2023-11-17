@@ -156,23 +156,80 @@
     width: 100%;
     text-align: right;
 }
+
+
+
 .body-phuong_thuc_thanh_toan{
     margin-top: 20px;
-    background-color: rgb(165, 0, 102);
+    background-color: var(--mau-phu-thu-2);
     border: 1px solid var(--mau-phu-thu-3);
-    border-radius: 5px 5px 20px 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 15px;
 }
-.momo_popup{
-    width: 100%;
+.body-phuong_thuc_thanh_toan input {
+    font-size: 15px;
+}
+.body-phuong_thuc_thanh_toan-chon{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.nganhangdalienket{
+    display: flex;
+    flex-direction: row;
+}
+.nganhangdalienket-lable{
+    background-color: rgb(95, 167, 230);
+    padding: 10px;
+    display: flex;
+    border: 1px solid var(--mau-phu-thu-3);
+    border-radius: 10px;
+    width: 50%;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.nganhangdalienket-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    margin: 5px;
+    background-color: #fff;
+}
+.nganhangdalienket-info{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.nganhangdalienket-info p{
+    margin: 0;
+}
+.lien_ket_ngan_hang-btn{
+    margin-top: 10px;
     text-align: center;
-    display: none;
 }
-.momo-img{
-    width: 300px;
-    margin-top: 20px;
+
+
+/* Modal lien ket ngan hang */
+.thanh_toan_online-modal{
+    margin-top: 10px;
 }
-.momo-note{
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
+.manh-lable{
+    width: 106px;
+    height: 63px;
+    border-radius: 10px;
+    border: 2px solid var(--mau-phu-thu-3);
+    margin-left: 6px;
+    background-color: white;
+}
+.manh-lable img{
+    width: 95px;
+    height: 55px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.nganhang_checked{
+    box-shadow: 0 0 3px 3px silver;
+    transform: scale(1.1);
 }

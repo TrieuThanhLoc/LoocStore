@@ -1,0 +1,80 @@
+.danh_muc_san_pham{
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    display: flex;
+    background-color: rgb(252, 252, 252);
+    padding-bottom: 20px;
+}.danh_muc_san_pham-body{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.body-dieuhuong{
+    width: 400px;
+    margin: 0 20px;
+}
+.body-dieuhuong-danhmuc{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.body-dieuhuong-danhmuc--title{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.body-dieuhuong-danhmuc-boloc{
+    margin-left: 14px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 280px;
+}
+.body-dieuhuong-danhmuc--item{
+    width: 120px;
+    border-radius: 10px;
+    height: 30px;
+    border: 1px solid var(--mau-phu-thu-3);
+    align-items: center;
+    text-align: center;
+    margin: 0 5px;
+    margin-bottom: 10px;
+
+}
+.body-dieuhuong-danhmuc--item:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 2px 1px silver;
+    cursor: pointer;   
+}
+.danhmucdachon{
+    transform: scale(1.1);
+    box-shadow: 0 0 3px 2px silver;
+    background-color: rgb(255, 255, 255);
+}
+
+.sanphams-show{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-top: 20px;
+    width: 1000px;
+}
+.sanphams--title{
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.sanphams--title span{
+    font-size: 18px;
+    color: red;
+}
+.hienthi_cacsp_theodm{
+    width: 100%;
+}
+.khong_co_san_pham{
+    margin-top: 100px;
+    text-align: center;
+}

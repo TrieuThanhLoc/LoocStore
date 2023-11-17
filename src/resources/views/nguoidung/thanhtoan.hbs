@@ -53,10 +53,10 @@
         </p>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Số điện thoại" value="{{thongtintaikhoan.sodtnv}}{{thongtintaikhoan.sodtkh}}" name="sodtkh" id="sodtkh">
+                <input type="text" class="form-control" placeholder="Số điện thoại" value="{{thongtintaikhoan.sodtnv}}{{thongtintaikhoan.sodtkh}}" name="sodtkh" id="sodtkh" required>
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Họ và tên" value="{{thongtintaikhoan.tennv}}{{thongtintaikhoan.tenkh}}" name="tenkh" id="tenkh" onchange="TaoMaDonTuDong()">
+                <input type="text" class="form-control" placeholder="Họ và tên" value="{{thongtintaikhoan.tennv}}{{thongtintaikhoan.tenkh}}" name="tenkh" id="tenkh" onchange="TaoMaDonTuDong()" required>
             </div>
             {{!-- <input type="text" id="madh" name="madh" hidden> --}}
             <input type="text" id="makh" name="makh" value="{{thongtintaikhoan.makh}}" hidden>
@@ -70,10 +70,10 @@
                 <input 
                     type="radio" 
                     class="chon_dia_chi-item-diachi" 
-                    id="diachi" name="diachigiaohang" 
-                    value=" {{this.diachicuthe}}, {{this.phuongxa}}, {{this.quanhuyen}}, {{this.tinhtp}}">
+                    id="{{this._id}}" name="diachigiaohang" 
+                    value=" {{this.diachicuthe}}, {{this.phuongxa}}, {{this.quanhuyen}}, {{this.tinhtp}}" required>
                 </input>
-                <label for="diachi"> {{this.diachicuthe}}, {{this.phuongxa}}, {{this.quanhuyen}}, {{this.tinhtp}}</label>
+                <label for="{{this._id}}"> {{this.diachicuthe}}, {{this.phuongxa}}, {{this.quanhuyen}}, {{this.tinhtp}}</label>
             </div>
             {{/each}}
             <div class="chon_dia_chi-btn">
@@ -85,15 +85,68 @@
        </div>
     </div>
     <div class="body-phuong_thuc_thanh_toan">
-        <select class="form-select" aria-label="Default select example" name="phuongthucthanhtoan" onclick="showmomo()">
-            <option >Phương thức thanh toán</option>
-            <option value="cod" >Thanh toán khi nhận hàng</option>
-            <option value="cod"><a href="/thanhtoan/thanhtoanvnpay">Thanh toán VNPay</a></option>
-            <option value="momo" id="momo" >Chuyển khoản momo</option>
-        </select>
-        <div class="momo_popup" id="momo_popup">
-            <img src="../images/momo.jpg" alt="" class="momo-img">
-            <p class="momo-note">Chuyển khoản với nội dung: Số điện thoại + Họ tên khách hàng !</p>
+        <div class="body-phuong_thuc_thanh_toan-chon">
+            <span>
+                Chọn phương thức thanh toán
+            </span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input input_phuongthucthanhtoan" type="radio" name="phuongthucthanhtoan" id="thanh_toan_khi_nhan_hang" value="cod">
+            <label class="form-check-label" for="thanh_toan_khi_nhan_hang">
+                Thanh toán khi nhận hàng
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input input_phuongthucthanhtoan" type="radio" name="phuongthucthanhtoan" id="thanh_toan_online" value="online">
+            <label class="form-check-label" for="thanh_toan_online">
+                Thanh toán online
+            </label>
+            <div class="thanh_toan_online-modal d-none">
+                {{!-- Thanh toán tạm thời --}}
+                <input class="manh_input" type="radio" name="manh" id="ncb" value="ncb" hidden>
+                    <label for="ncb" class="manh-lable">
+                        <img src="./images/logoNganHang/ncb.jpg" alt="">
+                    </label>
+                <input class="manh_input" type="radio" name="manh" id="acb" value="acb" hidden>
+                    <label for="acb" class="manh-lable">
+                        <img src="./images/logoNganHang/acb.jpg" alt="">
+                    </label>
+                <input class="manh_input" type="radio" name="manh" id="ocb" value="ocb" hidden>
+                    <label for="ocb" class="manh-lable">
+                        <img src="./images/logoNganHang/ocb.jpg" alt="">
+                    </label>
+                
+
+                {{!-- Liên kết ngân hàng --}}
+                {{!-- <div class="thanh_toan_online-modal--nganhangdalienket">
+                    <div class="nganhangdalienket">
+                        {{#each nganhanglienkets}}
+                        <label for="{{this.manh}}" class="nganhangdalienket-lable">
+                            <input id="{{this.manh}}" type="radio" name="manh" style="outline-style: none;" value="{{this.manh}}">
+                            <img src="../../images/logoNganHang/{{this.manh}}.jpg" alt="" class="nganhangdalienket-img">
+                            <div class="nganhangdalienket-info">
+                                <p class="nganhangdalienket-info--tenchuthe">
+                                   {{this.tenchuthe}}
+                                </p>
+                                <p class="nganhangdalienket-info--sothe">
+                                    {{this.sothe}}
+                                </p>
+                            </div>
+                        </label>
+                        {{/each}}
+                    </div>
+                    <div class="lien_ket_ngan_hang-btn">
+                        <button type="button" class="btn btn-primary" id="btn_them_lien_ket_ngan_hang" data-bs-target="#modal_lien_ket_ngan_hang"
+                            data-bs-toggle="modal">
+                            <i class="fa-solid fa-plus"></i>
+                            Liên kết ngân hàng
+                        </button>
+                    </div>
+                </div> --}}
+                <div class="thanh_toan_online-modal--lienket">
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="body-tong_tien">
@@ -162,25 +215,98 @@
         </div>
     </div>
 </div>
-<form id="thanhtoanmomo" action="/thanhtoan/thanhtoanvnpay"></form>
+
+{{!-- Modal liên kết ngân hàng --}}
+{{!-- <div class="modal fade" id="modal_lien_ket_ngan_hang" tabindex="-1" aria-labelledby="modalthemlienketnganhang" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="them_dia_chi modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalthemlienketnganhang">Thông tin thẻ ngân hàng <span></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/thanhtoan/lienketnganhang/{{thongtintaikhoan.makh}}"
+                    id="form_them_lien_ket_ngan_hang">
+                    <div class="mb-3">
+                        <p for="recipient-name" class="col-form-label">Chọn ngân hàng</p>
+                        <input class="manh_input" type="radio"name="manh" id="ncb" value="ncb" hidden>
+                            <label for="ncb" class="manh-lable">
+                                <img src="./images/logoNganHang/ncb.jpg" alt="">
+                            </label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Số thẻ:</label>
+                        <input type="text" class="form-control" name="sothe" id="sothe" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Tên chủ thẻ <i><strong>(NGUYEN VAN A)</strong></i></label>
+                        <input type="text" class="form-control" name="tenchuthe" id="tenchuthe" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Ngày phát hàng <i><strong>(dd/mm)</strong></i></label>
+                        <input type="text" class="form-control" name="ngayphahanh" id="ngayphahanh" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btn_lien_ket_ngan_hang">Liên kết</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
 <script>
     //Thanh toan momo tạm thời
-    var the_momo = document.getElementById('momo');
-    var the_momo_popup = document.getElementById('momo_popup');
-    var formThanhToanMomo = document.getElementById('thanhtoanmomo')
-    
-    function showmomo(){
-        if (the_momo.selected == true) {
-            //the_momo_popup.style.display = "block"
-            formThanhToanMomo.submit()
-        } else {
-            the_momo_popup.style.display = "none"
-        }
-    }
-
     document.addEventListener('DOMContentLoaded', function(){
         var formLuuDiaChi = $('#form_luu_dia_chi');
         var btnLuuDiaChi = $('#btn_luu_dia_chi');
+
+        var formThemNganHang = $('#form_them_lien_ket_ngan_hang');
+        var btnThemLienKet = $('#btn_lien_ket_ngan_hang');
+
+        var inputPhuongThucThanhToan = $('.input_phuongthucthanhtoan')
+        var inputThanhToanOnline = $('#thanh_toan_online')
+        var modalThanhToanOnline = $('.thanh_toan_online-modal')
+
+        var inputManh = $('.manh_input');
+        var maNHLable = $('.manh-lable')
+        var valueInputLienKetNH = $('#modal_lien_ket_ngan_hang .mb-3 input')
+        
+        //Hien thi lua chon ngan hang
+        inputPhuongThucThanhToan.change(function(){
+            if($(this).val() == 'online'){
+                modalThanhToanOnline.removeClass('d-none')
+            }else{
+                modalThanhToanOnline.addClass('d-none')
+            }
+        })
+
+        //modal them ngan hang lien ket
+        inputManh.change(function(){
+            $(maNHLable).removeClass('nganhang_checked')
+            $(this.nextElementSibling).addClass('nganhang_checked')
+        })
+
+        valueInputLienKetNH.keyup(function(){
+            if($(this).val() != ''){
+                $(this).attr('style','box-shadow: none')
+            }else{
+                $(this).attr('style', 'box-shadow: 0 0 1px 1px red')   
+            }
+        })
+        btnThemLienKet.click(function () {
+            var valueTrong = false;
+            valueInputLienKetNH.each((index, item)=>{
+                if($(item).val() == ''){
+                    $(item).attr('style','box-shadow: 0 0 1px 1px red')
+                    valueTrong = true
+                }
+            })
+            if(!valueTrong){
+                formThemNganHang.submit();
+            }
+        })
 
         btnLuuDiaChi.click(function(){
             formLuuDiaChi.submit();

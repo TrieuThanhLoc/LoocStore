@@ -1,0 +1,158 @@
+<div class="danh_muc_san_pham">
+    <div class="danh_muc_san_pham-banner">
+
+    </div>
+    <div class="danh_muc_san_pham-body">
+        <form method="get" action="/sanpham/danhmuc" id="body-dieuhuong" class="body-dieuhuong">
+            <input type="text" name="loai" value="{{tenloai.loai}}" hidden>
+            <div class="body-dieuhuong-danhmuc">
+                <div class="body-dieuhuong-danhmuc--title">
+                    Hãng sản xuất
+                </div>
+                <div class="body-dieuhuong-danhmuc-boloc">
+                    <input type="radio" value="" name="hangsx" id="hangsx_tat_ca" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="hangsx_tat_ca">Tất cả</label>
+                    <input  type="radio" value="Apple" name="hangsx" id="Apple" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Apple">Apple</label>
+                    <input type="radio" value="Samsung" name="hangsx" id="Samsung" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Samsung">Samsung</label>
+                    <input type="radio" value="Xiaomi" name="hangsx" id="Xiaomi" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Xiaomi">Xiaomi</label>
+                    <input type="radio" value="Oppo" name="hangsx" id="Oppo" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Oppo">Oppo</label>
+                    <input type="radio" value="Realme" name="hangsx" id="Realme" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Realme">Realme</label>
+                    <input type="radio" value="Nokia" name="hangsx" id="Nokia" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Nokia">Nokia</label>
+                    <input type="radio" value="Masstel" name="hangsx" id="Masstel" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="Masstel">Masstel</label>
+                    
+                </div>
+            </div>
+            <div class="body-dieuhuong-danhmuc">
+                <div class="body-dieuhuong-danhmuc--title">
+                    Giá 
+                </div>
+                <div class="body-dieuhuong-danhmuc-boloc">
+                    <input type="radio" value="" name="gia" id="gia_tat_ca" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="gia_tat_ca">Tất cả</label>
+                    <input type="radio" value="duoi-3tr" name="gia" id="duoi-3tr" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="duoi-3tr">Dưới 3 triệu</label>
+                    <input type="radio" value="3tr-5tr" name="gia" id="3tr-5tr" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="3tr-5tr">Từ 3 - 5 triệu</label>
+                    <input type="radio" value="5tr-8tr" name="gia" id="5tr-8tr" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="5tr-8tr">Tù 5 - 8 triệu</label>
+                    <input type="radio" value="8tr-12tr" name="gia" id="8tr-12tr" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="8tr-12tr">Từ 8 - 12 triệu</label>
+                    <input type="radio" value="tren-12tr" name="gia" id="tren-12tr" class="body-dieuhuong-danhmuc--item-input" hidden>
+                    <label class="body-dieuhuong-danhmuc--item" for="tren-12tr">Trên 12 triệu</label>
+                </div>
+            </div>
+        </form>
+        <div class="hienthi_cacsp_theodm">
+            <div class="sanphams">
+                <div class="sanphams--title">
+                    <p>{{tenloai.ten}} <span>({{sanphams.length}} sản phẩm)</span></p>
+                </div>
+                {{#if sanphams}}
+                <div class="sanphams--sanphams">
+                    {{!-- <input type="text" class="link_tam" value="{{link}}" hidden>
+                    <div class="sanphams-xemtheo">
+                        <select name="" id="xemtheo">
+                            <option selected>Xem theo</option>
+                            <option value="desc">Giá giảm dần</option>
+                            <option value="asc">Giá tăng dần</option>
+                        </select>
+                    </div> --}}
+                    <div class="sanphams-show">
+                        {{#each sanphams}}
+                        <div class="the_san_pham-item">
+                            <div class="the_san_pham-item-img-box">
+                                <a href="/sanpham/{{this.masp}}">
+                                    <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg"
+                                        alt="{{this.anh}}" class="the_san_pham-item-img">
+                                </a>
+                            </div>
+                            <p class="the_san_pham-item-ten">
+                                {{this.tensp}}
+                            </p>
+                            {{#if this.soluong}}
+                            <p class="the_san_pham-item-tinhtrang">
+                                <i class="fa-solid fa-circle-check"></i> Còn hàng
+                            </p>
+                            {{else}}
+                            <p class="the_san_pham-item-tinhtrang" style="color: red;">
+                                <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
+                            </p>
+                            {{/if}}
+                            <p class="the_san_pham-item-gia ">
+                                <span class="gia_format">{{this.giaban}}</span> VND
+                            </p>
+                            <div class="the_san_pham-item-btn">
+                                <a href="/thanhtoan/muangay/{{this.masp}}"><button
+                                        class="the_san_pham-item-btn-mua btn btn-danger">Mua
+                                        ngay</button></a>
+                                <form class="form_them_gio_hang" action="/giohang/themgiohang">
+                                    <input type="text" name="masp" value="{{this.masp}}" hidden>
+                                    <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary">Thêm giỏ
+                                        hàng</button>
+                                </form>
+                            </div>
+                        </div>
+                    {{/each}}
+                    </div>
+                </div>
+                {{else}}
+                <div class="khong_co_san_pham">
+                    <img src="../images/no_product.jpg" alt="">
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        $(document).ready(function () {
+            var searchURL = $(location).attr('search').split(/[?,=,&]/);
+            var formLocDieuHuong = $('#body-dieuhuong');
+            var inputLocDieuHuong = $('.body-dieuhuong-danhmuc--item-input')
+            var inputLocDieuHuongHangSX = $('input[name="hangsx"]')
+            var inputLocDieuHuongGia = $('input[name="gia"]')
+
+            inputLocDieuHuong.each((index, item)=>{
+                if(searchURL.includes($(item).val()) ){
+                    $(item).prop('checked', true)
+                }else if($(item).val() == 'all'){
+                    $(item).prop('checked', true)
+                }
+                if($(item).prop('checked')){
+                    $(item.nextElementSibling).addClass('danhmucdachon')
+                }
+            })
+            tatCaDiieuHuongBTN(inputLocDieuHuongHangSX)
+            tatCaDiieuHuongBTN(inputLocDieuHuongGia)
+            inputLocDieuHuong.change(function(){
+                formLocDieuHuong.submit()
+            })
+        });
+    })
+
+    //Ham cho the chon tat ca tren khu vuv bo lov dieu huong 
+    function tatCaDiieuHuongBTN(theInput){
+        var cochonsanpham;
+        for(var i = 1; i < theInput.length; i++){
+            if(($(theInput[i]).prop('checked')) ){
+                cochonsanpham =true 
+            }
+        }
+        if(!cochonsanpham){
+            $(theInput[0]).prop('checked', true)
+            $(theInput[0].nextElementSibling).addClass('danhmucdachon')
+        }else{
+            $(theInput[0]).prop('checked', false)
+            $(theInput[0].nextElementSibling).removeClass('danhmucdachon')
+        }
+    }
+</script>

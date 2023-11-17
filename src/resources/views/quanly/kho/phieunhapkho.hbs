@@ -20,6 +20,7 @@
                     <th>Tên</th>
                     <th>Ảnh</th>
                     <th>Màu</th>
+                    <th>Tình trạng</th>
                     <th>Số lượng</th>
                     <th>Giá nhập</th>
                     <th>Thành tiền</th>
@@ -36,17 +37,24 @@
                         <img src="../../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="ảnh điện thoại">
                     </td>
                     <td class="phieu_nhap_hang-bang--mausac">
-                    <select name="mausac[]">
-                        <option value="" selected>Màu sắc</option>
-                            <option style="color: black;" value="black">Đen</option>
-                            <option style="color: white;" value="white">Trắng</option>
-                            <option style="color: blue;" value="blue">Xanh dương</option>
-                            <option style="color: green;" value="green">Xanh lá</option>
-                            <option style="color: silver;" value="silver">Xám</option>
-                            <option style="color: purple;" value="purple">Tím</option>
-                            <option style="color: red;" value="red">Đỏ</option>
-                            <option style="color: yellow;" value="yellow">Vàng</option>
-                    </select>
+                        <select name="mausac[]">
+                            <option value="" selected>Màu sắc</option>
+                                <option style="color: black;" value="black">Đen</option>
+                                <option style="color: white;" value="white">Trắng</option>
+                                <option style="color: blue;" value="blue">Xanh dương</option>
+                                <option style="color: green;" value="green">Xanh lá</option>
+                                <option style="color: silver;" value="silver">Xám</option>
+                                <option style="color: purple;" value="purple">Tím</option>
+                                <option style="color: red;" value="red">Đỏ</option>
+                                <option style="color: yellow;" value="yellow">Vàng</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="tinhtrang[]" id="">
+                            <option value="new">Mới 100%</option>
+                            <option value="99">99%</option>
+                            <option value="95">95%</option>
+                        </select>
                     </td>
                     <td >
                         <input type="Number" class="phieu_nhap_hang-bang--soluong" name="soluongnhap[]">

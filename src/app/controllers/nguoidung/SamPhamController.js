@@ -10,6 +10,11 @@ const ManHinh = require('../../../resources/models/sanphaminfo/ManHinh');
 const Pin = require('../../../resources/models/sanphaminfo/Pin');
 const NhanVien = require('../../../resources/models/NhanVien')
 
+
+const BinhLuan = require('../../../resources/models/sanphaminfo/BinhLuan');
+const TraLoiBinhLuan = require('../../../resources/models/sanphaminfo/TraLoiBinhLuan');
+
+
 const Kho = require('../../../resources/models/Kho')
 
 const {MongooseToObject, multipleMongooseToObject} = require('../../../util/mongoose');
@@ -71,17 +76,56 @@ class SanPhamController{
 
          //Cặp nhặt giá bán và số lượng từ kho
             var khos = await Kho.find({masp: masp}).sort({giaban: 'asc'});
-            var soluongspcon = 0;
-            sanpham.giaban = await khos[0].giaban;
-            var mausacconhang = [];
-            for(var j = 0; j < khos.length; j++){
-                soluongspcon += khos[j].soluongtrongkho
-                if(khos[j].soluongtrongkho > 1){
-                    mausacconhang.push(khos[j].mausac)
+            
+            if(khos.masp != null){
+                var soluongspcon = 0;
+                sanpham.giaban = await khos[0].giaban;
+                var mausacconhang = [];
+                for(var j = 0; j < khos.length; j++){
+                    soluongspcon += khos[j].soluongtrongkho
+                    if(khos[j].soluongtrongkho > 1){
+                        mausacconhang.push(khos[j].mausac)
+                    }
+                }
+                sanpham._doc.mausacconhang = mausacconhang;
+                sanpham.soluong = soluongspcon;
+            }
+
+            //Binh luan 
+            let binhluans = await BinhLuan.find({masp: req.params.masp}).sort('desc')
+            for(var i = 0; i < binhluans.length; i++){
+                const khachhang = await KhachHang.findOne({makh: binhluans[i].makh});
+                if(khachhang == null){
+                    const nhanvien = await NhanVien.findOne({manv: binhluans[i].makh});
+                    if(nhanvien != null){
+                        binhluans[i]._doc.nguoibl = nhanvien
+                    }
+                }else{
+                    binhluans[i]._doc.nguoibl = khachhang
+                }
+
+                //tra loi binh luan
+                let traloibinhluans = await TraLoiBinhLuan.find({mabl: binhluans[i]._id}).sort('desc')
+                if(traloibinhluans != null){
+                    let binhluantam = [];
+                    for (var j = 0; j < traloibinhluans.length; j++){
+                        //thong tin nguoi tra loi
+                        const khachhang = await KhachHang.findOne({makh: traloibinhluans[j].makh});
+                        if(khachhang == null){
+                            const nhanvien = await NhanVien.findOne({manv: traloibinhluans[j].makh});
+                            if(nhanvien != null){
+                                traloibinhluans[j]._doc.nguoitl = nhanvien
+                            }
+                        }else{
+                            binhluans[i]._doc.nguoitl = khachhang
+                        }
+                        traloibinhluans[j]._doc.binhluancho_id = binhluans[i]._id
+                        binhluantam.push(traloibinhluans[j])
+                    }
+                    binhluans[i]._doc.traloi = binhluantam
                 }
             }
-            sanpham._doc.mausac = mausacconhang;
-            sanpham.soluong = soluongspcon;
+            console.log(binhluans)
         res.render('nguoidung/chitietsanpham', {
             sanpham: MongooseToObject(sanpham),
             trongluongvathietke: MongooseToObject(trongluongvathietke),
@@ -93,16 +137,17 @@ class SanPhamController{
             manhinh: MongooseToObject(manhinh),
             pin: MongooseToObject(pin),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+            binhluans: multipleMongooseToObject(binhluans),
             danhgiasanpham,
         });
     }}
-    donhang(req,res){
+    donhang(req, res){
         res.render('nguoidung/donhang');
     }
-    taikhoan(req,res){
+    taikhoan(req, res){
         res.render('nguoidung/taikhoan');
     }
-     async thong_tin_chi_tiet_show(req,res){
+     async thong_tin_chi_tiet_show(req, res){
         const masp = req.params.masp
         const sanpham = await SanPham.findOne({masp: masp});
         const trongluongvathietke = await TrongLuongVaThietKe.findOne({masp: masp});
@@ -129,6 +174,70 @@ class SanPhamController{
             layout: false,
         }
         );
+    }
+//Xem san pham theo danh muc
+    async danhmuc(req, res, next){
+        var loai = req.query.loai;
+        var option = {};
+
+        if(req.query.loai){
+            option = Object.assign({
+                loaisp: req.query.loai
+            },option)
+        }
+        if(req.query.hangsx){
+            option = Object.assign({
+                hangsx: req.query.hangsx
+            },option)
+        }
+        if(req.query.gia){
+            var giaban ={};
+            if(req.query.gia == 'duoi-3tr'){
+                giaban = {$lte: 3000000}
+            }else if(req.query.gia == '3tr-5tr'){
+                giaban = {$gte: 3000000, $lte: 5000000}
+            }else if(req.query.gia == '5tr-8tr'){
+                giaban = {$gte: 5000000, $lte: 8000000}
+            }else if(req.query.gia == '8tr-12tr'){
+                giaban = {$gte: 8000000, $lte: 12000000}
+            }else if(req.query.gia == 'tren-12tr'){
+                giaban = {$gte: 12000000}
+            }
+             option = Object.assign({
+                giaban: giaban
+            },option)
+        }
+        if(req.query.tinhtrang){
+            option = Object.assign({
+                tinhtrangmay: req.query.tinhtrang
+            },option)
+        }
+        
+        var sanphams = await SanPham.find(option).sort({giaban: 'desc'});
+
+        const tenPhuKien = {
+            dien_thoai: 'Điện thoại',
+            may_tinh_bang: 'Máy tính bảng',
+            dien_thoai_cu: 'Điện thoại cũ',
+            may_tinh_bang_cu: 'Máy tính bảng cũ',
+            phu_kien: 'Phụ kiện',
+        }
+        var tenloai =[];
+        if(req.query.loai in tenPhuKien){
+            tenloai.ten = tenPhuKien[req.query.loai]
+            tenloai.loai = req.query.loai
+        }
+         //Thông tin khách hàng lên header
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+
+        res.render('khac/danhmuc/danhmuc',{
+            sanphams:multipleMongooseToObject(sanphams),
+            thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+            tenloai,
+        })
     }
 }
 

@@ -13,6 +13,12 @@ router.get('/donhang',middleware.kiemtratoken, nguoidungController.index);
 //Đánh giá 
 router.get('/danhgia',middleware.kiemtratoken, nguoidungController.danhgia);
 router.post('/thuchiendanhgia/:madh',middleware.kiemtratoken, nguoidungController.thuchiendanhgia);
+//Binh luan
+router.get('/binhluan/:masp',middleware.kiemtratoken, nguoidungController.binhluan);
+router.get('/traloibinhluan/:mabl',middleware.kiemtratoken, nguoidungController.traloibinhluan);
+//quản lý tài khoản của tôi 
+router.get('/taikhoancuatoi',middleware.kiemtratoken, nguoidungController.taikhoancuatoi);
+
 
 
 module.exports = router;

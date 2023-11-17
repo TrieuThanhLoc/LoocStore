@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Pin = new Schema({
     masp: {type: String, slug: "name", unique: true},
-    dungluongpin: Number,
+    dungluongpin: String,
     congnghepin: String,
 });
 

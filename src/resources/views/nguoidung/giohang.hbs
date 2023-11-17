@@ -40,8 +40,9 @@
                             <p class="gio_hang-ten_sp">{{this.tensp}}</p>
                             <input type="text" name="tensp[]" value="{{this.tensp}}" hidden>
                             <select id="select_thong_so" class="select_thong_so" name="mausac[]" value="{{this.mausac}}">
-                                <option value="Den">Đen</option>
-                                <option value="Xanh">Xanh</option>
+                                {{#each this.mausacconhang}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
                             </select>
                         </div>
                     </div>

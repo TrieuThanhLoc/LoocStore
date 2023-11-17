@@ -1,0 +1,94 @@
+<div class="dat_hang_thanh_cong">
+    {{#if dathangthanhcong}}
+    <div class="dat_hang_thanh_cong-title">
+        <i class="fa-regular fa-circle-check"></i>
+       <p>Đặt hàng thành công</p>
+    </div>
+    <div class="dat_hang_thanh_cong-loicamon">
+        <p>Cảm ơn <span>{{donhang.tenkh}}</span> đã cho Looc Store được phục vụ !</p>
+        <p>Tư vấn mua hàng <a href="tel: 0932575508">0932 575 508</a> (08:00 - 22:00)</p>
+    </div>
+    <div class="dat_hang_thanh_cong--body">
+         <div class="dat_hang_thanh_cong--body-title">
+            <span>Thông tin đơn hàng</span>
+            <span>{{donhang._id}}</span>
+         </div>
+         <div class="dat_hang_thanh_cong--body-donhangtc">
+            <div class="donhangtc_info">
+                <p>Thông tin giao hàng</p>
+                <div class="donhangtc_info-khachhang">
+                    <div class="donhangtc_info-khachhang--title">
+                        <p>Khách hàng:</p>
+                        <p>Địa chỉ giao hàng:</p>
+                        <p>Số điện thoại:</p>
+                        <p>Email:</p>
+                    </div>
+                    <div class="donhangtc_info-khachhang--data">
+                        <p>{{donhang.tenkh}}</p>
+                        <p>{{donhang.diachigiaohang}}</p>
+                        <p>0{{donhang.sodtkh}}</p>
+                        <p>{{thongtintaikhoan.emailkh}}{{thongtintaikhoan.emailnv}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="donhangtc_info-sanpham">
+                <p>Sản phẩm</p>
+                {{#each donhang.sanpham}}
+                <div class="donhangtc_info-sanpham--item">
+                    <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="hinh_anh_sp">
+                    <div class="thongtinsp">
+                        <p class="tensp">
+                           {{this.tensp}}
+                        </p>
+                        <p class="soluong">
+                           {{this.soluongdat}}
+                        </p>
+                        <div class="mausac">
+                            {{this.mausacdat}}
+                        </div>
+                    </div>
+                    <div class="giasp">
+                        <p><span class="gia_format">{{this.giaban}}</span> VND</p>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="donhangtc_info-sanpham--tongtien">
+                    <div>Tổng đơn: </div>
+                    <div><span class="gia_format">{{donhang.tienthanhtoan}}</span> VND</div>
+                </div>
+            </div>
+         </div>
+    </div>
+    <div class="dat_hang_thanh_cong-footer">
+        <div class="dat_hang_thanh_cong-footer--btn">
+            <a href="/">
+                <button class="btn btn-primary">
+                    <i class="fa-solid fa-angles-right"></i>
+                    Tiếp tục mua hàng
+                    <i class="fa-solid fa-angles-right"></i>
+                </button>
+            </a>
+            <a href="/nguoidung/chitietdonhang/{{donhang._id}}">
+                <button class="btn btn-info">
+                    Đơn mua
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                </button>
+            </a>
+        </div>
+    </div>
+    {{else}}
+    <div class="dat_hang_thanh_cong-title">
+        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+        <p>Đặt hàng thất bại</p>
+    </div>
+    <div class="dat_hang_thanh_cong-loicamon">
+       <p>Đạt hàng không thành công do kho đã hết hàng</p>
+       <p>Xin lỗi quí khách vì sự bất tiện này!</p>
+    </div>
+    <div style="text-align: center" class="">
+        <a href="/sanpham/danhmuc">
+            <button class="btn btn-warning px-5">Tham khảo các sản phẩm khác</button>
+        </a>
+    </div>
+    {{/if}}
+</div>

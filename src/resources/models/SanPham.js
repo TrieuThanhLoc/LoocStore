@@ -10,6 +10,7 @@ const SanPham = new Schema({
     loaisp: String,
     soluong: Number,
     hangsx: String,
+    mausacconhang: Array,
     createdAt:{type: Date, default: Date.now},
     updatedAt:{type: Date, default: Date.now},
 },

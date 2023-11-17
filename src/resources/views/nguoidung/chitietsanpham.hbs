@@ -9,7 +9,7 @@
                 <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}3.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_4" onclick="getsrc(this)">
                 <img src="../images/anh_chi_tiet/{{sanpham.hangsx}}/{{sanpham.anh}}/{{sanpham.anh}}4.jpg" alt="" class="chi_tiet-header--tongquan-con_item" id="anh_5" onclick="getsrc(this)">
             </p>
-            <div class="chi_tiet-header--tongquan-chi_tiet">
+            {{!-- <div class="chi_tiet-header--tongquan-chi_tiet">
                 <img src="../images/Apple/ip14promaxinfo.jpg" alt="" class="chi_tiet-header--tongquan-chi_tiet-img">
                 <div class="danh_gia">
                     <p class="danh_gia-dau">
@@ -28,7 +28,7 @@
                         
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="chi_tiet-header--thongso">
             <div class="chi_tiet-header--thongsochinh">
@@ -42,8 +42,8 @@
                 <div class="chi_tiet-header--thongsochinh-tinhtrang">
                     <span><i class="fa-solid fa-circle-check"></i> Còn hàng</span>
                     <div class="mau_con_hang">
-                        {{#each sanpham.mausac}}
-                        <span class="mau_con_hang-item">
+                        {{#each sanpham.mausacconhang}}
+                        <span class="mau_con_hang-item " style="border-color: {{this}};">
                             {{this}}
                         </span>
                         {{/each}}
@@ -85,7 +85,7 @@
                 </div>
                 <div class="chi_tiet-header--thongsochinh-btn">
                     <a href="/thanhtoan/muangay/{{sanpham.masp}}">
-                        <button class="chi_tiet-header--thongsochinh-btn-mua" id="mua_ngay">
+                        <button class="the_san_pham-item-btn-mua chi_tiet-header--thongsochinh-btn-mua" id="mua_ngay">
                             MUA NGAY
                             <p>Giao hàng tận nơi miễn phí !</p>
                         </button>
@@ -219,50 +219,62 @@
         </div>
         <div class="hoidap">
             <div class="chi_tiet-footer-hoidap">
-                <form action="" class="hoidap-guinoidung">
-                    <textarea class="hoidap-noidung" name="" id="" cols="150" rows="3"
+                <form action="/nguoidung/binhluan/{{sanpham.masp}}" class="hoidap-guinoidung">
+                    <textarea class="hoidap-noidung" name="noidungbinhluan" id="" cols="150" rows="3"
                         placeholder="Bạn đang thắc mắc gì ...."></textarea>
                     <button class="hoidap-noidung--btn">Gửi bình luận</button>
                 </form>
             </div>
+            {{#each binhluans}}
             <div class="chi_tiet-footer-hienthi">
                 <div class="hienthi--avatarnguoibl">
-                    <img src="../images/logo.png" alt="" class="avatarnguoibl">
+                    <img src="../images/noavatar.jpg" alt="" class="avatarnguoibl">
                 </div>
                 <div class="hienthi_noidungbl">
                     <p class="hienthi_noidungbl--tennguoibl">
-                        Thành Lộc
+                        {{this.nguoibl.tenkh}}{{this.nguoibl.tennv}}
                     </p>
                     <p class="hienthi_noidungbl--noidungbl">
-                        Cho mình hỏi bên shop còn mẫu này không ạ ?
+                        {{this.noidungbinhluan}}
                     </p>
                     <div class="hienthi_noidungbl--thichbl">
-                        <span>1 ngày trước</span>
+                        <span>{{this.ngaybinhluan}}</span>
                         <span class="thichbl-thich">Thích</span>
                         <span class="thichbl-phanhoi">Trả lời</span>
+                        <form action="/nguoidung/traloibinhluan/{{this._id}}" class="traloibinhluan d-none" >
+                            <textarea name="noidungtraloi" id="" cols="30" rows="2" ></textarea>
+                            <button class="btn btn-danger">Bình luận</button>
+                        </form>
                     </div>
                 </div>
             </div>
+            {{#each this.traloi}}
             <div class="chi_tiet-footer-hienthitraloi">
                 <div class="chi_tiet-footer-hienthi">
                     <div class="hienthi--avatarnguoibl">
-                        <img src="../images/logo.png" alt="" class="avatarnguoibl">
+                        <img src="../images/noavatar.jpg" alt="" class="avatarnguoibl">
                     </div>
                     <div class="hienthi_noidungbl">
                         <p class="hienthi_noidungbl--tennguoibl">
-                            Thành Lộc
+                            {{this.nguoitl.tenkh}}{{this.nguoitl.tennv}}
                         </p>
                         <p class="hienthi_noidungbl--noidungbl">
-                            Dạ còn ạ !
+                            {{this.noidungtraloi}}
                         </p>
                         <div class="hienthi_noidungbl--thichbl">
-                            <span>1 ngày trước</span>
+                            <span>{{this.ngaytraloi}}</span>
                             <span class="thichbl-thich">Thích</span>
                             <span class="thichbl-phanhoi">Trả lời</span>
+                            <form action="/nguoidung/traloibinhluan/{{this.binhluancho_id}}" class="traloibinhluan d-none">
+                                <textarea name="noidungtraloi" id="" cols="30" rows="2"></textarea>
+                                <button class="btn btn-danger">Bình luận</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            {{/each}}
+            {{/each}}
         </div>
     </div>
     {{!-- Hiễn thị thông tin chi tiết thông số sản phẩm --}}
@@ -281,6 +293,13 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+            //tra loi binh luan 
+            var btnTraLoiBinhLuan = $('.thichbl-phanhoi');
+            btnTraLoiBinhLuan.click(function () {
+                $(this.nextElementSibling).removeClass('d-none')
+            })
+        })
     {{!-- Hien thi hinh anh --}}
     var src_anh_chinh = document.getElementById('anh-chinh');
     
@@ -312,10 +331,12 @@
     {{!-- Vô hiệu hoá mua hàng --}}
     var nutmuahang = document.getElementById('mua_hang');
     var nutthemvaogiohang = document.getElementById('them_vao_gio_hang');
-    if(trangthaiconhang){
+    {{!-- if(trangthaiconhang){
         nutmuahang.disabled  = true
         nutthemvaogiohang.disabled  = true
         nutmuahang.style.backgroundColor = 'blue'
         nutthemvaogiohang.style.opacity = '80%'
-    }
+    } --}}
+
+    
 </script>

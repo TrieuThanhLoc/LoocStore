@@ -32,14 +32,14 @@
 }
 
 .the_san_pham-item-img:hover{
-    opacity: 0.8;
+    transform: scale(1.05);
 }
 
 .the_san_pham-item-ten {
     font-size: 18px;
     font-weight: 700;
     height: 60px;
-    margin: 0;
+    margin: 10px 0;
 }
 
 .the_san_pham-item-tinhtrang {

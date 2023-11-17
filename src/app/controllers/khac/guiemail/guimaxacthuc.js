@@ -16,9 +16,9 @@ class GuiEmail{
     const info = await transporter.sendMail({
         from: 'Thanh Loc 👻" <1507thanhloc@gmai.com>', // sender address
         to: emailkh, // list of receivers
-        subject: "Test chức năng send email", // Subject line
+        subject: "Mã OTP lấy lại mất khẩu", // Subject line
         text: 'Hello', // plain text body
-        html: "<b style = 'color: red'>Mật khẩu đang nhập của bạn là:</b> <p style = 'color: green'>" + maxacthuc +"</p>", // html body
+        html: "<b style = 'color: red'>Mã xác thực của bạn là:</b> <p style = 'color: green'>" + maxacthuc +"</p>", // html body
     });
     return info;
     }

@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 const ManHinh = new Schema({
     masp: {type: String, slug: "name", unique: true},
     tyledientichmanhinh: String,
-    kichthuocmanhinh: Number,
+    kichthuocmanhinh: String,
     maumanhinh: String,
     loaicamung: String,
     tylekhunghinh: String,
     congnghemanhinh: String,
     chuanmanhinh: String,
     dophangiai: String,
-    tansoquet: Number,
+    tansoquet: String,
     kichthuocmanhinhphu: String,
 });
 

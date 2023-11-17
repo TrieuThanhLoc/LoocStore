@@ -2,6 +2,7 @@ const { render } = require('vue');
 const { multipleMongooseToObject, MongooseToObject } = require('../../../util/mongoose');
 const Ngay = require('../../../util/ngay');
 const LayThongTinKhachHang = require('../../../util/laythongtinkhachhang');
+const ThanhToanVNPay = require('../../../util/thanhtoanvnpay');
 //San pham
 const SanPham = require('../../../resources/models/SanPham');
 const TrongLuongVaThietKe = require('../../../resources/models/sanphaminfo/TrongLuongVaThietKe');
@@ -13,32 +14,19 @@ const LuuTru = require('../../../resources/models/sanphaminfo/LuuTru');
 const ManHinh = require('../../../resources/models/sanphaminfo/ManHinh');
 const Pin = require('../../../resources/models/sanphaminfo/Pin');
 const Kho = require('../../../resources/models/Kho');
-//Nhan vien
+
+
 const NhanVien = require ('../../../resources/models/NhanVien');
 const KhachHang = require ('../../../resources/models/khachhang/KhachHang');
-const ThanhToan = require ('../../../resources/models/khachhang/ThanhToan');
+const ThanhToanVNP = require ('../../../resources/models/khachhang/ThanhToanVNP');
 const LuuGioHangThanhToan = require ('../../../resources/models/khachhang/LuuGioHangThanhToan');
 const DonHang = require('../../../resources/models/DonHang');
 const GioHang = require('../../../resources/models/GioHang');
 const ChiTietDonHang = require('../../../resources/models/ChiTietDonHang');
 const NhatKyDonHang = require('../../../resources/models/NhatKyDonHang');
 const DiachiKhachHang = require('../../../resources/models/khachhang/DiaChiKhachHang');
-
-function sortObject(obj) {
-	let sorted = {};
-	let str = [];
-	let key;
-	for (key in obj){
-		if (obj.hasOwnProperty(key)) {
-		str.push(encodeURIComponent(key));
-		}
-	}
-	str.sort();
-    for (key = 0; key < str.length; key++) {
-        sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
-    }
-    return sorted;
-}
+//Thanh Toán online
+const NganHangLienKet = require ('../../../resources/models/khachhang/NganHangLienKet');
 
 class thanhtoanController{
 
@@ -47,11 +35,14 @@ class thanhtoanController{
         await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
             thongtintaikhoan = thongtin;
         })
-        const giohangthanhtoan = await LuuGioHangThanhToan.findOne({makh: req.taikhoan.id})
-        const diachikhachhangs = await DiachiKhachHang.find({makh: req.taikhoan.id})
+        const giohangthanhtoan = await LuuGioHangThanhToan.findOne({makh: thongtintaikhoan._doc.makh})
+        const diachikhachhangs = await DiachiKhachHang.find({makh: thongtintaikhoan._doc.makh})
+        const nganhanglienkets = await NganHangLienKet.find({makh: thongtintaikhoan._doc.makh})
+
         res.render('nguoidung/thanhtoan',{
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
             giohangthanhtoan: MongooseToObject(giohangthanhtoan),
+            nganhanglienkets: multipleMongooseToObject(nganhanglienkets),
             diachikhachhangs: multipleMongooseToObject(diachikhachhangs),
 
         })
@@ -110,7 +101,6 @@ class thanhtoanController{
     async dathang(req, res, next){
         const donhang = DonHang(req.body);
         donhang.ngaydathang = Ngay.ngaygiohomnay();
-        donhang.trangthai = 'da_tiep_nhan';
         const nhatkydonhang = NhatKyDonHang();
         nhatkydonhang.madh = donhang._id;
         nhatkydonhang.ngaytiepnhan =  Ngay.ngaygiohomnay();
@@ -121,16 +111,115 @@ class thanhtoanController{
             chitietdonhang.madh = donhang._id
             chitietdonhang.soluongdat = req.body.soluongsp[i]
             chitietdonhang.mausacdat = req.body.mausac[i]
-            var sanpham = await SanPham.findOne({masp: masp});
-            sanpham.soluong = sanpham.soluong - 1;
-            await sanpham.save();
+           //Cap nhap so luong trong kho
+            var kho = await Kho.findOne({masp: masp, mausac: req.body.mausac[i]});
+            kho.soluongtrongkho = kho.soluongtrongkho - req.body.soluongsp[i];
+            kho.soluongdaban =Number(kho.soluongdaban) + Number(req.body.soluongsp[i]);
+
+            //neu nhu so luong mua lon hong so luong trong kho thi dat hang khong thanh
+            if(kho.soluongtrongkho < 0){
+                return res.redirect('../thanhtoan/dathangthanhcong?status=0')
+            }
+            await kho.save();
+             //Cặp nhặt giá bán và số lượng từ kho
+            var khos = await Kho.find({masp: masp}).sort({giaban: 'asc'});
+            var soluongspcon = 0;
+            var giaban = await khos[0].giaban;
+            let mausacconhang = [];
+            for(var j = 0; j < khos.length; j++){
+                soluongspcon += khos[j].soluongtrongkho
+                if(khos[j].soluongtrongkho >= 1){
+                    mausacconhang.push(khos[j].mausac)
+                }
+            }
+            await SanPham.updateOne({masp: masp},{
+                giaban: giaban,
+                mausacconhang: mausacconhang,
+                soluong: soluongspcon
+            })//////////////////////
             return await chitietdonhang.save()
         }))
-        donhang.save();
         await GioHang.deleteMany({makh: req.body.makh, masp: {$in: req.body.masp}})
         await LuuGioHangThanhToan.deleteOne({_id: req.body._idgiohangthanhtoan})
-        res.redirect('/nguoidung/donhang')
+
+        //thanh toan
+        if(req.body.phuongthucthanhtoan == 'online'){
+            donhang.trangthai = 'cho_thanh_toan';
+            await donhang.save();
+            req.body.madh = donhang._id
+            //chuyen san buoc thanh toan 
+            ThanhToanVNPay(req, res)
+        }else if(req.body.phuongthucthanhtoan == 'cod'){
+            donhang.trangthai = 'da_tiep_nhan';
+            await donhang.save();
+            res.redirect('/thanhtoan/dathangthanhcong?madh=' + donhang._id)
+        }
+        
     }
+//Ket qua thanh toan qua vnpay
+    async hoantatthanhtoanvnp(req, res , next){
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+        if(req.query.vnp_TransactionStatus == '00'){//gio dich thanh cong
+            const thanhtoanvnp = ThanhToanVNP();
+            thanhtoanvnp.madh = req.query.vnp_TxnRef
+            thanhtoanvnp.tongTienDonHang = req.query.vnp_Amount
+            thanhtoanvnp.magiaodich = req.query.vnp_TransactionNo
+            thanhtoanvnp.trangthaigiaodich = req.query.vnp_TransactionStatus
+            thanhtoanvnp.ngaythanhtoan = Ngay.ngaygiohomnay();
+    
+            thanhtoanvnp.vnp_bankcode = req.query.vnp_BankCode
+            thanhtoanvnp.vnp_bankcode = req.query.vnp_BankTranNo
+            thanhtoanvnp.vnp_cardtype = req.query.vnp_CardType
+            thanhtoanvnp.vnp_paydata = req.query.vnp_PayDate
+            thanhtoanvnp.vnp_responsecode = req.query.vnp_ResponseCode
+            thanhtoanvnp.vnp_tmncode = req.query.vnp_TmnCode
+            thanhtoanvnp.vnp_securehash = req.query.vnp_SecureHash
+
+            await thanhtoanvnp.save();
+
+            await DonHang.updateOne({_id: thanhtoanvnp.madh},{
+                trangthai: 'da_tiep_nhan'
+            })
+
+            res.redirect('../thanhtoan/dathangthanhcong?madh=' + thanhtoanvnp.madh)
+        }
+    }
+    //Sau khi khach hang dat hang thanh cong
+     async dathangthanhcong(req, res, next){
+        let thongtintaikhoan = new Object;
+        await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
+            thongtintaikhoan = thongtin;
+        })
+        var dathangthanhcong = false;
+        if(req.query.madh != '' && req.query.madh != undefined){
+            dathangthanhcong =true
+            const donhang = await DonHang.findOne({_id: req.query.madh});
+            const chitietdonhangs = await ChiTietDonHang.find({madh: donhang._id});
+            const sanpham = [];
+            for(var i = 0; i < chitietdonhangs.length; i++){
+                var sanphaminfo = await SanPham.findOne({masp: chitietdonhangs[i].masp})
+                sanphaminfo._doc.soluongdat = chitietdonhangs[i].soluongdat
+                sanphaminfo._doc.mausacdat = chitietdonhangs[i].mausacdat
+                sanpham.push(sanphaminfo)
+            }
+            donhang._doc.sanpham = sanpham;
+            
+            res.render('nguoidung/dathangthanhcong',{
+                thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                donhang: MongooseToObject(donhang),
+                dathangthanhcong,
+            })
+        }else {//Dat hang that bai
+               res.render('nguoidung/dathangthanhcong',{
+                thongtintaikhoan: MongooseToObject(thongtintaikhoan),
+                dathangthanhcong,                
+            })
+        }   
+     }
+
     async muangay(req, res, next){
         const giohang = await GioHang();
         var thongtintaikhoan;
@@ -181,7 +270,7 @@ class thanhtoanController{
 
 
 
-    //Thanh toan Online
+    //Thanh toan Momo
     async ThanhToanMoMo(req, res, next){
         //https://developers.momo.vn/#/docs/en/aiov2/?id=payment-method
         //parameters
@@ -266,66 +355,14 @@ class thanhtoanController{
 
 
 
-    
-    async thanhtoanvnpay(req, res, next){
-        var ipAddr = req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress;
+    async lienketnganhang(req, res, next){
+        const nganhanglienket = new NganHangLienKet(req.body);
+        nganhanglienket.makh = req.params.makh;
+        nganhanglienket.ngaylienket = Ngay.ngaygiohomnay();
 
-        ipAddr ='http://127.0.0.1:3000'
-        var config = require('../../../config/default');
-        // var dateFormat = require('dateformat');
+        await nganhanglienket.save();
 
-        
-        var tmnCode = config.vnp_TmnCode;
-        var secretKey = config.vnp_HashSecret;
-        var vnpUrl = config.vnp_Url;
-        var returnUrl = config.vnp_ReturnUrl;
-
-        var date = new Date();
-
-        var createDate = Ngay.ngaygiohomnay();
-        var orderId ='123';
-        var amount = req.body.amount;
-        var bankCode = req.body.bankCode;
-        
-        var orderInfo = req.body.orderDescription;
-        var orderType = req.body.orderType;
-        var locale = req.body.language;
-        if(locale === null || locale === ''){
-            locale = 'vn';
-        }
-        var currCode = 'VND';
-        var vnp_Params = {};
-        vnp_Params['vnp_Version'] = '2.1.0';
-        vnp_Params['vnp_Command'] = 'pay';
-        vnp_Params['vnp_TmnCode'] = tmnCode;
-        // vnp_Params['vnp_Merchant'] = ''
-        vnp_Params['vnp_Locale'] = locale;
-        vnp_Params['vnp_CurrCode'] = currCode;
-        vnp_Params['vnp_TxnRef'] = orderId;
-        vnp_Params['vnp_OrderInfo'] = orderInfo;
-        vnp_Params['vnp_OrderType'] = orderType;
-        vnp_Params['vnp_Amount'] = amount * 100;
-        vnp_Params['vnp_ReturnUrl'] = returnUrl;
-        vnp_Params['vnp_IpAddr'] = ipAddr;
-        vnp_Params['vnp_CreateDate'] = createDate;
-        if(bankCode !== null && bankCode !== ''){
-            vnp_Params['vnp_BankCode'] = bankCode;
-        }
-
-        vnp_Params = sortObject(vnp_Params);
-
-        var querystring = require('qs');
-        var signData = querystring.stringify(vnp_Params, { encode: false });
-        var crypto = require("crypto"); 
-        var hmac = crypto.createHmac("sha512", secretKey);
-        var signed = hmac.update(new Buffer.from(signData, 'utf-8')).digest("hex"); 
-        vnp_Params['vnp_SecureHash'] = signed;
-        vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
-
-        res.redirect(vnpUrl)    
+        res.redirect('back');
     }
 }
 module.exports = new thanhtoanController;
