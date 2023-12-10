@@ -46,13 +46,14 @@
 }
 .body-dieuhuong-danhmuc--item:hover{
     transform: scale(1.1);
+    transition: all ease 0.2s;
     box-shadow: 0 0 2px 1px silver;
     cursor: pointer;   
 }
 .danhmucdachon{
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: 0 0 3px 2px silver;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(241, 241, 241);
 }
 
 .sanphams-show{

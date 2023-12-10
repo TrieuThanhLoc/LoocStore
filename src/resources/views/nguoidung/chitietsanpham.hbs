@@ -90,8 +90,7 @@
                             <p>Giao hàng tận nơi miễn phí !</p>
                         </button>
                     </a>
-                    <form class="form_them_gio_hang" action="/giohang/themgiohang">
-                        <input type="text" name="masp" value="{{sanpham.masp}}" hidden>
+                    <a class="form_them_gio_hang" href="/giohang/themgiohang?masp={{sanpham.masp}}">
                         <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary chi_tiet-header--thongsochinh-btn-themvaogio">THÊM VÀO GIỎ HÀNG</button>
                     </form>
                 </div>
@@ -297,10 +296,15 @@
             //tra loi binh luan 
             var btnTraLoiBinhLuan = $('.thichbl-phanhoi');
             btnTraLoiBinhLuan.click(function () {
-                $(this.nextElementSibling).removeClass('d-none')
+               var url = '/dangnhap'
+                if (!document.cookie || document.cookie.length < 10) {
+                    thongbaopopup('Vui lòng đăng nhập !', false, url)
+                }else{
+                    $(this.nextElementSibling).removeClass('d-none')
+                }
             })
         })
-    {{!-- Hien thi hinh anh --}}
+    //{{!-- Hien thi hinh anh --}}
     var src_anh_chinh = document.getElementById('anh-chinh');
     
     function noneclick(){
@@ -317,7 +321,7 @@
         img.style.opacity = '50%';
     }
 
-    {{!-- Hiễn thị thông tin chi tiết sản phẩm --}}
+    //{{!-- Hiễn thị thông tin chi tiết sản phẩm --}}
     var modalSHow = document.getElementById('show-modal');
     var btnCloseModal = document.getElementById('close_btn')
     function show_page_thong_tin(){
@@ -328,7 +332,7 @@
             modalSHow.style.display = 'none';
             btnCloseModal.style.display ='none';
         }
-    {{!-- Vô hiệu hoá mua hàng --}}
+    //{{!-- Vô hiệu hoá mua hàng --}}
     var nutmuahang = document.getElementById('mua_hang');
     var nutthemvaogiohang = document.getElementById('them_vao_gio_hang');
     {{!-- if(trangthaiconhang){

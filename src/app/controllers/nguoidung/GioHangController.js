@@ -17,8 +17,8 @@ const KhachHang = require("../../../resources/models/khachhang/KhachHang");
 
 class GioHangController {
      async themgiohang(req,res, next){
-        const giohang = await GioHang();
         const masp = req.query.masp;
+        const giohang = await GioHang();
         const sanpham = await SanPham.findOne({masp: masp})
          // Lay thong tin khach hang
         var thongtintaikhoan;
@@ -38,7 +38,7 @@ class GioHangController {
             makh = thongtintaikhoan.makh
         }
         }else {
-        return res.render('khac/dangnhap')
+            return res.render('khac/dangnhap')
         }
         giohang.masp = masp;
         giohang.makh = makh;

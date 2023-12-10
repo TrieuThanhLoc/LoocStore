@@ -6,10 +6,10 @@
     width: 100%;
 }
 .quan_ly_san_pham-header {
-    text-align: center;
+    text-align: left;
     font-size: 20px;
-    font-weight: 600;
-    color: rgb(217, 0, 0);
+    font-weight: 700;
+    color: orange;
 }
 
 .quan_ly_san_pham-header--nhaphang{
@@ -37,11 +37,11 @@
     width: 100px;
 }
 .quan_ly_san_pham-btn-td{
-    width: 300px;
+    width: 350px;
     display: flex;
     text-align: center;
 }
-.xem-btn, .sua-btn, .xoa-btn{
+.xem-btn, .sua-btn, .xoa-btn, .an-link{
     color: white;
     margin-right: 5px;
 }

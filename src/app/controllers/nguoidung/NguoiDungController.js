@@ -218,6 +218,7 @@ class thanhtoanController{
         for(var i = 0; i < masp.length; i ++){
             const danhgia = new DanhGia();
             const chatluongdichvu = new ChatLuongDichVu();
+            const sanpham = new SanPham();
             if(masp[i] == 'chat_luong_dich_vu'){
                 chatluongdichvu.makh = thongtintaikhoan._doc.makh;
                 chatluongdichvu.sosao = sosao[i];
@@ -232,8 +233,18 @@ class thanhtoanController{
                 danhgia.noidungdanhgia = noidungdanhgia[i];
                 danhgia.ngaydanhgia = Ngay.ngaygiohomnay();
                 await danhgia.save();
-            }
 
+                //Cap nhat sao danh gia 
+                const danhgias = await DanhGia.find({masp: masp[i]});
+                var tongsao = 0;
+                for(var j = 0; j < danhgias.length; j++){
+                    tongsao += danhgias[j].sosao
+                }
+                var trungbinhsao = tongsao / danhgias.length;
+                await SanPham.updateOne({masp: masp[i]}, {
+                    saodanhgia: trungbinhsao,
+                });
+            }
         }
         await DonHang.updateOne({_id: req.params.madh},{
             danhgia: true,

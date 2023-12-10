@@ -8,7 +8,7 @@ const sanphamController = require('../app/controllers/nguoidung/SamPhamControlle
 router.get('/danhmuc',middleware.kiemtratoken, sanphamController.danhmuc);
 
 router.get('/thong_tin_chi_tiet_show/:masp',middleware.kiemtratoken, sanphamController.thong_tin_chi_tiet_show);
-router.get('/:masp', middleware.kiemtratoken,middleware.kiemtratoken, sanphamController.chitiet)
+router.get('/', middleware.kiemtratoken,middleware.kiemtratoken, sanphamController.chitiet)
 // router.get('/', sanphamController.index);
 
 module.exports = router;

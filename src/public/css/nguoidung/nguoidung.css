@@ -388,7 +388,7 @@
     margin: 10px auto;
     text-align: center;
     background: linear-gradient(to bottom, var(--mau-chinh), var(--mau-phu-thu-2));
-    border-radius: 100px;
+    border-radius: 30px;
 }
 .tai_khoan_cua_toi img{
     border-radius: 100px;
@@ -439,7 +439,7 @@
     color: white;
 }
 .tai_khoan_cua_toi-suataikhoan a:last-child{
-    background: linear-gradient(to bottom, var(--mau-chinh), red);
+    background: linear-gradient(to bottom, rgb(255, 134, 134), red);
 }
 .tai_khoan_cua_toi-suataikhoan a:hover{
     color: aliceblue;

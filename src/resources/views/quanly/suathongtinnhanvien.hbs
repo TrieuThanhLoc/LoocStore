@@ -1,0 +1,56 @@
+<div class="suathongtinnv">
+    <p>Chỉnh sửa thông tin nhân viên</p>
+    <form method="post" action="../../../quanly/nhanvien/luusuathongtinnhanvien/{{nhanvien.manv}}">
+        <div class="mb-3 mt-3">
+            <label for="tennv" class="form-label">Hẹ tên</label>
+            <input type="text" class="form-control" id="tennv" placeholder="Họ và tên nhân viên" name="tennv"
+                onkeyup="manhanvientudong()" value="{{nhanvien.tennv}}">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="manv" class="form-label">Mã nhân viên (tự động)</label>
+            <input type="text" class="form-control" id="manv" placeholder="Mã nhân viên" name="manv"value="{{nhanvien.manv}}">
+        </div>
+        <div class="mb-3">
+            <label for="ngaysinh" class="form-label">Ngày sinh</label>
+            <input type="date" class="form-control" id="ngaysinh" name="ngaysinh" value="{{nhanvien.ngaysinh}}">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="diachi" class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" id="diachi" placeholder="Địa chỉ nhân viên" name="diachinv" value="{{nhanvien.diachinv}}">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email của nhân viên" name="emailnv" value="{{nhanvien.emailnv}}">
+        </div>
+        <div class="mb-3">
+            <label for="matkhaunv" class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="matkhaunv" placeholder="Mặt khẩu cấp cho tài khoản nhân viên"
+                name="matkhaunv" value="{{nhanvien.matkhaunv}}">
+        </div>
+        <div class="mb-3">
+            <label for="sodtnv" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" id="sodtnv" placeholder="Số điện thoại nhân viên" name="sodtnv" value="{{nhanvien.sodtnv}}">
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Chức vụ</label>
+            <select class="form-select" id="inputGroupSelect01" name="chucvu" nvvalue="{{nhanvien.chucvu}}" required>
+                <option value="ban_hang">Nhân viên bán hàng</option>
+                <option value="nhap_hang">Nhân viên nhập hàng</option>
+                <option value="quan_ly">Quản lý</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Giới tính</label>
+            <select class="form-select" id="inputGroupSelect01" name="gioitinh" value="{{nhanvien.gioitinh}}">
+                <option value="nam">Nam</option>
+                <option value="nu">Nữ</option>
+                <option value="chua_xac_dinh">Chưa xác định</option>
+            </select>
+        </div>
+        {{!-- <div class="mb-3">
+            <label for="ngayvao" class="form-label">Ngày vào làm chính thức</label>:</label>
+            <input type="date" class="form-control" id="ngayvao" name="ngayvao" value="{{nhanvien.ngayvao}}">
+        </div> --}}
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
+</div>

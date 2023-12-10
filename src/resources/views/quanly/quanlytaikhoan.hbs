@@ -22,7 +22,16 @@
                 <td>{{this.emailkh}}</td>
                 <td>{{this.ngaytao}}</td>
                 <td>
-                    <a href="">
+                    {{#unless this.vohieuhoa}}
+                    <a href="../quanly/camkhachhang/{{this.makh}}">
+                        <button class="btn btn-secondary">Cấm</button>
+                    </a>
+                    {{else}}
+                    <a href="../quanly/camkhachhang/{{this.makh}}">
+                        <button class="btn btn-secondary">Bỏ cấm</button>
+                    </a>
+                    {{/unless}}
+                    <a href="" data-toggle="modal" data-target="#xoataikhoankh" data-makh="{{this.makh}}">
                         <button class="btn btn-danger">Xoá</button>
                     </a>
                 </td>
@@ -31,3 +40,42 @@
         </tbody>
     </table>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="xoataikhoankh" tabindex="-1" aria-labelledby="xoataikhoankhLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="xoataikhoankhLabel">Xác nhận</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xoá tài khoản này khỏi hệ thống?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                <butto id="btnxoa" type="button" class="btn btn-danger">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" action="" id="formxoa"></form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var makh;
+        var formxoa = document.getElementById('formxoa');
+        var btnxoa = document.getElementById('btnxoa')
+        $('#xoataikhoankh').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            makh = button.data('makh');
+        })
+        btnxoa.onclick = function () {
+            formxoa.action = '../quanly/taikhoan/xoakhachhang/' + makh + '?_method=delete';
+            formxoa.submit();
+        }
+
+    })
+</script>

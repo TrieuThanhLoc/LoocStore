@@ -12,6 +12,7 @@ const NhanVien = new Schema({
     diachinv: String,
     sodtnv: Number,
     ngayvao: String,
+    vohieuhoa: Boolean,
     anhnv:{type: String, default: 'noavatar.jpg'},
     createdAt:{type: Date, default: Date.now},
     updatedAt:{type: Date, default: Date.now},

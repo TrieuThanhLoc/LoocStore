@@ -1,6 +1,6 @@
 <div class="quanlynhanvien">
-    <h2>Quản lý nhân viên</h2>
-    <table class="table table-dark table-striped ">
+    <p>Quản lý nhân viên</p>
+    <table class="table table-striped ">
         <thead>
             <tr>
                 <th scope="col">STT</th>
@@ -21,14 +21,23 @@
                 <th scope="row">{{cong @index 1}}</th>
                 <td>{{this.tennv}}</td>
                 <td>{{this.chucvu}}</td>
-                <td><a href="tel: {{this.sodt}}">{{this.sodt}}</a></td>
+                <td><a href="tel: {{this.sodtnv}}">{{this.sodtnv}}</a></td>
                 <td>{{this.ngayvao}}</td>
                 <td>
-                    <a href="" class="sathanhanvien">
-                        <button type="button" class="btn btn-danger">Sa thải</button>
-                    </a>
-                    <a href="" class="suanhanvien">
+                    <a href="/quanly/nhanvien/suathongtinnhanvien/{{this.manv}}" class="suanhanvien">
                         <button type="button" class="btn btn-warning">Sửa</button>
+                    </a>
+                    {{#unless this.vohieuhoa}}
+                    <a href="/quanly/nhanvien/channhanvien/{{this.manv}}">
+                        <button class="btn btn-secondary">Chặn</button>
+                    </a>
+                    {{else}}
+                    <a href="/quanly/nhanvien/channhanvien/{{this.manv}}">
+                        <button class="btn btn-secondary">Bỏ chặn</button>
+                    </a>
+                    {{/unless}}
+                    <a href="" class="sathanhanvien" data-toggle="modal" data-target="#sathanhanvien" data-manv="{{this.manv}}">
+                        <button type="button" class="btn btn-danger">Sa thải</button>
                     </a>
                 </td>
             </tr>
@@ -36,3 +45,43 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="sathanhanvien" tabindex="-1" aria-labelledby="sathanhanvienLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sathanhanvienLabel">Xác nhận</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xoá tài khoản này khỏi hệ thống?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                <butto id="btnxoa" type="button" class="btn btn-danger">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" action="" id="formxoa"></form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var manv;
+        var formxoa = document.getElementById('formxoa');
+        var btnxoa = document.getElementById('btnxoa')
+        $('#sathanhanvien').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            manv = button.data('manv');
+        })
+        btnxoa.onclick = function () {
+            formxoa.action = '../quanly/nhanvien/sathai/' + manv + '?_method=delete';
+            formxoa.submit();
+        }
+
+    })
+</script>

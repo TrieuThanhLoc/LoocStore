@@ -1,6 +1,6 @@
-<div class="body">
+<div class="home">
     <div class="khuyen_mai">
-        <img src="images/tinnoibat/khuyenmai.png" alt="" class="khuyen_mai-img">
+        <img src="images/tinnoibat/khuyenmai.jpg" alt="" class="khuyen_mai-img">
         <div class="khuyen_mai-slide_show">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -84,42 +84,101 @@
             <p class="cac_dong_san_pham_noi_bat-item-ten">Bàn phím</p>
         </a>
     </div>
-    <div class="dien_thoai_ban_chay">
-        <div class="dien_thoai_ban_chay-header">
-            <p class="dien_thoai_ban_chay-header-ten">Điện thoại bán chạy</p>
-            <a href="/sanpham/danhmuc" class="dien_thoai_ban_chay-header-link">Xem thêm sản phẩm <i class="fa-solid fa-angles-right"></i></a>
+    <div class="dien_thoai_danh_gia_cao">
+        <div class="dien_thoai_danh_gia_cao-title">
+            <span>Điện thoại đánh giá cao</span>
+            <a href="/sanpham/danhmuc" >Xem thêm <i class="fa-solid fa-angles-right"></i></a>
         </div>
-        <div class="dien_thoai_ban_chay-sanpham">
-            {{#each topsanphams}}
+        <div class="dien_thoai_danh_gia_cao-sanpham">
+            {{#each topsanphamdanhgias}}
             <div class="the_san_pham-item">
                 <div class="the_san_pham-item-img-box">
-                    <a href="/sanpham/{{this.masp}}">
-                        <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="{{this.anh}}" class="the_san_pham-item-img">
+                    <a href="/sanpham?masp={{this.masp}}">
+                        <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="{{this.anh}}"
+                            class="the_san_pham-item-img">
                     </a>
                 </div>
                 <p class="the_san_pham-item-ten">
                     {{this.tensp}}
                 </p>
-                {{#if this.soluongtrongkho}}
+                <div class="top_sanpham-detail--luotmua">
+                    {{{saodanhgia this.saodanhgia}}}
+                </div>
+                {{#if this.soluong}}
                 <p class="the_san_pham-item-tinhtrang">
                     <i class="fa-solid fa-circle-check"></i> Còn hàng
                 </p>
                 {{else}}
-                <p  class="the_san_pham-item-tinhtrang" style="color: red;">
+                <p class="the_san_pham-item-tinhtrang" style="color: red;">
                     <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
                 </p>
                 {{/if}}
                 <p class="the_san_pham-item-gia ">
                     <span class="gia_format">{{this.giaban}}</span> VND
                 </p>
-               <div class="the_san_pham-item-btn">
-                    <a href="/thanhtoan/muangay/{{this.masp}}"><button class="the_san_pham-item-btn-mua btn btn-danger">Mua ngay</button></a>
-                    <form class="form_them_gio_hang" action="/giohang/themgiohang">
-                        <input type="text" name="masp" value="{{this.masp}}" hidden>
-                        <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary">Thêm giỏ hàng</button>
-                    </form>
-               </div>
+                <div class="the_san_pham-item-btn">
+                    <a href="/thanhtoan/muangay/{{this.masp}}">
+                        <button class="the_san_pham-item-btn-mua btn btn-danger">
+                            Mua ngay
+                        </button>
+                    </a>
+                    <a href="/giohang/themgiohang?masp={{this.masp}}">
+                        <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary">
+                            Thêm giỏ hàng
+                        </button>
+                    </a>
+                </div>
             </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="dien_thoai_ban_chay">
+        <div class="dien_thoai_ban_chay-header">
+            <span class="dien_thoai_ban_chay-header-ten">Điện thoại bán chạy</span>
+            <a href="/sanpham/danhmuc" class="dien_thoai_ban_chay-header-link">Xem thêm  <i class="fa-solid fa-angles-right"></i></a>
+        </div>
+        <div class="dien_thoai_ban_chay-sanpham">
+            {{#each topsanphams}}
+            {{#unless this.hidden}}
+            <div class="the_san_pham-item">
+                <div class="the_san_pham-item-img-box">
+                    <a href="/sanpham?masp={{this.masp}}">
+                        <img src="../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="{{this.anh}}"
+                            class="the_san_pham-item-img">
+                    </a>
+                </div>
+                <p class="the_san_pham-item-ten">
+                    {{this.tensp}}
+                </p>
+                <div class="top_sanpham-detail--luotmua">
+                    {{{saodanhgia this.saodanhgia}}}
+                </div>
+                {{#if this.soluongtrongkho}}
+                <p class="the_san_pham-item-tinhtrang">
+                    <i class="fa-solid fa-circle-check"></i> Còn hàng
+                </p>
+                {{else}}
+                <p class="the_san_pham-item-tinhtrang" style="color: red;">
+                    <i class="fa-solid fa-circle-xmark"></i></i> Hết hàng
+                </p>
+                {{/if}}
+                <p class="the_san_pham-item-gia ">
+                    <span class="gia_format">{{this.giaban}}</span> VND
+                </p>
+                <div class="the_san_pham-item-btn">
+                    <a href="/thanhtoan/muangay/{{this.masp}}">
+                        <button class="the_san_pham-item-btn-mua btn btn-danger">
+                            Mua ngay
+                        </button>
+                    </a>
+                    <a href="/giohang/themgiohang?masp={{this.masp}}">
+                        <button type="button" class="the_san_pham-item-btn-themgh btn btn-primary">
+                            Thêm giỏ hàng
+                        </button>
+                    </a>
+                </div>
+            </div>
+            {{/unless}}
             {{/each}}
         </div>
     </div>

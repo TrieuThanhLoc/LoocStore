@@ -1,71 +1,16 @@
 <div class="thong_ke">
     <p class="thong_ke-title">
-        LOOC STORE
+        LOOC STORE {{danhthu}}
     </p>
     <div class="thong_ke-dongtien">
-        <div class="dongtien-item">
-            <div class="dongtien-item--title">
-                <p>Tổng doanh thu</p>
-            </div>
-            <div class="dongtien-item--data">
-                <div class="dongtien-item--data-name">
-                    Tháng {{doanhthuthang.thang}}
-                </div>
-                <div class="dongtien-item--data-content">
-                    <span class="gia_format">{{doanhthuthang.doanhthu}}</span> vnd
-                </div>
-            </div>
-            <div class="dongtien-item--data">
-                <div class="dongtien-item--data-name">
-                    Năm {{doanhthunam.nam}}
-                </div>
-                <div class="dongtien-item--data-content">
-                    <span class="gia_format">{{doanhthunam.doanhthu}}</span> vnd
-                </div>
-            </div>
+        <div class="thoi_gian_thong_ke_dong_tien">
+            <label for="thoi_gian_thong_ke_dong_tien-tu">Từ</label>
+            <input id="thoi_gian_thong_ke_dong_tien-tu" type="date">
+            <label for="thoi_gian_thong_ke_dong_tien-den">Đến</label>
+            <input id="thoi_gian_thong_ke_dong_tien-den" type="date">
+            <button class="btn btn-danger" id="thoi_gian_thong_ke_dong_tien-btn">Thống kê</button>
         </div>
-        <div class="dongtien-item">
-            <div class="dongtien-item--title">
-                <p>Tổng phí nhập hàng</p>
-            </div>
-            <div class="dongtien-item--data">
-                <div class="dongtien-item--data-name">
-                    Tháng {{phinhaphangthang.thang}}
-                </div>
-                <div class="dongtien-item--data-content">
-                    <span class="gia_format">{{phinhaphangthang.phinhap}}</span> vnd
-                </div>
-            </div>
-            <div class="dongtien-item--data">
-                <div class="dongtien-item--data-name">
-                    Năm {{phinhaphangnam.nam}}
-                </div>
-                <div class="dongtien-item--data-content">
-                    <span class="gia_format">{{phinhaphangnam.phinhap}}</span> vnd
-                </div>
-            </div>
-        </div>
-        <div class="dongtien-item">
-            <div class="dongtien-item--title">
-                <p>Lợi nhuận</p>
-            </div>
-            <div class="dongtien-item--data">
-                <div class="dongtien-item--data-name">
-                    Tháng {{loinhuanthang.thang}}
-                </div>
-                <div class="dongtien-item--data-content">
-                    <span class="gia_format">{{loinhuanthang.loinhuan}}</span> vnd
-                </div>
-            </div>
-            <div class="dongtien-item--data">
-                <div class="dongtien-item--data-name">
-                    Năm {{loinhuannam.nam}}
-                </div>
-                <div class="dongtien-item--data-content">
-                    <span class="gia_format">{{loinhuannam.loinhuan}}</span> vnd
-                </div>
-            </div>
-        </div>
+        <iframe id="frame-thong_ke-dongtien" src="../quanly/thongke/dongtien" frameborder="0"></iframe>
     </div>
     <div class="thong_ke-chung">
         <div class="thong_ke-chung-item">
@@ -212,7 +157,7 @@
                     <img src="../../images/anh_chi_tiet/{{this.hangsx}}/{{this.anh}}/{{this.anh}}.jpg" alt="" class="top_sanpham-img">
                     <div class="top_sanpham-detail">
                         <div class="top_sanpham-detail--luotmua">
-                            {{{saodanhgia this.sosao}}}
+                            {{{saodanhgia this.saodanhgia}}}
                         </div>
                         <div class="top_sanpham-detail--tensp">
                             {{this.tensp}}
@@ -264,6 +209,26 @@
         var CuaSoTongQuanThongKe = $('.cua_so_tong_quan_thon_ke');
         var thongKeTongQuan = $('.thong_ke-chung-item');
         var btnDongCuaSoTongQuan = $('.btn_dong_cua_so_tongquan')
+
+        //Thong ke dong tien theo thoi gian
+        var inputDongTienTu = $('#thoi_gian_thong_ke_dong_tien-tu')
+        var inputDongTienDen = $('#thoi_gian_thong_ke_dong_tien-den')
+        var btnXemDongTien = $('#thoi_gian_thong_ke_dong_tien-btn')
+        var iframeDongTien = $('#frame-thong_ke-dongtien')
+
+        let thoiGianTu, thoiGianDen;
+        inputDongTienTu.change(function(){//Gan thoi gian thong ke tu
+            thoiGianTu = $(inputDongTienTu).val();
+        })
+        inputDongTienDen.change(function () {//Gan thoi gian thong ke den
+            thoiGianDen = $(inputDongTienDen).val();
+        })
+        btnXemDongTien.click(function(){
+            $(iframeDongTien).attr('src', '../quanly/thongke/dongtien?'+'ngaytu='+ thoiGianTu + '&ngayden=' + thoiGianDen)
+        })
+        
+        
+        
 
         thongKeTongQuan.click(function(){
             if ($(this).hasClass('san_pham')) {

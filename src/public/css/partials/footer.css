@@ -2,9 +2,10 @@
     padding: 20px;
     height: 150px;
     display: flex;
+    color: white;
     justify-content: space-evenly;
     border-top: 3px solid var(--mau-phu-thu-3);
-    background-color: var(--mau-chinh);
+    background: linear-gradient(to top, var(--mau-phu-thu-4), var(--mau-chinh));
 }
 .footer-item{
     width: 30%;
@@ -17,7 +18,9 @@
     background-color: var(--mau-phu-thu-1);
 }
 .footer-item-bio a{
-    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    color: red;
 }
 
 .chatIcon{

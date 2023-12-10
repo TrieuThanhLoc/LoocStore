@@ -22,13 +22,13 @@
 }
 /* -------------------Chọn sản phẩm nhập kho----------------------- */
 .kho_table{
-    margin: 10px;
+    margin: 10px 0;
 }
 .chon_san_pham_nhap-title{
     text-align: center;
     margin: 10px;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
     color: var(--mau-phu-thu-1);
 }
 .phieu_nhap_hang-bang{
@@ -90,6 +90,7 @@
     font-weight: 700;
     text-align: center;
     margin: 20px;
+    color: var(--mau-phu-thu-1);
 }
 .phieu_nhap_hang-header--infonhanvien{
     font-size: 15px;

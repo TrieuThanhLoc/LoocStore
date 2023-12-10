@@ -3,7 +3,7 @@
 </p>
 <div class="quan_ly_don_hang">
     <table class="table table-striped">
-        <thead class="table-dark">
+        <thead >
             <tr>
                 <th scope="col" class="quan_ly_don_hang-stt">STT</th>
                 <th scope="col" class="quan_ly_don_hang-tenkh">Tên khách hàng</th>
@@ -17,10 +17,10 @@
         <tbody>
             {{#each donhangs}}
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{{cong @index 1}}</th>
                 <td>{{this.tenkh}}</td>
                 <td>{{this.sodtkh}}</td>
-                <td>{{this.dichigiaohang}}</td>
+                <td>{{this.diachigiaohang}}</td>
                 <td>{{this.ngaydathang}}</td>
                 <td class="quan_ly_don_hang-tinhtrang">
                     {{this.trangthai}}
@@ -69,7 +69,7 @@
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </a>
-                    <a href="/quanly/donhang/xoadon/{{this._id}}">
+                    <a href="" data-toggle="modal" data-target="#xoadonhang" data-id="{{this._id}}">
                         <button type="button" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
                         </button>
@@ -80,7 +80,47 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="xoadonhang" tabindex="-1" aria-labelledby="xoadonhangLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="xoadonhangLabel">Xác nhận</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xoá tài khoản này khỏi hệ thống?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                <butto id="btnxoa" type="button" class="btn btn-danger">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" action="" id="formxoa"></form>
+
 <script>
+    //Modal xac nhan coa don hang
+    document.addEventListener("DOMContentLoaded", function () {
+        var id;
+        var formxoa = document.getElementById('formxoa');
+        var btnxoa = document.getElementById('btnxoa')
+        $('#xoadonhang').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            id = button.data('id');
+        })
+        btnxoa.onclick = function () {
+            formxoa.action = '../quanly/donhang/xoadon/' + id + '?_method=delete';
+            formxoa.submit();
+        }
+
+    })
+
     document.addEventListener('DOMContentLoaded', function(){
         var form_cao_nhat_trang_thai = $('.form_cap_nhat_trang_thao-modal');
         var modal_tat_trang_thai = $('.cap_nhat_trang_thao-modal--tat');

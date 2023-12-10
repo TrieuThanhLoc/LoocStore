@@ -66,8 +66,16 @@
     width: 200px;
     margin: auto;
     padding: 10px;
+    padding-left: 40px;
     color: white;
     -webkit-user-select: none;
+    text-align: left;
+    display: flex;
+}
+.quan_ly-body--item--icon{
+    margin-right: 10px;
+    width: 30px;
+    text-align: center;
 }
 .quan_ly-body--item-popup{
     margin-left: 40px;

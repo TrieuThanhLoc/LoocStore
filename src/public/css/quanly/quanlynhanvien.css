@@ -4,9 +4,11 @@
     justify-content: center;
     text-align: center;
 }
-.quanlynhanvien h2{
+.quanlynhanvien p{
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
     color: orange;
-    margin: 15px;
 }
 
 
@@ -24,4 +26,17 @@
     font-weight: 700;
     margin: auto;
     margin-top: 20px;
+}
+
+
+/* Sua nhan vien */
+.suathongtinnv{
+    width: 60%;
+    margin: 0 auto;
+}
+.suathongtinnv p{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: orange;
 }

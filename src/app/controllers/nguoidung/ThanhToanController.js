@@ -113,46 +113,50 @@ class thanhtoanController{
             chitietdonhang.mausacdat = req.body.mausac[i]
            //Cap nhap so luong trong kho
             var kho = await Kho.findOne({masp: masp, mausac: req.body.mausac[i]});
-            kho.soluongtrongkho = kho.soluongtrongkho - req.body.soluongsp[i];
+            if(kho == null){
+                return res.render('khac/pageError')
+            }
+            kho.soluongtrongkho = Number(kho.soluongtrongkho) - Number(req.body.soluongsp[i]);
             kho.soluongdaban =Number(kho.soluongdaban) + Number(req.body.soluongsp[i]);
 
             //neu nhu so luong mua lon hong so luong trong kho thi dat hang khong thanh
             if(kho.soluongtrongkho < 0){
                 return res.redirect('../thanhtoan/dathangthanhcong?status=0')
-            }
-            await kho.save();
-             //Cặp nhặt giá bán và số lượng từ kho
-            var khos = await Kho.find({masp: masp}).sort({giaban: 'asc'});
-            var soluongspcon = 0;
-            var giaban = await khos[0].giaban;
-            let mausacconhang = [];
-            for(var j = 0; j < khos.length; j++){
-                soluongspcon += khos[j].soluongtrongkho
-                if(khos[j].soluongtrongkho >= 1){
-                    mausacconhang.push(khos[j].mausac)
+            }else{
+                await kho.save();
+                 //Cặp nhặt giá bán và số lượng từ kho
+                var khos = await Kho.find({masp: masp}).sort({giaban: 'asc'});
+                var soluongspcon = 0;
+                var giaban = await khos[0].giaban;
+                let mausacconhang = [];
+                for(var j = 0; j < khos.length; j++){
+                    soluongspcon += khos[j].soluongtrongkho
+                    if(khos[j].soluongtrongkho >= 1){
+                        mausacconhang.push(khos[j].mausac)
+                    }
                 }
-            }
-            await SanPham.updateOne({masp: masp},{
-                giaban: giaban,
-                mausacconhang: mausacconhang,
-                soluong: soluongspcon
-            })//////////////////////
-            return await chitietdonhang.save()
-        }))
-        await GioHang.deleteMany({makh: req.body.makh, masp: {$in: req.body.masp}})
-        await LuuGioHangThanhToan.deleteOne({_id: req.body._idgiohangthanhtoan})
+                await SanPham.updateOne({masp: masp},{
+                    giaban: giaban,
+                    mausacconhang: mausacconhang,
+                    soluong: soluongspcon
+                })
+                await chitietdonhang.save()
 
+                await GioHang.deleteMany({makh: req.body.makh, masp: {$in: req.body.masp}})
+                await LuuGioHangThanhToan.deleteOne({_id: req.body._idgiohangthanhtoan})
+            }
+        }))
         //thanh toan
         if(req.body.phuongthucthanhtoan == 'online'){
             donhang.trangthai = 'cho_thanh_toan';
             await donhang.save();
             req.body.madh = donhang._id
             //chuyen san buoc thanh toan 
-            ThanhToanVNPay(req, res)
+            return await ThanhToanVNPay(req, res)
         }else if(req.body.phuongthucthanhtoan == 'cod'){
             donhang.trangthai = 'da_tiep_nhan';
             await donhang.save();
-            res.redirect('/thanhtoan/dathangthanhcong?madh=' + donhang._id)
+            return await res.redirect('/thanhtoan/dathangthanhcong?madh=' + donhang._id)
         }
         
     }
@@ -207,13 +211,13 @@ class thanhtoanController{
             }
             donhang._doc.sanpham = sanpham;
             
-            res.render('nguoidung/dathangthanhcong',{
+            return res.render('nguoidung/dathangthanhcong',{
                 thongtintaikhoan: MongooseToObject(thongtintaikhoan),
                 donhang: MongooseToObject(donhang),
                 dathangthanhcong,
             })
         }else {//Dat hang that bai
-               res.render('nguoidung/dathangthanhcong',{
+               return res.render('nguoidung/dathangthanhcong',{
                 thongtintaikhoan: MongooseToObject(thongtintaikhoan),
                 dathangthanhcong,                
             })

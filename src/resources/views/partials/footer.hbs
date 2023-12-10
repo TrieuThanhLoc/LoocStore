@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="chatIcon">
-        <a href="https://m.me/162078830325396" class="popup_chatwithus">
+        <a href="https://m.me/162078830325396" target="_blank" class="popup_chatwithus">
             <span>Chat với chúng tôi</span>
         </a>
         <img src="../images/logo/logo_mes.jpg" alt="">
@@ -18,8 +18,8 @@
             LIÊN HỆ HỖ TRỢ
         </h5>
         <p class="footer-item-bio">
-            Mội vấn đề thắc mắc vui lòng liên hệ HOTLINE:
-           <a href="tel: 0932575508">0932575508</a>
+            HOTLINE:
+           <a href="tel: 0932575508">0932 575 508</a>
         </p>
     </div>
     <div class="footer-item">
@@ -33,7 +33,7 @@
         <div class="footer-item-bio">
             <a href="tel: 0932575508" class="footer-item-bio">
                 <i class="fa-solid fa-phone"></i>
-                0932575508
+                0932 575 508
             </a>
         </div>
         <div class="footer-item-bio">
@@ -78,20 +78,21 @@
 
 
         //Thông báo
-        function thongbaopopup(noidung, trangthai) {
+        async function thongbaopopup(noidung, trangthai, url) {
             let icon;
+            let backgroundColor;
             if (trangthai) {
-                icon = '<div style="text-align: center; width:40px; height: 100%; border-right:3px solid #44ff00; margin-right: 10px;"><i class="fa-regular fa-circle-check" style="color: #44ff00;"></i></div>'
+                backgroundColor = 'rgb(154,222,123, 0.5)'
+                icon = '<div style="text-align: center; width:40px; height: 100%; border-right:3px solid #44ff00; margin-right: 10px;"><i class="fa-solid fa-circle-check" style="color: #44ff00;"></i></div>'
             } else {
-                icon = '<div style="text-align: center; width:40px; height: 100%; border-right:3px solid #ff0000; margin-right: 10px;"><i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i></div>'
+                backgroundColor = 'rgb(249,76,16, 0.5)'
+                icon = '<div style="text-align: center; width:40px; height: 100%; border-right:3px solid #ff0000; margin-right: 10px;"><i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i></div>'
             }
-
-            Swal.fire({
+            await Swal.fire({
                 width: 'auto',
                 padding: '2px',
-                html: '<div style="padding: 20px; border-radius: 5px; color: black; background-color:aliceblue; margin: height: 100px; display: flex; font-size: 18px; font-weigh: 600">' + icon + noidung + '</div>',
-                position: "top-end",
-                background: 'var(--mau-phu-thu-3)',
+                html: '<div style="padding: 20px; border-radius: 10px; color: black; background-color:'+ backgroundColor +'; margin: height: 100px; display: flex; font-size: 20px; font-weigh: 700;">' + icon + noidung + '</div>',
+                position: "top",
                 showConfirmButton: false,
                 showClass: {
                     popup: 'swal2-show',
@@ -105,6 +106,9 @@
                 },
                 timer: 2000
             });
+            if(url != 'form'){
+                window.location.assign(url);
+            }
         }
 
 
@@ -114,22 +118,20 @@
             var formThemGioHang = $('.form_them_gio_hang')
             var btnMuaNgay = $('.the_san_pham-item-btn-mua')
 
-            btnThemSanPhamVaoGio.click(function () {
+            btnThemSanPhamVaoGio.click(function (e) {
+                e.preventDefault();
+                var url = $($(this).parent()).attr('href')
                 if(document.cookie && document.cookie.length > 10){
-                    setTimeout(() => {
-                        formThemGioHang.submit();
-                    }, 1500)
-                    thongbaopopup('Đã thêm vào giỏ !', true)
+                    thongbaopopup('Đã thêm vào giỏ hàng !', true, url)
                 }else{
-                    setTimeout(() => {
-                        formThemGioHang.submit();
-                    }, 1500)
-                    thongbaopopup('Chưa đăng nhập', false)
+                    thongbaopopup('Vui lòng đăng nhập !', false, url)
                 }
             })
-            btnMuaNgay.click(function () {
-                if (document.cookie.length < 10){
-                    thongbaopopup('Chưa đăng nhập', false)
+            btnMuaNgay.click(function (e) {
+                var url = $($(this).parent()).attr('href')
+                if (!document.cookie || document.cookie.length < 10) {
+                    e.preventDefault();
+                    thongbaopopup('Vui lòng đăng nhập !', false, url)
                 }
             })
         })

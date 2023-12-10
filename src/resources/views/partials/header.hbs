@@ -4,17 +4,23 @@
             <img src="../../../images/logo.png" alt="">
             Looc Store
         </a>
-        <form class="navbar_search-form" method="GET" action="./timkiemsanpham">
-            <input type="text" class="navbar_search-form-input" placeholder="Bạn đang tìm gì... " name="tukhoatimkiem">
-            <button type="submit" class="navbar_search-form-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <form class="navbar_search-form" id="navbar_search-form" method="GET" action="./timkiemsanpham">
+            <input type="text" autocomplete="off" class="navbar_search-form-input" placeholder="Bạn đang tìm gì... " name="tukhoatimkiem">
+            <button type="button" class="btn-micro "> <span id="btn-micro-active" class=""></span><i class="fa-solid fa-microphone"></i></button>
+            <button type="submit" id="navbar_search-form-btn" class="navbar_search-form-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             {{!-- Lịch sử tìm kiếm --}}
             <div class="navbar_search-form-history">
-                <p class="navbar_search-form-history-title">
-                    Lịch sử tìm kiém
-                </p>
+                <div class="navbar_search-form-history-title">
+                    <span>Lịch sử tìm kiém</span>
+                    <a class="" data-bs-toggle="modal" data-bs-target="#xoa_lich_su" data-bs-delay="500">
+                        Xoá lịch sử
+                    </a>
+                </div>
+                {{#each thongtintaikhoan.lichsutimkiem}}
                 <p class="navbar_search-form-history-item">
-                   <a href="/dangnhap">iphone</a>
+                    <a href="..//timkiemsanpham?tukhoatimkiem={{this.noidungtimkiem}}">{{this.noidungtimkiem}}</a>
                 </p>
+                {{/each}}
             </div>
         </form>
 
@@ -157,8 +163,20 @@
                     <a href="/sanpham/danhmuc?loai=may_tinh_bang&hangsx=Xiaomi" class="theo_muc-item">
                         <span>Xiaomi</span>
                     </a>
+                    <a href="/sanpham/danhmuc?loai=may_tinh_bang&hangsx=Asus" class="theo_muc-item">
+                        <span>Asus</span>
+                    </a>
                     <a href="/sanpham/danhmuc?loai=may_tinh_bang&hangsx=Realme" class="theo_muc-item">
                         <span>Realme</span>
+                    </a>
+                    <a href="/sanpham/danhmuc?loai=may_tinh_bang&hangsx=Mobell" class="theo_muc-item">
+                        <span>Mobell</span>
+                    </a>
+                    <a href="/sanpham/danhmuc?loai=may_tinh_bang&hangsx=itel" class="theo_muc-item">
+                        <span>itel</span>
+                    </a>
+                    <a href="/sanpham/danhmuc?loai=may_tinh_bang&hangsx=Vivo" class="theo_muc-item">
+                        <span>Vivo</span>
                     </a>
                 </div>
                 <div class="theo_muc">
@@ -343,7 +361,7 @@
         <li class="navbar_menu-item">
             <a class="nav_xem_sp_all" href="">
                 <span class="navbar_menu-item-title">
-                    khuyến mãi
+                    khuyến mãi 
                 </span>
             </a>
             <div class="navbar_menu-item-wrap">
@@ -356,7 +374,74 @@
         </li>
     </ui>
 </nav>
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-    })  
+
+{{!-- Modal xac nhan xoa --}}
+
+<div class="modal" tabindex="-1" id="xoa_lich_su" >
+    <div class="modal-dialog" >
+        <form action="/xoalichsu" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xoá lịch sử</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có muốn xoá lịch sử tìm kiếm ?</p>
+                <input type="text" name="khachhang" value="{{thongtintaikhoan.makh}}" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-danger">Xoá</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>    
+
+
+    class SpeechRecognitionApi {//Chuyen giong noi thanh van ban 
+            constructor(options) {
+                const SpeechToText = window.speechRecognition || window.webkitSpeechRecognition;
+                this.speechApi = new SpeechToText();
+                this.speechApi.continuous = true;
+                this.speechApi.interimResults = false;
+                this.output = options.output ? options.output : document.createElement('div');
+                //console.log(this.output)
+                this.speechApi.onresult = (event) => {
+                    //console.log(event);
+                    var resultIndex = event.resultIndex;
+                    var transcript = event.results[resultIndex][0].transcript;
+
+                    //console.log('transcript>>', transcript);
+                   // console.log(this.output)
+                    this.output.value = transcript;
+
+
+                }
+            }
+            init() {
+                this.speechApi.start();
+            }
+            stop() {
+                this.speechApi.stop();
+            }
+        }
+
+        window.onload = function () {
+            var speech = new SpeechRecognitionApi({
+                output: document.querySelector('.navbar_search-form-input')
+            })
+
+            document.querySelector('.btn-micro').addEventListener('mousedown', function () {
+                document.getElementById('btn-micro-active').classList.add('btn-micro-active')
+                speech.init()
+            })
+
+            document.querySelector('.btn-micro').addEventListener('mouseup', function () {
+                speech.stop()
+                var formserch = document.getElementById('navbar_search-form');
+                setTimeout(()=>{
+                    formserch.submit()
+                },1000)
+            })
+        }
 </script>

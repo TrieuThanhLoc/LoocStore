@@ -29,7 +29,7 @@ class SanPhamController{
         res.render('nguoidung/sanpham');
     }
     async chitiet(req, res, next){
-        const masp = req.params.masp;
+        const masp = req.query.masp;
         if(masp != undefined){
         const sanpham = await SanPham.findOne({masp: masp});
         const trongluongvathietke = await TrongLuongVaThietKe.findOne({masp: masp});
@@ -92,7 +92,7 @@ class SanPhamController{
             }
 
             //Binh luan 
-            let binhluans = await BinhLuan.find({masp: req.params.masp}).sort('desc')
+            let binhluans = await BinhLuan.find({masp: masp}).sort('desc')
             for(var i = 0; i < binhluans.length; i++){
                 const khachhang = await KhachHang.findOne({makh: binhluans[i].makh});
                 if(khachhang == null){
@@ -103,7 +103,6 @@ class SanPhamController{
                 }else{
                     binhluans[i]._doc.nguoibl = khachhang
                 }
-
                 //tra loi binh luan
                 let traloibinhluans = await TraLoiBinhLuan.find({mabl: binhluans[i]._id}).sort('desc')
                 if(traloibinhluans != null){
@@ -232,7 +231,6 @@ class SanPhamController{
         await LayThongTinKhachHang(req.taikhoan).then((thongtin)=>{
             thongtintaikhoan = thongtin;
         })
-
         res.render('khac/danhmuc/danhmuc',{
             sanphams:multipleMongooseToObject(sanphams),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),

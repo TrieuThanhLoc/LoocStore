@@ -13,6 +13,7 @@ const KhachHang = new Schema({
     ngaytao: String,
     ngaychinhsua: String,
     soluotmua: Number,
+    vohieuhoa: Boolean,
 },
     {tinmestamps: true}
 );

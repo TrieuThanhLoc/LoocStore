@@ -46,6 +46,19 @@
                                 <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
                             </button>
                         </a>
+                        {{#unless this.hidden}}
+                        <a href="../quanly/{{this.masp}}/anhien?hidden=true" class="an-link">
+                            <button type="button" class="btn btn-secondary">
+                                <i class="fa-regular fa-eye-slash"></i>
+                            </button>
+                        </a>
+                        {{else}}
+                        <a href="../quanly/{{this.masp}}/anhien?hidden=false" class="an-link">
+                            <button type="button" class="btn btn-secondary">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </a>
+                        {{/unless}}
                         <a href="" class="xoa-link" data-toggle="modal" data-target="#xoasanpham" data-masp="{{this.masp}}">
                             <button type="button" class="btn btn-danger xoa-btn" >
                                 Xoá
@@ -76,7 +89,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-                <butto id="btnxoa" type="button" class="btn btn-primary">Xoá</button>
+                <butto id="btnxoa" type="button" class="btn btn-danger">Xoá</button>
             </div>
         </div>
     </div>
@@ -100,6 +113,4 @@
         }
 
     })
-
-
 </script>

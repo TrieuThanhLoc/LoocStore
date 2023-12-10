@@ -13,11 +13,14 @@
 }
 
 .the_san_pham-item:hover .the_san_pham-item-btn {
+    animation: nav_menu ease 0.3s;
     display: block;
 }
 
 .the_san_pham-item:hover {
     box-shadow:0 0 3px 3px silver;
+    transition: all ease 0.3s;
+    transform: scale(1.03);
 }
 
 .the_san_pham-item-img-box {
@@ -31,9 +34,10 @@
     height: 100%;
 }
 
-.the_san_pham-item-img:hover{
+/* .the_san_pham-item-img:hover{
+    transition: all ease 0.3s;
     transform: scale(1.05);
-}
+} */
 
 .the_san_pham-item-ten {
     font-size: 18px;

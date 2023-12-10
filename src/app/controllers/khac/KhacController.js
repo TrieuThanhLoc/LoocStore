@@ -17,6 +17,10 @@ const LayThongTinKhachHang = require("../../../util/laythongtinkhachhang");
 const nodemailer = require("nodemailer");
 const GuiEmail = require('../khac/guiemail/guimaxacthuc')
 
+//timkiem
+const LichSuTimKiem = require("../../../resources/models/khachhang/LichSuTimKiem");
+const DanhGia = require("../../../resources/models/khachhang/DanhGia");
+
 
 
 class KhacController{
@@ -28,7 +32,7 @@ class KhacController{
             thongtintaikhoan = thongtin;
         })
         // Sản phẩm bán chạy 
-         const khos = await Kho.find({}).sort({soluongdaban: 'desc'})
+        const khos = await Kho.find({}).sort({soluongdaban: 'desc'})
         var topsanphams = [];
         var temp = 4;
         if(khos.length < 4){
@@ -39,6 +43,7 @@ class KhacController{
                 const sanpham = await SanPham.findOne({masp: khos[i].masp})
                 khos[i]._doc.anh = sanpham.anh;
                 khos[i]._doc.hangsx = sanpham.hangsx;
+                khos[i]._doc.hidden = sanpham.hidden
                 topsanphams.push(khos[i]);
             }
         }
@@ -52,8 +57,33 @@ class KhacController{
             }
             topsanphams[i].soluong = soluongspcon
         }
+
+        //top dien duoc danh gia cao 
+        const  danhgias = await DanhGia.find({sosao: {$gte: 4}}).sort({sosao: 'desc'});
+        var topsanphamdanhgias = [];
+        var temp = 4;
+        if(danhgias.length < 4){
+            temp = danhgias.length
+        }
+        const sanphamtheosaodanhgia = await SanPham.find({}).sort({saodanhgia: 'desc'})
+        for (var i = 0 ; i < temp; i++){
+            if(sanphamtheosaodanhgia[i].saodanhgia >= 3){
+                topsanphamdanhgias.push(sanphamtheosaodanhgia[i]);
+            }
+        }
+        //Cặp nhặt giá bán và số lượng từ kho
+        for(var i = 0; i < topsanphamdanhgias.length; i++){
+            const khos = await Kho.find({masp: topsanphamdanhgias[i].masp}).sort({giaban: 'asc'});
+            var soluongspcon = 0;
+            // ketquatimkiems[i].giaban = await khos[1].giaban;
+            for(var j = 0; j < khos.length; j++){
+                soluongspcon += khos[j].soluongtrongkho
+            }
+            topsanphamdanhgias[i]._doc.soluongtrongkho = soluongspcon
+        }
         res.render('khac/home',{
             topsanphams: multipleMongooseToObject(topsanphams),
+            topsanphamdanhgias: multipleMongooseToObject(topsanphamdanhgias),
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
     }
@@ -106,6 +136,11 @@ class KhacController{
             matkhaukh: matkhau
         }).then(khachhang=>{
             if(khachhang){
+                //Tai khoan khach hang bi vo hieu hoa
+                if(khachhang.vohieuhoa){
+                    return res.redirect('../dangnhap/?loginfalse=false&email='+email)
+                }/////
+            
                 var tokenkhachhang = jwt.sign({
                     id: khachhang.makh,
                 },'thanhloc')
@@ -117,6 +152,10 @@ class KhacController{
                  })
                 .then(nhanvien=>{
                     if(nhanvien){
+                        //Tai khoan nhan vien bi vo hieu hoa
+                        if(nhanvien.vohieuhoa){
+                            return res.redirect('../dangnhap/?loginfalse=false&email='+email)
+                        }/////
                         var tokennhanvien = jwt.sign({
                             id: nhanvien.manv,
                             chucvu: nhanvien.chucvu
@@ -160,12 +199,27 @@ class KhacController{
             }
             ketquatimkiems[i].soluong = soluongspcon
         }
-
+        //Luu lich su tim kiem
+        const datim = await LichSuTimKiem.findOne({makh: thongtintaikhoan._doc.makh, noidungtimkiem: tukhoatimkiem})
+        console.log(datim)
+        if(thongtintaikhoan != '' && datim == null){
+            const lichsutimkiem = new LichSuTimKiem();
+            lichsutimkiem.makh = thongtintaikhoan._doc.makh;
+            lichsutimkiem.ngaytimkiem = Ngay.ngaygiohomnay();
+            lichsutimkiem.noidungtimkiem = tukhoatimkiem;
+            lichsutimkiem.save();
+        }
         res.render('khac/timkiem', {
             ketquatimkiems: multipleMongooseToObject(ketquatimkiems),
             tukhoatimkiem,
             thongtintaikhoan: MongooseToObject(thongtintaikhoan),
         })
+    }
+    async xoalichsu(req, res, next){
+        const makh = req.query.khachhang;
+        await LichSuTimKiem.deleteMany({makh: makh}).then(
+            res.redirect('back')
+        )
     }
 
 //Email can doi pass cua khach hang

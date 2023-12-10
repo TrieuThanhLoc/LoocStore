@@ -294,13 +294,15 @@ class QuanLyController{
         });
    }
     async luukho(req, res, next){
+        console.log(req.body)
         var tongtiennhaphang = 0;
         for(var i = 0; i < req.body.masp.length; i++){
+            var masp = req.body.masp[i];
             //Kiem tra trong kho co san pham nay chua 
-            const trongkho = await Kho.findOne({masp: req.body.masp[i], mausac: req.body.mausac[i], tinhtrang: req.body.tinhtrang[i]});
+            const trongkho = await Kho.findOne({masp: masp, mausac: req.body.mausac[i], tinhtrang: req.body.tinhtrang[i]});
             if(!trongkho){
                 var kho = new Kho();
-                kho.masp = req.body.masp[i];
+                kho.masp = masp;
                 kho.tensp = req.body.tensp[i];
                 kho.mausac = req.body.mausac[i];
                 kho.soluongtrongkho = req.body.soluongnhap[i];
@@ -313,14 +315,14 @@ class QuanLyController{
             }else{
                 var giaban = Number(req.body.gianhap[i])*1.2;
                 var soluongtrongkho = trongkho.soluongtrongkho + Number(req.body.soluongnhap[i]);
-                await Kho.updateOne({masp: req.body.masp[i], mausac: req.body.mausac[i]},{
+                await Kho.updateOne({masp: masp, mausac: req.body.mausac[i]},{
                     soluongtrongkho: soluongtrongkho,
                     gianhap: Number(req.body.gianhap[i]),
                     giaban: giaban,
                 })
             }
             //Cặp nhặt giá bán và số lượng từ kho
-            var khos = await Kho.find({masp: req.body.masp[i]}).sort({giaban: 'asc'});
+            var khos = await Kho.find({masp: masp}).sort({giaban: 'asc'});
             var soluongspcon = 0;
             var giaban = await khos[0].giaban;
             let mausacconhang = [];
@@ -330,7 +332,7 @@ class QuanLyController{
                     mausacconhang.push(khos[j].mausac)
                 }
             }
-            await SanPham.updateOne({masp: req.body.masp[i]},{
+            await SanPham.updateOne({masp: masp},{
                 giaban: giaban,
                 mausacconhang: mausacconhang,
                 soluong: soluongspcon
@@ -391,47 +393,6 @@ class QuanLyController{
     
     // -------------------------------------Thóng kê-------------------------------------
     async thongke(req, res, next){
-        //------Thống kê dòng tiền ------
-        //TỔng doanh thu 
-        const donhangstam = await DonHang.find({trangthai: 'hoan_thanh'});
-        var doanhthuthang, doanhthunam;
-        var thuthang = 0, thunam = 0;
-        for(var i  = 0; i < donhangstam.length; i++){
-            const thangdathang = donhangstam[i].ngaydathang.split('-',2)
-            if(Number(thangdathang[1]) == Ngay.thangnay()){
-                thuthang += Number(donhangstam[i].tienthanhtoan);
-            }
-            const namdathang = donhangstam[i].ngaydathang.split(/[ ,-]/,3)
-            if(Number(namdathang[2]) == Ngay.namnay()){
-                thunam += Number(donhangstam[i].tienthanhtoan);
-            }
-        }
-        doanhthuthang = ({thang: Ngay.thangnay(), doanhthu: thuthang})
-        doanhthunam = ({nam: Ngay.namnay(), doanhthu: thunam})
-        //Tổng phí nhập hàng 
-        const phieunhaps = await PhieuNhap.find({});
-        var phinhaphangthang;
-        var phinhaphangnam;
-        var nhapthang =0;
-        var nhapnam = 0;
-         for(var i  = 0; i < phieunhaps.length; i++){
-            const thangdathang = phieunhaps[i].ngaynhaphang.split('-',2)
-            if(Number(thangdathang[1]) == Ngay.thangnay()){
-                nhapthang += Number(phieunhaps[i].tongtiennhaphang);
-            }
-            const namdathang = phieunhaps[i].ngaynhaphang.split(/[ ,-]/,3)
-            if(Number(namdathang[2]) == Ngay.namnay()){
-                nhapnam += Number(phieunhaps[i].tongtiennhaphang);
-            }
-        }
-        phinhaphangthang = ({thang: Ngay.thangnay(), phinhap: nhapthang})
-        phinhaphangnam = ({nam: Ngay.namnay(), phinhap: nhapthang})
-
-        //Lợi nhuận theo tháng, năm
-        var loinhuanthang, loinhuannam;
-        loinhuanthang = ({thang: Ngay.thangnay(), loinhuan: doanhthuthang.doanhthu - phinhaphangthang.phinhap})
-        loinhuannam = ({nam: Ngay.namnay(), loinhuan: doanhthunam.doanhthu - phinhaphangnam.phinhap })
-        
         //thông tin thống kê tổng quan 
         const donhangs = await DonHang.find({}).sort({ngaydathang: 'desc'})
         const tongdon = donhangs.length;
@@ -457,9 +418,11 @@ class QuanLyController{
         //Khách hàng thân thiết
         const topkhachhangs = await KhachHang.find({}).sort({soluotmua: 'desc'})
         const top3kh = []
-        for (var i = 0 ; i < 2 ; i++){
-            if(topkhachhangs[i].soluotmua >= 1){
-                top3kh.push(topkhachhangs[i])
+        if(topkhachhangs != ''){
+            for (var i = 0 ; i < 2 ; i++){
+                if(topkhachhangs[i].soluotmua >= 1){
+                    top3kh.push(topkhachhangs[i])
+                }
             }
         }
         //top sảm phẩm bán chạy
@@ -485,15 +448,10 @@ class QuanLyController{
         if(danhgias.length < 5){
             temp = danhgias.length
         }
+        const sanphamtheosaodanhgia = await SanPham.find({}).sort({saodanhgia: 'desc'})
         for (var i = 0 ; i < temp; i++){
-            if(danhgias[i].sosao >= 3){
-                const sanpham = await SanPham.findOne({masp: danhgias[i].masp})
-                const kho = await Kho.findOne({masp: danhgias[i].masp})
-                danhgias[i]._doc.anh = sanpham.anh;
-                danhgias[i]._doc.tensp = sanpham.tensp;
-                danhgias[i]._doc.hangsx = sanpham.hangsx;
-                danhgias[i]._doc.giaban = kho.giaban;
-                topdanhgia.push(danhgias[i]);
+            if(sanphamtheosaodanhgia[i].saodanhgia >= 3){
+                topdanhgia.push(sanphamtheosaodanhgia[i]);
             }
         }
         //Đơn hàng mới nhất
@@ -508,15 +466,6 @@ class QuanLyController{
             }
         }
         res.render('quanly/thongke/tongquan',{
-            //tổng doanh thu
-            doanhthuthang,
-            doanhthunam,
-
-            phinhaphangthang,
-            phinhaphangnam,
-
-            loinhuanthang,
-            loinhuannam,
             //tong quan
             tongdon,
             tongtaikhoankh,
@@ -631,6 +580,64 @@ class QuanLyController{
         }
     }
 
+    async dongtien(req, res, next){
+        var ngaytu = Ngay.formatNgay(req.query.ngaytu);
+        if(req.query.ngaytu != 'undefined' && req.query.ngaytu != '' && req.query.ngaytu != null && req.query.ngaytu.length != 0){
+            ngaytu = Ngay.formatNgay(req.query.ngaytu)
+        }else {
+            ngaytu = '15-07-2001'
+        }
+        var ngayden;
+        if(req.query.ngayden != 'undefined' && req.query.ngayden != '' && req.query.ngayden != null && req.query.ngayden.length != 0){
+            ngayden = Ngay.formatNgay(req.query.ngayden)
+        }else {
+            ngayden = Ngay.ngaygiohomnay()
+        }
+        var doanhthu = 0, phinhap = 0, loinhuan = 0;
+        //Danh thu
+        var nhatkydonhangsthongke = []
+        var NgayTu = Ngay.hopngaythangnam(ngaytu);
+        var NgayDen = Ngay.hopngaythangnam(ngayden);
+        const nhatkydonhangs = await NhatKyDonHang.find({
+            ngayhoanthanh: {$nin: [' ', null, undefined]},
+        });
+        for(var i = 0; i < nhatkydonhangs.length; i++){
+            var NgayThongKe = Ngay.hopngaythangnam(nhatkydonhangs[i].ngayhoanthanh);
+            if(NgayTu <= NgayThongKe && NgayThongKe <= NgayDen){
+                nhatkydonhangsthongke.push(nhatkydonhangs[i])
+            }
+        }
+        for(var i = 0; i < nhatkydonhangsthongke.length; i++){
+            const donhangtam = await DonHang.findOne({_id: nhatkydonhangsthongke[i].madh});
+            if(donhangtam){
+                doanhthu += Number(donhangtam.tienthanhtoan);
+            }
+        }
+        //Phi nhap hang 
+        const phieunhapThongKes = [];
+        const phieunhaps = await PhieuNhap.find({
+            ngaynhaphang: {$nin: [' ', null, undefined]},
+        })
+         for(var i = 0; i < phieunhaps.length; i++){
+            var NgayThongKe = Ngay.hopngaythangnam(phieunhaps[i].ngaynhaphang);
+            if(NgayTu <= NgayThongKe && NgayThongKe <= NgayDen){
+                phieunhapThongKes.push(phieunhaps[i])
+            }
+        }
+        for(var i = 0; i < phieunhapThongKes.length; i++){
+            phinhap += Number(phieunhapThongKes[i].tongtiennhaphang);
+        }
+        //loi nhuan 
+        loinhuan = doanhthu - phinhap
+
+        return res.render('quanly/thongke/thongkedongtien',{
+            doanhthu,
+            phinhap,
+            loinhuan,
+            layout: 'admin',
+        })
+    }
+
     async sua(req, res, next){
         const masp = req.params.masp
         const sanpham = await SanPham.findOne({masp: masp});
@@ -687,6 +694,14 @@ class QuanLyController{
         await Kho.deleteOne({masp: masp});
         res.redirect('back');
     }
+    async anhien(req, res, next){
+        const masp = req.params.masp;
+        var hidden = req.query.hidden;
+        await SanPham.updateOne({masp: masp},{
+            hidden: hidden
+        })
+        res.redirect('back');
+    }
     //Quan ly nhan vien
     async qunalynhanvien(req,res,next){
          //Hiễn thị thông tin tài khoản đã đăng nhập
@@ -728,14 +743,40 @@ class QuanLyController{
             }   
         }
     }
-     themnhanvien(req,res,next){
-        res.render('quanly/themnhanvien');
+    themnhanvien(req,res,next){
+        res.render('quanly/themnhanvien', {
+            layout: 'admin'
+        });
     }
     luunhanvien(req,res,next){
         const nhanviens = new NhanVien(req.body);
         nhanviens.save()
                         .then(() => res.redirect('../../quanly/nhanvien'))
                         .catch(next);
+    }
+    async suathongtinnhanvien(req, res, next){
+        var nhanvien = await NhanVien.findOne({manv: req.params.manv});
+        res.render('quanly/suathongtinnhanvien',{
+            nhanvien: MongooseToObject(nhanvien),
+            layout: 'admin'
+        })
+    }
+    async luusuathongtinnhanvien(req, res, next){
+        await NhanVien.updateOne({manv: req.params.manv},req.body)
+        res.redirect('../../../quanly/nhanvien')
+    }
+
+    async channhanvien(req, res, next){
+        var nhanvien = await NhanVien.findOne({manv: req.params.manv});
+        var vohieuhoa = !nhanvien.vohieuhoa
+        await NhanVien.updateOne({manv: req.params.manv},{
+            vohieuhoa: vohieuhoa,
+        })
+        res.redirect('back')
+    } 
+    async sathainhanvien(req, res, next){
+        await NhanVien.deleteOne({manv: req.params.manv});
+        res.redirect('back');
     }
     //Quản lý đơn hàng
     async quanlydonhang(req,res){
@@ -934,12 +975,27 @@ class QuanLyController{
             })
         }
     }
+
+    //Quan ly tai khoan
     async quanlytaikhoan(req,res, next){
         const khachhangs = await KhachHang.find({});
         res.render('quanly/quanlytaikhoan',{
             khachhangs:multipleMongooseToObject(khachhangs),
             layout: 'admin'
         });
+    }
+    async camtaikhoankh(req, res, next){
+        var khachhang = await KhachHang.findOne({makh: req.params.makh});
+        var vohieuhoa = !khachhang.vohieuhoa;
+        await KhachHang.updateOne({makh: req.params.makh},{
+            vohieuhoa: vohieuhoa,
+        })
+        res.redirect('back');
+    }
+    async xoakhachhang(req, res, next){
+        var makh = req.params.makh;
+        await KhachHang.deleteOne({makh: makh});
+        res.redirect('back')
     }
 }
 
