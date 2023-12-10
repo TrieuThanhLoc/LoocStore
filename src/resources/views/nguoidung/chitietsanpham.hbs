@@ -98,6 +98,7 @@
                     <p>Gọi đên <a href="tel: +84932575508">0932575508</a> để được tư vấn miễn phí!</p>
                 </div>
             </div>
+            {{#if luutru.ram}}
             <div class="chi_tiet-header--thongsokythuat">
                 <table class="table table-striped">
                     <thead>
@@ -106,42 +107,60 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if manhinh.kichthuocmanhinh}}
                         <tr>
                             <td>Màn hình</td>
                             <td>{{manhinh.kichthuocmanhinh}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if luutru.ram}}
                         <tr>
                             <td>Ram</td>
                             <td>{{luutru.ram}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if luutru.rom}}
                         <tr>
                             <td>Bộ nhớ trong</td>
                             <td>{{luutru.rom}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if camera.camgocrong}}
                         <tr>
                             <td>Camera sau</td>
                             <td>{{camera.camgocrong}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if camera.camtruoc}}
                         <tr>
                             <td>Camera trước</td>
                             <td>{{camera.camtruoc}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if boxuly.cpu}}
                         <tr>
                             <td>CPU</td>
                             <td>{{boxuly.cpu}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if pin.dungluongpin}}
                         <tr>
                             <td>Dung lượng pin</td>
                             <td>{{pin.dungluongpin}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if giaotiepvaketnoi.sosim}}
                         <tr>
                             <td>Sim</td>
                             <td>{{giaotiepvaketnoi.sosim}}</td>
                         </tr>
+                        {{/if}}
+                        {{#if hedieuhanh.phienban}}
                         <tr>
                             <td>Hệ điều hành</td>
                             <td>{{hedieuhanh.phienban}}</td>
                         </tr>
+                        {{/if}}
                     </tbody>
                 </table>
                 <a href="../sanpham/thong_tin_chi_tiet_show/{{sanpham.masp}}" 
@@ -152,7 +171,8 @@
                         Xem thêm cấu hình chi tiết <i class="fa-solid fa-caret-right"></i>
                     </button>
                 </a>
-        </div>
+            </div>
+            {{/if}}
         </div>
     </div>
     

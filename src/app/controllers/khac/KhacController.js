@@ -101,6 +101,7 @@ class KhacController{
         }
     }
     async dangkykh(req,res){
+        req.body.emailkh = req.body.emailkh.toLowerCase();
         const khachhang = await KhachHang(req.body);
         const khachhangdatao = await KhachHang.findOne({makh: khachhang.makh})
         if(!khachhangdatao){
@@ -129,7 +130,7 @@ class KhacController{
         res.status(200).cookie('token',xoatoken).redirect('/');
     }
     async xacthuc(req,res,next){
-        const email = await req.body.email;
+        const email = await req.body.email.toLowerCase();
         const matkhau = await req.body.matkhau;
         KhachHang.findOne({
             emailkh: email,

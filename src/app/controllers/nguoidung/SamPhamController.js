@@ -217,9 +217,10 @@ class SanPhamController{
         const tenPhuKien = {
             dien_thoai: 'Điện thoại',
             may_tinh_bang: 'Máy tính bảng',
-            dien_thoai_cu: 'Điện thoại cũ',
-            may_tinh_bang_cu: 'Máy tính bảng cũ',
-            phu_kien: 'Phụ kiện',
+            chuot: 'Chuột máy tính',
+            tai_nghe: 'Tai nghe',
+            ban_phim: 'Bàn phím',
+            op_lung: 'Ốp lưng',
         }
         var tenloai =[];
         if(req.query.loai in tenPhuKien){
