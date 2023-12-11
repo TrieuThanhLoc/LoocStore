@@ -417,9 +417,14 @@ class QuanLyController{
 
         //Khách hàng thân thiết
         const topkhachhangs = await KhachHang.find({}).sort({soluotmua: 'desc'})
+        console.log(topkhachhangs)
         const top3kh = []
+        var tam = 2;
+        if(topkhachhangs.length < 2){
+            tam = topkhachhangs.length;
+        }
         if(topkhachhangs != ''){
-            for (var i = 0 ; i < 2 ; i++){
+            for (var i = 0 ; i < tam ; i++){
                 if(topkhachhangs[i].soluotmua >= 1){
                     top3kh.push(topkhachhangs[i])
                 }
