@@ -5,3 +5,10 @@ Số thẻ	            9704198526191432198
 Tên chủ thẻ	        NGUYEN VAN A
 Ngày phát hành	    07/15
 Mật khẩu OTP	    123456
+
+
+
+Góp ý luận văn 
+- lưu đồ thiếu thông tin (hình thôi) tên các lưu đồ 
+- mô hình CSDL chưa có thông tin nối kết
+- mô tả usecasse chi tiết hơn 

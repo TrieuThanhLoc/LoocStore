@@ -121,7 +121,8 @@ class thanhtoanController{
 
             //neu nhu so luong mua lon hong so luong trong kho thi dat hang khong thanh
             if(kho.soluongtrongkho < 0){
-                return res.redirect('../thanhtoan/dathangthanhcong?status=0')
+                return res.send('Số lượng vượt quá')
+                //res.redirect('../thanhtoan/dathangthanhcong?status=0')
             }else{
                 await kho.save();
                  //Cặp nhặt giá bán và số lượng từ kho
